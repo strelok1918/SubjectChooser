@@ -1,0 +1,33 @@
+<?php /* @var $this Controller */ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<?php
+		$baseUrl = Yii::app()->baseUrl;
+		$cs = Yii::app()->getClientScript();
+		$cs->registerScriptFile($baseUrl. '/plugins/jquery/jquery-1.11.2.min.js', CClientScript::POS_HEAD);
+		$cs->registerScriptFile($baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');
+		$cs->registerScriptFile($baseUrl.'/js/SubjectMenu.js');
+		$cs->registerScriptFile($baseUrl.'/plugins/underscore/underscore.js', CClientScript::POS_HEAD);
+
+		$cs->registerCssFile($baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');
+	?>
+	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+</head>
+
+<body>
+	<div class = "row">
+		<div class = "col-md-2">
+			<div class="list-group">
+				<a href="<?php echo Yii::app()->createAbsoluteUrl('site/subjects'); ?>" class="list-group-item list-group-item-info">	Subject List </a>
+				<a href="#" class="list-group-item">Attribute editor </a>
+			</div>
+		</div>
+		<div class = "col-md-9">
+			<?php echo $content; ?>
+		</div>
+
+	</div>
+</body>
+</html>

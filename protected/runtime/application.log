@@ -1,0 +1,242 @@
+2015/02/01 23:36:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "gii".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php:286
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('gii')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=gii
+---
+2015/02/01 23:43:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "gii".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php:286
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('gii')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=gii
+---
+2015/02/02 15:00:46 [error] [php] Object of class Objects could not be converted to string (D:\WebServer\OpenServer\domains\DisciplineChooser\protected\views\site\disciplineList.php:3)
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(869): SiteController->renderFile()
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(782): SiteController->renderPartial()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): SiteController->render()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams()
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): SiteController->runAction()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): SiteController->runActionWithFilters()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): SiteController->run()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php?r=site/disciplines
+2015/02/02 15:01:05 [error] [php] Object of class Objects could not be converted to string (D:\WebServer\OpenServer\domains\DisciplineChooser\protected\views\site\disciplineList.php:3)
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(869): SiteController->renderFile()
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(782): SiteController->renderPartial()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): SiteController->render()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams()
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): SiteController->runAction()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): SiteController->runActionWithFilters()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): SiteController->run()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php?r=site/disciplines
+2015/02/02 15:37:40 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "AttributeMapping" is not defined in active record class "Objects".' in D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php:226
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php(299): CActiveFinder->buildJoinTree(Object(CJoinElement), 'AttributeMappin...')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), Array)
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(912): CActiveFinder->__construct(Object(Objects), Array)
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1360): CActiveRecord->getActiveFinder(Array)
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1475): CActiveRecord->query(Object(CDbCriteria), true)
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\models\Discipline.php(11): CActiveRecord->findAll()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): Discipline->disciplineList()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('disciplines')
+#12 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/discipline...')
+#13 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#14 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php?r=site/disciplines
+---
+2015/02/02 15:38:31 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "attribute" is not defined in active record class "Objects".' in D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php:226
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php(299): CActiveFinder->buildJoinTree(Object(CJoinElement), 'attribute')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), Array)
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(912): CActiveFinder->__construct(Object(Objects), Array)
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1360): CActiveRecord->getActiveFinder(Array)
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1475): CActiveRecord->query(Object(CDbCriteria), true)
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\models\Discipline.php(11): CActiveRecord->findAll()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): Discipline->disciplineList()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('disciplines')
+#12 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/discipline...')
+#13 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#14 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php?r=site/disciplines
+---
+2015/02/02 16:24:34 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "attributeType" is not defined in active record class "Objects".' in D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php:226
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php(299): CActiveFinder->buildJoinTree(Object(CJoinElement), 'attributeType')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), Array)
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(912): CActiveFinder->__construct(Object(Objects), Array)
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1360): CActiveRecord->getActiveFinder(Array)
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1475): CActiveRecord->query(Object(CDbCriteria), true)
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\models\Discipline.php(11): CActiveRecord->findAll()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): Discipline->disciplineList()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams(Array)
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('disciplines')
+#12 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/discipline...')
+#13 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#14 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php?r=site/disciplines
+---
+2015/02/02 17:19:38 [error] [exception.CException] exception 'CException' with message 'Property "AttributeMapping.type" is not defined.' in D:\WebServer\OpenServer\domains\DisciplineChooser\base\CComponent.php:130
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(145): CComponent->__get('type')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\models\Discipline.php(12): CActiveRecord->__get('type')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): Discipline->disciplineList()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('disciplines')
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/discipline...')
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=site/disciplines
+---
+2015/02/02 17:21:27 [error] [exception.CException] exception 'CException' with message 'Property "Objects.objectMappings" is not defined.' in D:\WebServer\OpenServer\domains\DisciplineChooser\base\CComponent.php:130
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(145): CComponent->__get('objectMappings')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\models\Discipline.php(12): CActiveRecord->__get('objectMappings')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): Discipline->disciplineList()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('disciplines')
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/discipline...')
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=site/disciplines
+---
+2015/02/02 22:51:24 [error] [php] include(JSON.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory (D:\WebServer\OpenServer\domains\DisciplineChooser\YiiBase.php:432)
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): spl_autoload_call()
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): SiteController->runAction()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): SiteController->runActionWithFilters()
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): SiteController->run()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php?r=site/disciplines
+2015/02/02 22:51:38 [error] [php] Invalid argument supplied for foreach() (D:\WebServer\OpenServer\domains\DisciplineChooser\protected\views\site\disciplineList.php:20)
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(869): SiteController->renderFile()
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(782): SiteController->renderPartial()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(112): SiteController->render()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDisciplines()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams()
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): SiteController->runAction()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): SiteController->runActionWithFilters()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): SiteController->run()
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#10 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php?r=site/disciplines
+2015/02/03 01:14:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/deleteDiscipline?id=1".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php:286
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('admin/deleteDis...')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php?r=admin/deleteDiscipline?id=1
+HTTP_REFERER=http://disciplinechooser/index.php?r=site/disciplines
+---
+2015/02/03 01:14:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "deleteDiscipline?id=1".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php:483
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(270): CController->missingAction('deleteDisciplin...')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('deleteDisciplin...')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/deleteDisc...')
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=site/deleteDiscipline?id=1
+HTTP_REFERER=http://disciplinechooser/index.php?r=site/disciplines
+---
+2015/02/03 01:15:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "deleteDiscipline?id=1".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php:483
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(270): CController->missingAction('deleteDisciplin...')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('deleteDisciplin...')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/deleteDisc...')
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=site/deleteDiscipline?id=1
+HTTP_REFERER=http://disciplinechooser/index.php?r=site/disciplines
+---
+2015/02/03 01:15:56 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`discipline_chooser`.`attributemapping`, CONSTRAINT `objectMappingKey` FOREIGN KEY (`object_id`) REFERENCES `Objects` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION). The SQL statement executed was: DELETE FROM `Objects` WHERE `Objects`.`id`=1.
+2015/02/03 01:15:56 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`discipline_chooser`.`attributemapping`, CONSTRAINT `objectMappingKey` FOREIGN KEY (`object_id`) REFERENCES `Objects` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION). The SQL statement executed was: DELETE FROM `Objects` WHERE `Objects`.`id`=1' in D:\WebServer\OpenServer\domains\DisciplineChooser\db\CDbCommand.php:358
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\db\ar\CActiveRecord.php(1807): CDbCommand->execute()
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\protected\controllers\SiteController.php(117): CActiveRecord->deleteByPk('1')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionDeleteDiscipline()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('deleteDisciplin...')
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/deleteDisc...')
+#8 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#9 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php?r=site/deleteDiscipline&id=1
+HTTP_REFERER=http://disciplinechooser/index.php?r=site/disciplines
+---
+2015/02/03 01:19:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "disciplines".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php:483
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(270): CController->missingAction('disciplines')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('disciplines')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/discipline...')
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=site/disciplines
+---
+2015/02/03 17:40:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "editSubject".' in D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php:483
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(270): CController->missingAction('editSubject')
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): CController->run('editSubject')
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController('site/editSubjec...')
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=site/editSubject
+HTTP_REFERER=http://disciplinechooser/index.php?r=site/subjects
+---
+2015/02/03 20:45:45 [error] [php] Invalid argument supplied for foreach() (D:\WebServer\OpenServer\domains\DisciplineChooser\protected\models\Discipline.php:31)
+Stack trace:
+#0 D:\WebServer\OpenServer\domains\DisciplineChooser\web\actions\CInlineAction.php(49): SiteController->actionEditSubject()
+#1 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(308): CInlineAction->runWithParams()
+#2 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(286): SiteController->runAction()
+#3 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CController.php(265): SiteController->runActionWithFilters()
+#4 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(282): SiteController->run()
+#5 D:\WebServer\OpenServer\domains\DisciplineChooser\web\CWebApplication.php(141): CWebApplication->runController()
+#6 D:\WebServer\OpenServer\domains\DisciplineChooser\base\CApplication.php(184): CWebApplication->processRequest()
+#7 D:\WebServer\OpenServer\domains\DisciplineChooser\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php?r=site/editSubject&id=2

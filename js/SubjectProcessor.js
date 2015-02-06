@@ -1,0 +1,7 @@
+var SubjectMenu = (
+    function() {
+        return {
+
+        };
+    }
+)();
