@@ -15,17 +15,17 @@ class SiteController extends Controller
 
 	public function filters() {
 		return array(
-			'ajaxOnly + saveSubject'
+			'ajaxOnly + saveSubject, deleteSubject'
 		);
 	}
 	public function actionSubjects() {
 		$subjects = new Subject();
-		$this->render('disciplineList', array('subjects' => json_encode($subjects->subjectList())));
+		$this->render('subjectList', array('subjects' => json_encode($subjects->subjectList())));
 	}
 
 	public function actionDeleteSubject() {
 		$subject = new Subject();
-		$subject->dropByPk($_GET['id']);
+		echo json_encode($subject->dropSubject($_GET['id']));
 	}
 
 	public function actionEditSubject() {
@@ -36,9 +36,8 @@ class SiteController extends Controller
 	public function actionSaveSubject() {
 		$id = Yii::app()->request->getPost('id');
 		$data = Yii::app()->request->getPost('data');
-		echo $id . "<br/>";
-		print_r($data);
-
+		$subject = new Subject();
+		echo json_encode($subject->saveData($id, $data));
 	}
 	/**
 	 * This is the action to handle external exceptions.

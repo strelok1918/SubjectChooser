@@ -33,7 +33,7 @@ class AttributeMapping extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, object_id', 'required'),
+//			array('id, object_id', 'required'),
 			array('id, attribute_type_id, object_id', 'numerical', 'integerOnly'=>true),
 			array('value', 'safe'),
 			// The following rule is used by search().

@@ -1,6 +1,29 @@
-var SubjectMenu = (
+var SubjectProcessor = (
     function() {
+        var _deleteActionURL = "";
+        var _saveActionURL = "";
         return {
+            init: function(saveURL, deleteURL) {
+                _saveActionURL = saveURL;
+                _deleteActionURL = deleteURL;
+            },
+            deleteSubject: function(subjectId) {
+                return $.ajax({
+                            url : _deleteActionURL,
+                            data : {id : subjectId},
+                            type: 'GET'
+                        });
+            },
+            saveSubject : function(subjectId) {
+                return $.ajax({
+                            url : _saveActionURL,
+                            type : 'POST',
+                            data : {
+                            id : subjectId,
+                                data : collectData()
+                            }
+                        });
+            }
 
         };
     }

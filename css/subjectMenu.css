@@ -1,0 +1,12 @@
+.subjectItemIcon {
+    height : 20px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+.subjectItemTitle {
+    font-size: 18px;
+}
+
+a :active {
+    text-decoration: underline overline;
+}

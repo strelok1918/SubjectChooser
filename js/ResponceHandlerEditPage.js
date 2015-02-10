@@ -1,0 +1,5 @@
+var ResponceHandlerEditPage = (function(){
+    return{
+
+    };
+})();

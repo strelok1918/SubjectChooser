@@ -1,11 +1,3 @@
-<script type = "text/template" id = "formInputText">
-	<div class="form-group">
-		<label for="input<%= id %>" class="col-md-2 control-label"><%= title %></label>
-		<div class="col-md-10">
-			<input type="text" class="form-control" id="input<%= id %>" value = "<%= value %>">
-		</div>
-	</div>
-</script>
 <?php
 	if(!isset($_GET['id'])) {
 		$_GET['id'] = 'new';
@@ -14,6 +6,7 @@
 
 <script>
 	var dataFields = {};
+	responceHandler = ResponceHandlerEditPage;
 	$(document).ready(function(){
 		fillForm(<?php echo $subjectData; ?>);
 	});
@@ -42,16 +35,6 @@
 		$('#subjectInfoForm').prepend(formData);
 	}
 
-	function deleteSubject(subjectId) {
-		$.ajax({
-			url : '<?php echo Yii::app()->createAbsoluteUrl('site/deleteSubject'); ?>',
-			data : {id : subjectId},
-			type: 'GET'
-		}).done(function(){
-
-		});
-	}
-
 	function collectData() {
 		var formData = [];
 		for(var key in dataFields){
@@ -67,26 +50,35 @@
 	}
 
 	function saveData(subjectId) {
-		$.ajax({
-			url : '<?php echo Yii::app()->createAbsoluteUrl('site/saveSubject'); ?>',
-			type : 'POST',
-			data : {
-				id : subjectId,
-				data : collectData()
+		SubjectProcessor.saveSubject(subjectId).done(function(data){
+			var responce = JSON.parse(data);
+			console.log(responce);
+			console.log($.isEmptyObject(responce));
+			var message = "";
+			if($.isEmptyObject(responce)) {
+				message = _.template($('#savedSuccessMessage').html());
 			}
-		}).done(function(){
-
+			$('#messageBox').prepend(message({message : "Изменения сохранены."}));
 		});
 	}
 </script>
 
 
+<!--<div class="alert alert-danger alert-dismissable">-->
+<!--	<button type="button" class="close" data-dismiss="alert"-->
+<!--	        aria-hidden="true">-->
+<!--		&times;-->
+<!--	</button>-->
+<!--	Error ! Change few things.-->
+<!--</div>-->
+
 <form class="form-horizontal" id = "subjectInfoForm">
 	<div class="form-group">
-		<div class="pull-right">
-			<button type="button" class="btn btn-success" onclick = "saveData('<?php echo $_GET['id']; ?>')">Save</button>
-			<button type="button" class="btn btn-success">Save and Close</button>
-			<button type="button" class="btn btn-danger" onclick = "deleteSubject(<?php echo $_GET['id']; ?>)">Delete</button>
+		<div class="pull-right" style = "margin-right: 15px;">
+			<button type="button" class="btn btn-success" onclick = "saveData('<?php echo $_GET['id']; ?>')">Сохранить</button>
+<!--			<button type="button" class="btn btn-success">Сохранить и закрыть</button>-->
+<!--			<button type="button" class="btn btn-info">Очистить форму</button>-->
+			<?php if($_GET['id'] != 'new') { ?> <button type="button" class="btn btn-danger" onclick = "SubjectProcessor.showModal(<?php echo $_GET['id']; ?>)">Удалить</button> <?php } ?>
 		</div>
 	</div>
 </form>
