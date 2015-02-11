@@ -1,6 +1,7 @@
 <?php if(!isset($_GET['id'])) $_GET['id'] = 'new'; ?>
 
 <script>
+	EditPageHandler.setSubjectListPage("<?php echo Yii::app()->createAbsoluteURL('site/subjects'); ?>");
 	responceHandler = EditPageHandler;
 	$(document).ready(function(){
 		responceHandler.fillForm(<?php echo $subjectData; ?>);
@@ -20,7 +21,7 @@
 	<div class="form-group">
 		<div class="pull-right" style = "margin-right: 15px;">
 			<button type="button" class="btn btn-success" onclick = "responceHandler.saveData('<?php echo $_GET['id']; ?>')">Сохранить</button>
-			<?php if($_GET['id'] != 'new') { ?> <button type="button" class="btn btn-danger" onclick = "responceHandler.deleteSubject(<?php echo $_GET['id']; ?>)">Удалить</button> <?php } ?>
+			<?php if($_GET['id'] != 'new') { ?> <button type="button" class="btn btn-danger" onclick = "responceHandler.showDeleteModal(<?php echo $_GET['id']; ?>)">Удалить</button> <?php } ?>
 		</div>
 	</div>
 </form>

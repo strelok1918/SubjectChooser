@@ -1,5 +1,6 @@
 var EditPageHandler = (function(){
     var _dataFields = {};
+    var _subjectListPage = "";
     var collectData = function() {
         var formData = [];
         for(var key in _dataFields){
@@ -26,18 +27,24 @@ var EditPageHandler = (function(){
                 $('#messageBox').prepend(message({message : "Изменения сохранены."}));
             });
         },
+        showDeleteModal : function(subjectId) {
+            $('#dropSubjectId').val(subjectId);
+            $('#deleteDialogSubjectTitle').empty();
+            $('#deleteSubjectModal').modal('show');
+        },
         deleteSubject: function(subjectId) {
             SubjectProcessor.deleteSubject(subjectId).done(function(data){
                 $('#deleteSubjectModal').modal('hide');
-
                 var responce = JSON.parse(data);
-                //console.log(responce);
-                //console.log($.isEmptyObject(responce));
                 var message = "";
                 if($.isEmptyObject(responce)) {
                     message = _.template($('#savedSuccessMessage').html());
                 }
                 $('#messageBox').prepend(message({message : "Предмет удален успешно."}));
+
+                $('button.close').one('click', function(){
+                    window.location = _subjectListPage;
+                });
             });
         },
         fillForm : function(subjectData) {
@@ -62,6 +69,9 @@ var EditPageHandler = (function(){
                 }
             }
             $('#subjectInfoForm').prepend(formData);
+        },
+        setSubjectListPage : function(URL) {
+            _subjectListPage = URL;
         }
     };
 })();
