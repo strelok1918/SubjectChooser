@@ -1,10 +1,8 @@
 <script>
-	responceHandler = ResponceHandlerMenu;
+	responceHandler = MenuHandler;
 	$(document).ready(function(){
 		SubjectMenu.fillSubjectList(<?php echo $subjects; ?>);
 	});
-
-
 </script>
 
 <ul class="list-group" id = "subjectMenu"></ul>

@@ -14,13 +14,13 @@ var SubjectProcessor = (
                             type: 'GET'
                         });
             },
-            saveSubject : function(subjectId) {
+            saveSubject : function(subjectId, data) {
                 return $.ajax({
                             url : _saveActionURL,
                             type : 'POST',
                             data : {
                             id : subjectId,
-                                data : collectData()
+                                data : data
                             }
                         });
             }

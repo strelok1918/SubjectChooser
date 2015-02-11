@@ -10,8 +10,8 @@
 		$cs->registerScriptFile($baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');
 		$cs->registerScriptFile($baseUrl.'/js/SubjectProcessor.js');
 		$cs->registerScriptFile($baseUrl.'/js/SubjectMenu.js');
-		$cs->registerScriptFile($baseUrl.'/js/ResponceHandlerMenu.js');
-		$cs->registerScriptFile($baseUrl.'/js/ResponceHandlerEditPage.js');
+		$cs->registerScriptFile($baseUrl.'/js/MenuHandler.js');
+		$cs->registerScriptFile($baseUrl.'/js/EditPageHandler.js');
 		$cs->registerScriptFile($baseUrl.'/plugins/underscore/underscore.js', CClientScript::POS_HEAD);
 
 		$cs->registerCssFile($baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');
