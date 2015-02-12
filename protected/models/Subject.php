@@ -93,6 +93,4 @@ class Subject extends Objects{
 
 		return $subjectData;
 	}
-
-
 } 

@@ -24,14 +24,15 @@
 	var responceHandler;
 	$(document).ready(function(){
 		SubjectProcessor.init('<?php echo Yii::app()->createAbsoluteUrl("site/saveSubject"); ?>', '<?php echo Yii::app()->createAbsoluteUrl("site/deleteSubject"); ?>');
+		$('[href = "' + window.location.href + '"]').addClass('list-group-item-info');
 	});
 </script>
 <body>
 	<div class = "row">
 		<div class = "col-md-2">
 			<div class="list-group">
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('site/subjects'); ?>" class="list-group-item list-group-item-info">Список дисциплин </a>
-				<a href="#" class="list-group-item">Attribute editor </a>
+				<a href="<?php echo Yii::app()->createAbsoluteUrl('site/subjects'); ?>" class="list-group-item">Список дисциплин </a>
+<!--				<a href="--><?php //echo Yii::app()->createAbsoluteUrl('site/attributes'); ?><!--" class="list-group-item">Attribute editor </a>-->
 			</div>
 		</div>
 		<div class = "col-md-9">

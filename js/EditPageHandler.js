@@ -14,17 +14,24 @@ var EditPageHandler = (function(){
         }
         return formData;
     };
+
+    var showResponceAlert = function(responce, successMessage) {
+        var data = JSON.parse(responce);
+        console.log(data);
+        console.log($.isEmptyObject(data));
+        var resultAlert = "";
+        var message;
+        if($.isEmptyObject(data)) {
+            resultAlert = _.template($('#savedSuccessMessage').html());
+            message = successMessage;
+            window.location = _subjectListPage;
+        }
+        $('#messageBox').prepend(resultAlert({message : message}));
+    };
     return{
         saveData : function(subjectId) {
             SubjectProcessor.saveSubject(subjectId, collectData()).done(function(data){
-                var responce = JSON.parse(data);
-                console.log(responce);
-                console.log($.isEmptyObject(responce));
-                var message = "";
-                if($.isEmptyObject(responce)) {
-                    message = _.template($('#savedSuccessMessage').html());
-                }
-                $('#messageBox').prepend(message({message : "Изменения сохранены."}));
+                showResponceAlert(data, "Изменения сохранены.");
             });
         },
         showDeleteModal : function(subjectId) {
@@ -35,16 +42,7 @@ var EditPageHandler = (function(){
         deleteSubject: function(subjectId) {
             SubjectProcessor.deleteSubject(subjectId).done(function(data){
                 $('#deleteSubjectModal').modal('hide');
-                var responce = JSON.parse(data);
-                var message = "";
-                if($.isEmptyObject(responce)) {
-                    message = _.template($('#savedSuccessMessage').html());
-                }
-                $('#messageBox').prepend(message({message : "Предмет удален успешно."}));
-
-                $('button.close').one('click', function(){
-                    window.location = _subjectListPage;
-                });
+                showResponceAlert(data, "Предмет успешно удален");
             });
         },
         fillForm : function(subjectData) {

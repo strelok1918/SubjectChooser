@@ -6,8 +6,6 @@ var MenuHandler = (function(){
                 $('#deleteSubjectModal').modal('hide');
 
                 var responce = JSON.parse(data);
-                console.log(responce);
-                console.log($.isEmptyObject(responce));
                 var message = "";
                 if($.isEmptyObject(responce)) {
                     message = _.template($('#savedSuccessMessage').html());
