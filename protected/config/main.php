@@ -55,12 +55,12 @@ return array(
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
+			'errorAction'=>'admin/error',
 		),
 
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
+//		'log'=>array(
+//			'class'=>'CLogRouter',
+//			'routes'=>array(
 //				array(
 //					'class'=>'CWebLogRoute',
 ////					'levels'=>'error, warning, trace, profile, info',
@@ -72,8 +72,8 @@ return array(
 //					'class'=>'CWebLogRoute',
 //				),
 
-			),
-		),
+//			),
+//		),
 
 	),
 

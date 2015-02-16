@@ -24,7 +24,6 @@ var EditPageHandler = (function(){
         if($.isEmptyObject(data)) {
             resultAlert = _.template($('#savedSuccessMessage').html());
             message = successMessage;
-            window.location = _subjectListPage;
         }
         $('#messageBox').prepend(resultAlert({message : message}));
     };
@@ -43,6 +42,7 @@ var EditPageHandler = (function(){
             SubjectProcessor.deleteSubject(subjectId).done(function(data){
                 $('#deleteSubjectModal').modal('hide');
                 showResponceAlert(data, "Предмет успешно удален");
+                window.location = _subjectListPage;
             });
         },
         fillForm : function(subjectData) {
