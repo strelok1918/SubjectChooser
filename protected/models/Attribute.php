@@ -31,12 +31,14 @@ class Attribute extends AttributeType{
 		try {
 			if(isset($data['id'])) {
 				$this->updateByPk($data['id'], array('title' => $data['title'], 'type' => $data['type']));
+				$this->id = $data['id'];
 			} else {
 				$this->title = $data['title'];
 				$this->type = $data['type'];
 				$this->save();
 			}
 			$message = $this->getErrors();
+
 		} catch (Exception $e) {
 			$message = array($e->getMessage());
 		}

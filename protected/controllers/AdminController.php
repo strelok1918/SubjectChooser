@@ -50,15 +50,15 @@ class AdminController extends Controller
 	public function actionSaveAttribute() {
 		$attribute = new Attribute();
 		$errors = $attribute->saveData($_POST);
-		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
-		else print_r($errors);
+		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $attribute->attributes));
+		else echo json_encode(array ("Result" => "ERROR", "Message" => $errors));
 	}
 
 	public function actionDeleteAttribute() {
 		$attribute = new Attribute();
 		$errors = $attribute->drop($_POST['id']);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
-		else print_r($errors);
+		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить аттрибут."));
 	}
 	/**
 	 * This is the action to handle external exceptions.
