@@ -20,7 +20,8 @@
 				},
 				type: {
 					title: 'Тип',
-					width: '20%'
+					width: '20%',
+					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getDataTypeList"); ?>'
 				}
 			},
 			formClosed :  function() {

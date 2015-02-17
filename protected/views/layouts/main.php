@@ -14,8 +14,8 @@
 		$cs->registerScriptFile($baseUrl.'/js/MenuHandler.js');
 		$cs->registerScriptFile($baseUrl.'/js/EditPageHandler.js');
 		$cs->registerScriptFile($baseUrl.'/plugins/underscore/underscore.js', CClientScript::POS_HEAD);
-		$cs->registerScriptFile($baseUrl.'./plugins/jtable/jquery.jtable.js');
-		$cs->registerScriptFile($baseUrl.'./plugins/jtable/localization/jquery.jtable.ru.js');
+		$cs->registerScriptFile($baseUrl.'/plugins/jtable/jquery.jtable.js');
+		$cs->registerScriptFile($baseUrl.'/plugins/jtable/localization/jquery.jtable.ru.js');
 
 		$cs->registerCssFile($baseUrl.'/plugins/jtable/themes/jqueryui/jtable_jqueryui.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');

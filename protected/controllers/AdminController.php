@@ -60,6 +60,11 @@ class AdminController extends Controller
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
 		else print_r($errors);
 	}
+
+	public function actionGetDataTypeList() {
+		$types = new AttributeDataTypes();
+		echo json_encode(array("Result" => "OK", "Options" => $types->typeList()));
+	}
 	/**
 	 * This is the action to handle external exceptions.
 	 */
