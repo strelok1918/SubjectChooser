@@ -16,7 +16,6 @@ class Attribute extends AttributeType{
 		return $attributeList;
 	}
 	public function drop($id) {
-		$message = array();
 		try {
 			$this->deleteByPk($id);
 			$message = $this->getErrors();
@@ -27,7 +26,6 @@ class Attribute extends AttributeType{
 	}
 
 	public function saveData($data) {
-		$message = array();
 		try {
 			if(isset($data['id'])) {
 				$this->updateByPk($data['id'], array('title' => $data['title'], 'type' => $data['type']));

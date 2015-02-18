@@ -2,6 +2,10 @@
 
 class AdminController extends Controller
 {
+	public function init() {
+		$this->layout = "//layouts/adminLayout";
+	}
+
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
