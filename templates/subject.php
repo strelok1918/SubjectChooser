@@ -12,7 +12,7 @@
 		<span class = "subjectItemTitle"><%= title %></span>
 		<div class = "pull-right">
 			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/info.png" class = "subjectItemIcon">
-			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/edit.png" class = "subjectItemIcon" onclick = "location.href = '<?php echo Yii::app()->createAbsoluteUrl('admin/editSubject') . "&id="; ?><%= id %>'">
+			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/edit.png" class = "subjectItemIcon" onclick = "location.href = '<?php echo Yii::app()->createAbsoluteUrl('admin/editSubject', array('id' => '')); ?><%= id %>'">
 			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/delete.png"onclick = "SubjectMenu.showDeleteDialog(<%= id %>)" class = "subjectItemIcon">
 		</div>
 	</li>
