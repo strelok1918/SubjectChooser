@@ -1,6 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#attributeListContainer').jtable({
+		var listContainer = $('#attributeListContainer');
+		listContainer.jtable({
 			title: 'Список аттрибутов',
 			jqueryuiTheme: true,
 			actions: {
@@ -25,10 +26,10 @@
 				}
 			},
 			formClosed :  function() {
-				$('#attributeListContainer').jtable('reload');
+				listContainer.jtable('reload');
 			}
 		});
-		$('#attributeListContainer').jtable('load');
+		listContainer.jtable('load');
 	});
 
 </script>

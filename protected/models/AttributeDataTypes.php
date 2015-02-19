@@ -11,10 +11,7 @@ class AttributeDataTypes extends DataTypes{
 	public function typeList() {
 		$types = array();
 		foreach($this->findAll() as $value) {
-			$types[] = array(
-				'Value' => $value->type,
-				'DisplayText' => $value->title
-			);
+			$types[] = $value;
 		}
 		return $types;
 	}

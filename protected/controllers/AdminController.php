@@ -3,6 +3,7 @@
 class AdminController extends Controller
 {
 	public function init() {
+		parent::init();
 		$this->layout = "//layouts/adminLayout";
 	}
 
@@ -67,7 +68,50 @@ class AdminController extends Controller
 
 	public function actionGetDataTypeList() {
 		$types = new AttributeDataTypes();
-		echo json_encode(array("Result" => "OK", "Options" => $types->typeList()));
+		$result = array();
+		foreach($types->typeList() as $key=>$value) {
+			$result[] = array(
+				'Value' => $value['type'],
+				'DisplayText' => $value['title']
+			);
+		}
+		echo json_encode(array("Result" => "OK", "Options" => $result));
+	}
+
+	public function actionValidators() {
+		$this->render('validatorEditor');
+	}
+
+	public function actionValidatorList() {
+		$validator = new Validator();
+		echo json_encode(array( "Result" => "OK",
+						"Records" => $validator->validatorlist()));
+	}
+
+	public function actionGetAttributeListInValidatorEditor() {
+		$attributes = new Attribute();
+		$result = array();
+		foreach($attributes->attributeList() as $key=>$value) {
+			$result[] = array(
+				'Value' => $value['id'],
+				'DisplayText' => $value['title']
+			);
+		}
+		echo json_encode(array("Result" => "OK", "Options" => $result));
+	}
+
+	public function actionDeleteValidator() {
+		$validator = new Validator();
+		$errors = $validator->drop($_POST['id']);
+		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
+		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
+	}
+
+	public function actionSaveValidator() {
+		$validator = new Validator();
+		$errors = $validator->saveData($_POST);
+		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $validator->attributes));
+		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}
 	/**
 	 * This is the action to handle external exceptions.
