@@ -58,18 +58,16 @@ class AdminController extends Controller
 		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $attribute->attributes));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}
-
 	public function actionDeleteAttribute() {
 		$attribute = new Attribute();
 		$errors = $attribute->drop($_POST['id']);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
-
 	public function actionGetDataTypeList() {
 		$types = new AttributeDataTypes();
 		$result = array();
-		foreach($types->typeList() as $key=>$value) {
+		foreach($types->typeList() as $key => $value) {
 			$result[] = array(
 				'Value' => $value['type'],
 				'DisplayText' => $value['title']
@@ -77,21 +75,18 @@ class AdminController extends Controller
 		}
 		echo json_encode(array("Result" => "OK", "Options" => $result));
 	}
-
 	public function actionValidators() {
 		$this->render('validatorEditor');
 	}
-
 	public function actionValidatorList() {
 		$validator = new Validator();
 		echo json_encode(array( "Result" => "OK",
 						"Records" => $validator->validatorlist()));
 	}
-
 	public function actionGetAttributeListInValidatorEditor() {
 		$attributes = new Attribute();
 		$result = array();
-		foreach($attributes->attributeList() as $key=>$value) {
+		foreach($attributes->attributeList() as $key => $value) {
 			$result[] = array(
 				'Value' => $value['id'],
 				'DisplayText' => $value['title']
@@ -99,14 +94,12 @@ class AdminController extends Controller
 		}
 		echo json_encode(array("Result" => "OK", "Options" => $result));
 	}
-
 	public function actionDeleteValidator() {
 		$validator = new Validator();
 		$errors = $validator->drop($_POST['id']);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
-
 	public function actionSaveValidator() {
 		$validator = new Validator();
 		$errors = $validator->saveData($_POST);
