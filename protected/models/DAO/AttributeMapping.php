@@ -5,15 +5,13 @@
  *
  * The followings are the available columns in table 'AttributeMapping':
  * @property integer $id
- * @property integer $attribute_id
+ * @property integer $attribute_type_id
  * @property integer $object_id
  * @property string $value
  *
  * The followings are the available model relations:
- * @property Objects $object
- * @property AttributeType $attribute
  * @property AttributeType $attributeType
- * @property Objects $objects
+ * @property Objects $object
  */
 class AttributeMapping extends CActiveRecord
 {
@@ -33,8 +31,8 @@ class AttributeMapping extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-//			array('id, object_id', 'required'),
-			array('id, attribute_type_id, object_id', 'numerical', 'integerOnly'=>true),
+			array('object_id', 'required'),
+			array('attribute_type_id, object_id', 'numerical', 'integerOnly'=>true),
 			array('value', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -50,8 +48,8 @@ class AttributeMapping extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'attributeType' => array(self::HAS_ONE, 'AttributeType', 'id'),
-			'objects' => array(self::HAS_ONE, 'Objects', 'id'),
+			'attributeType' => array(self::BELONGS_TO, 'AttributeType', 'attribute_type_id'),
+			'object' => array(self::BELONGS_TO, 'Objects', 'object_id'),
 		);
 	}
 

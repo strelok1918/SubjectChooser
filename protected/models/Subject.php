@@ -16,23 +16,29 @@ class Subject extends Objects{
 	}
 
 	public function subjectInfo($subjectId) {
-		$data = $this->model()->with(array('attributes','attributes.attributeType'))->findByPk($subjectId);
+		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findByPk($subjectId);
+		$attributes = $this->getAtrributeList($data->attributeMappings);
 		return array(
 			'id' => $subjectId,
 			'title' => $data->title,
-			'attributes' => $this->getAtrributeList($data->attributes),
+			'attributes' => $attributes,
+			'validators' => $this->validatorList($data->validatorMappings, $attributes),
 		);
 	}
 
-	public function saveData($objectId, $attributes) {
-		$errorList = $this->saveObject($objectId, $attributes[0]['value']);
+	public function saveData($objectId, $data) {
+		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value']);
 
-		array_shift($attributes);
-		foreach($attributes as $attribute) {
+		array_shift($data['attributes']);
+		foreach((array)$data['attributes'] as $attribute) {
 			$errorList = array_merge($errorList, $this->saveAttribute($objectId, $attribute));
 		}
 
-		return $errorList;
+		foreach((array)$data['validators'] as $validator) {
+			$errorList = array_merge($errorList, $this->saveValidator($objectId, $validator));
+		}
+
+		return array('id' => $objectId, 'errors' => $errorList);
 	}
 
 	public function dropSubject($subjectId) {
@@ -71,11 +77,25 @@ class Subject extends Objects{
 		}
 	}
 
-	private function getAtrributeList($attributes) {
-		$subjectData = array();
+	private function saveValidator($objectId, $validatorData) {
+		if(!empty($validatorData['validator_id'])) {
+			ValidatorMapping::model()->updateByPk($validatorData['validator_id'], array('value' => $validatorData['value']));
+			return $this->getErrors();
+		} else {
+			$mapping = new ValidatorMapping();
+			$mapping->validator_id = $validatorData['type_id'];
+			$mapping->object_id = $objectId;
+			$mapping->value = $validatorData['value'];
+			$mapping->save();
 
+			return $mapping->getErrors();
+		}
+	}
+
+	private function getAtrributeList($attributes) {
+		$attributeData = array();
 		foreach(AttributeType::model()->findAll() as $attribute) {
-			$subjectData[$attribute->id] = array(
+			$attributeData[$attribute->id] = array(
 				'attribute_title' => $attribute->title,
 				'attribute_type' => $attribute->type,
 			);
@@ -83,14 +103,43 @@ class Subject extends Objects{
 
 		if(!empty($attributes)) {
 			foreach ($attributes as $attribute) {
-				$subjectData[$attribute->attribute_type_id] = array_merge($subjectData[$attribute->attribute_type_id],
+				$attributeData[$attribute->attribute_type_id] =
 					array(
 						'attribute_value' => $attribute->value,
 						'attribute_id' => $attribute->id,
-					));
+						'attribute_title' => $attribute->attributeType->title,
+						'attribute_type' => $attribute->attributeType->type,
+					);
+			}
+		}
+		return $attributeData;
+	}
+
+	private function validatorList($validatorData, $attributeData) {
+		$result = array();
+		foreach(Validator::model()->findAll() as $validator) {
+			$result[$validator->id] = array(
+				'validator_title' => $validator->title,
+				'attribute_title' => $attributeData[$validator->attribute_id]['attribute_title'],
+				'attribute_id' => $validator->attribute_id,
+			);
+		}
+
+		if(!empty($validatorData)) {
+			foreach ($validatorData as $validator) {
+				$validatorValue = explode(';', $validator->value);
+				$result[$validator->validator_id] =
+					array(
+						'validator_title' => $validator->validator->title,
+						'attribute_id' => $validator->validator->attribute_id,
+						'validator_id' => $validator->id,
+						'attribute_title' => $attributeData[$validator->validator->attribute_id]['attribute_title'],
+						'operator' => trim($validatorValue[0]),
+						'value' => trim($validatorValue[1]),
+					);
 			}
 		}
 
-		return $subjectData;
+		return $result;
 	}
 } 

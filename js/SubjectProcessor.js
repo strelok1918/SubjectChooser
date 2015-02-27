@@ -19,7 +19,7 @@ var SubjectProcessor = (
                             url : _saveActionURL,
                             type : 'POST',
                             data : {
-                            id : subjectId,
+                                id : subjectId,
                                 data : data
                             }
                         });

@@ -6,33 +6,20 @@ class AdminController extends Controller
 		parent::init();
 		$this->layout = "//layouts/adminLayout";
 	}
-
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-	public function actionIndex()
-	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
-	}
-
 	public function filters() {
 		return array(
-			'ajaxOnly + saveSubject, deleteSubject'
+			'ajaxOnly +  saveSubject, deleteSubject, attributeList, saveAttribute, deleteAttribute, getDataTypeList, validatorList, getAttributeListInValidatorEditor, saveValidator, deleteValidator'
 		);
+	}
+
+	public function actionIndex()
+	{
+		$this->render('index');
 	}
 	public function actionSubjects() {
 		$subjects = new Subject();
 		$this->render('subjectList', array('subjects' => json_encode($subjects->subjectList())));
 	}
-
-	public function actionDeleteSubject() {
-		$subject = new Subject();
-		echo json_encode($subject->dropSubject($_GET['id']));
-	}
-
 	public function actionAttributes() {
 		$this->render('attributeEditor');
 	}
@@ -41,12 +28,25 @@ class AdminController extends Controller
 		$subject = new Subject();
 		$this->render('editSubject', array('subjectData' => json_encode($subject->subjectInfo($id))));
 	}
+	public function actionValidators() {
+		$this->render('validatorEditor');
+	}
+
 	public function actionSaveSubject() {
 		$id = Yii::app()->request->getPost('id');
 		$data = Yii::app()->request->getPost('data');
 		$subject = new Subject();
-		echo json_encode($subject->saveData($id, $data));
+		$responce = $subject->saveData($id, $data);
+		$subjectId = $responce['id'];
+		$errors = $responce['errors'];
+		$subjectInfo = $subject->subjectInfo($subjectId);
+		echo json_encode(array('errors' => $errors, 'subjectData' => $subjectInfo));
 	}
+	public function actionDeleteSubject() {
+		$subject = new Subject();
+		echo json_encode($subject->dropSubject($_GET['id']));
+	}
+
 	public function actionAttributeList() {
 		$attribute = new Attribute();
 		echo json_encode(array( "Result" => "OK",
@@ -75,9 +75,7 @@ class AdminController extends Controller
 		}
 		echo json_encode(array("Result" => "OK", "Options" => $result));
 	}
-	public function actionValidators() {
-		$this->render('validatorEditor');
-	}
+
 	public function actionValidatorList() {
 		$validator = new Validator();
 		echo json_encode(array( "Result" => "OK",
@@ -94,18 +92,19 @@ class AdminController extends Controller
 		}
 		echo json_encode(array("Result" => "OK", "Options" => $result));
 	}
-	public function actionDeleteValidator() {
-		$validator = new Validator();
-		$errors = $validator->drop($_POST['id']);
-		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
-		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
-	}
 	public function actionSaveValidator() {
 		$validator = new Validator();
 		$errors = $validator->saveData($_POST);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $validator->attributes));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}
+	public function actionDeleteValidator() {
+		$validator = new Validator();
+		$errors = $validator->drop($_POST['id']);
+		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
+		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
+	}
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */

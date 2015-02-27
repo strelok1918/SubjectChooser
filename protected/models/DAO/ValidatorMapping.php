@@ -1,24 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "Objects".
+ * This is the model class for table "ValidatorMapping".
  *
- * The followings are the available columns in table 'Objects':
+ * The followings are the available columns in table 'ValidatorMapping':
  * @property integer $id
- * @property string $title
+ * @property integer $object_id
+ * @property integer $validator_id
  *
  * The followings are the available model relations:
- * @property AttributeMapping[] $attributeMappings
- * @property ValidatorMapping[] $validatorMappings
+ * @property Validators $validator
+ * @property Objects $object
  */
-class Objects extends CActiveRecord
+class ValidatorMapping extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'Objects';
+		return 'ValidatorMapping';
 	}
 
 	/**
@@ -29,10 +30,10 @@ class Objects extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'length', 'max'=>255),
+			array('object_id, validator_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+			array('id, object_id, validator_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,8 +45,8 @@ class Objects extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'attributeMappings' => array(self::HAS_MANY, 'AttributeMapping', 'object_id'),
-			'validatorMappings' => array(self::HAS_MANY, 'ValidatorMapping', 'object_id'),
+			'validator' => array(self::BELONGS_TO, 'Validators', 'validator_id'),
+			'object' => array(self::BELONGS_TO, 'Objects', 'object_id'),
 		);
 	}
 
@@ -56,7 +57,8 @@ class Objects extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
+			'object_id' => 'Object',
+			'validator_id' => 'Validator',
 		);
 	}
 
@@ -79,7 +81,8 @@ class Objects extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
+		$criteria->compare('object_id',$this->object_id);
+		$criteria->compare('validator_id',$this->validator_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -90,7 +93,7 @@ class Objects extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Objects the static model class
+	 * @return ValidatorMapping the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

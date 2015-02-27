@@ -7,6 +7,24 @@
 	</div>
 </script>
 
+
+<script type = "text/template" id = "formValidatorTemplate">
+	<div class="form-group">
+		<label for="input" class="col-md-2 control-label"><%= title %></label>
+
+		<div class="input-group col-md-10" style = "padding:0 15px;">
+			<div class="input-group-btn">
+				<select class="form-control" id = "validatorOperator<%= id %>" style = "width: 65px; border-top-left-radius: 4px; border-bottom-left-radius: 4px">
+					<%    for(var key in operators) {
+							item = operators[key];	%>
+						<option value="<%= item.value %>" <% if(selectedOperator == item.value){ print('selected'); } %>><%= item.title %></option>
+					<%     }; %>
+				</select>
+			</div>
+			<input class="form-control" id = "validatorValue<%= id %>" type="text" value = "<%= value %>">
+		</div>
+	</div>
+</script>
 <script type = "text/template" id = "subjectListItem">
 	<li class="list-group-item" id = "subjectItem<%=id %>">
 		<span class = "subjectItemTitle"><%= title %></span>

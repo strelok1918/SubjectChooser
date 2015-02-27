@@ -9,6 +9,7 @@
  * @property integer $attribute_id
  *
  * The followings are the available model relations:
+ * @property ValidatorMapping[] $validatorMappings
  * @property AttributeType $attribute
  */
 class Validators extends CActiveRecord
@@ -45,6 +46,7 @@ class Validators extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'validatorMappings' => array(self::HAS_MANY, 'ValidatorMapping', 'validator_id'),
 			'attribute' => array(self::BELONGS_TO, 'AttributeType', 'attribute_id'),
 		);
 	}
