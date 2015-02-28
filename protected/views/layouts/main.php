@@ -14,6 +14,7 @@
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.theme.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');
+		require_once($baseUrl . '/templates/userTemplate.php');
 	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
