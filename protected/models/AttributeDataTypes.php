@@ -15,4 +15,9 @@ class AttributeDataTypes extends DataTypes{
 		}
 		return $types;
 	}
+
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 } 

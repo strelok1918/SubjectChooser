@@ -142,4 +142,8 @@ class Subject extends Objects{
 
 		return $result;
 	}
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 } 

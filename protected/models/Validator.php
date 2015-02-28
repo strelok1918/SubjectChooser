@@ -42,4 +42,8 @@ class Validator extends Validators{
 		}
 		return $message;
 	}
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 } 

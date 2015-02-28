@@ -12,21 +12,18 @@ class AdminController extends Controller
 		);
 	}
 
-	public function actionIndex()
-	{
+	public function actionIndex() {
 		$this->render('index');
 	}
 	public function actionSubjects() {
-		$subjects = new Subject();
-		$this->render('subjectList', array('subjects' => json_encode($subjects->subjectList())));
+		$this->render('subjectList', array('subjects' => json_encode(Subject::model()->subjectList())));
 	}
 	public function actionAttributes() {
 		$this->render('attributeEditor');
 	}
 	public function actionEditSubject() {
 		$id = $_GET['id'];
-		$subject = new Subject();
-		$this->render('editSubject', array('subjectData' => json_encode($subject->subjectInfo($id))));
+		$this->render('editSubject', array('subjectData' => json_encode(Subject::model()->subjectInfo($id))));
 	}
 	public function actionValidators() {
 		$this->render('validatorEditor');
@@ -35,39 +32,33 @@ class AdminController extends Controller
 	public function actionSaveSubject() {
 		$id = Yii::app()->request->getPost('id');
 		$data = Yii::app()->request->getPost('data');
-		$subject = new Subject();
-		$responce = $subject->saveData($id, $data);
+		$responce = Subject::model()->saveData($id, $data);
 		$subjectId = $responce['id'];
 		$errors = $responce['errors'];
-		$subjectInfo = $subject->subjectInfo($subjectId);
+		$subjectInfo = Subject::model()->subjectInfo($subjectId);
 		echo json_encode(array('errors' => $errors, 'subjectData' => $subjectInfo));
 	}
 	public function actionDeleteSubject() {
-		$subject = new Subject();
-		echo json_encode($subject->dropSubject($_GET['id']));
+		echo json_encode(Subject::model()->dropSubject($_GET['id']));
 	}
 
 	public function actionAttributeList() {
-		$attribute = new Attribute();
 		echo json_encode(array( "Result" => "OK",
-								"Records" => $attribute->attributeList()));
+								"Records" => Attribute::model()->attributeList()));
 	}
 	public function actionSaveAttribute() {
-		$attribute = new Attribute();
-		$errors = $attribute->saveData($_POST);
+		$errors = Attribute::model()->saveData($_POST);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $attribute->attributes));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}
 	public function actionDeleteAttribute() {
-		$attribute = new Attribute();
-		$errors = $attribute->drop($_POST['id']);
+		$errors = Attribute::model()->drop($_POST['id']);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
 	public function actionGetDataTypeList() {
-		$types = new AttributeDataTypes();
 		$result = array();
-		foreach($types->typeList() as $key => $value) {
+		foreach(AttributeDataTypes::model()->typeList() as $key => $value) {
 			$result[] = array(
 				'Value' => $value['type'],
 				'DisplayText' => $value['title']
@@ -77,14 +68,12 @@ class AdminController extends Controller
 	}
 
 	public function actionValidatorList() {
-		$validator = new Validator();
 		echo json_encode(array( "Result" => "OK",
-						"Records" => $validator->validatorlist()));
+						"Records" => Validator::model()->validatorlist()));
 	}
 	public function actionGetAttributeListInValidatorEditor() {
-		$attributes = new Attribute();
 		$result = array();
-		foreach($attributes->attributeList() as $key => $value) {
+		foreach(Attribute::model()->attributeList() as $key => $value) {
 			$result[] = array(
 				'Value' => $value['id'],
 				'DisplayText' => $value['title']
@@ -99,8 +88,7 @@ class AdminController extends Controller
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}
 	public function actionDeleteValidator() {
-		$validator = new Validator();
-		$errors = $validator->drop($_POST['id']);
+		$errors = Validator::model()->drop($_POST['id']);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
