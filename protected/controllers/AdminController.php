@@ -47,7 +47,8 @@ class AdminController extends Controller
 								"Records" => Attribute::model()->attributeList()));
 	}
 	public function actionSaveAttribute() {
-		$errors = Attribute::model()->saveData($_POST);
+		$attribute = new Attribute();
+		$errors = $attribute->saveData($_POST);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $attribute->attributes));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}

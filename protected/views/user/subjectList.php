@@ -4,8 +4,9 @@
 	var subjectListItem = _.template($('#subjectListItem').html());
 	var data = "";
 	for(var id in subjectList) {
-		console.log(id, subjectList[id]);
-		data += subjectListItem({'title': subjectList[id]});
+		if(subjectList.hasOwnProperty(id)) {
+			data += subjectListItem({'id': id, 'title': subjectList[id]});
+		}
 	}
 	$('#subjectList').append(data);
 </script>

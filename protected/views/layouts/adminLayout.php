@@ -20,7 +20,8 @@
 		$cs->registerCssFile($baseUrl.'/plugins/jtable/themes/jqueryui/jtable_jqueryui.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.theme.min.css');
-		$cs->registerCssFile($baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');
+		$cs->registerCssFile($baseUrl. '/plugins/bootstrap/css/bootstrap.min.css');
+//		$cs->registerCssFile('http://bootswatch.com/cerulean/bootstrap.min.css');
 		$cs->registerCssFile($baseUrl.'/css/subjectMenu.css');
 		require_once($baseUrl . '/templates/adminTemplate.php');
 	?>
@@ -34,7 +35,7 @@
 	});
 </script>
 <body>
-	<nav class="navbar navbar-default" style="margin-bottom:5px;">
+	<nav class="navbar navbar-default" style="border-radius: 0 !important;margin-bottom:5px;">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><b>Marchenko Igor</b></a></li>
