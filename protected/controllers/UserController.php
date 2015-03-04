@@ -9,10 +9,11 @@ class UserController extends Controller
 
 	public function actionSubjectList()
 	{
-		$this->render('subjectList', array('subjects' => Subject::model()->subjectList()));
+		$this->render('subjectList', array('subjects' => Subject::model()->subjectDetailedList()));
 	}
 
 	public function actionSubjectDetails() {
+
 		$this->render('subjectDetails', array('data' => Subject::model()->subjectInfo($_GET['id'])));
 	}
 	// Uncomment the following methods and override them if needed

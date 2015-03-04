@@ -15,6 +15,26 @@ class Subject extends Objects{
 		return $subjectList;
 	}
 
+	public function subjectDetailedList() {
+		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findAll();
+		$result = array();
+		foreach($data as $subject) {
+			$subjectData = array('id' => $subject->id, 'title' => $subject->title, 'attributes' => array());
+			foreach($subject->attributeMappings as $attribute) {
+				if(!empty($attribute->attributes)) {
+					$subjectData['attributes'][] = array(
+						'id' => $attribute->id,
+						'value' => $attribute->value,
+						'title' => $attribute->attributeType->title,
+						'type' => $attribute->attributeType->type,
+					);
+				}
+			}
+			$result[] = $subjectData;
+		}
+
+		return $result;
+	}
 	public function subjectInfo($subjectId) {
 		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findByPk($subjectId);
 		$attributes = $this->getAtrributeList($data->attributeMappings);
@@ -63,6 +83,7 @@ class Subject extends Objects{
 	}
 
 	private function saveAttribute($objectId, $attributeData) {
+		if(empty($attributeData['value'])) return array();
 		if(!empty($attributeData['attribute_id'])) {
 			AttributeMapping::model()->updateByPk($attributeData['attribute_id'], array('value' => $attributeData['value']));
 			return $this->getErrors();

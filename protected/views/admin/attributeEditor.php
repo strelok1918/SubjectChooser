@@ -2,7 +2,7 @@
 	$(document).ready(function () {
 		var listContainer = $('#attributeListContainer');
 		listContainer.jtable({
-			title: 'Список аттрибутов',
+			title: 'Список атрибутов',
 			jqueryuiTheme: true,
 			actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/attributeList"); ?>',

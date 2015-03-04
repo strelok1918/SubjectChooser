@@ -20,7 +20,7 @@
 					width: '70%'
 				},
 				attribute_id: {
-					title: 'Зависимый аттрибут',
+					title: 'Зависимый атрибут',
 					width: '30%',
 					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getAttributeListInValidatorEditor"); ?>'
 				}

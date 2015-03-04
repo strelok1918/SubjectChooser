@@ -43,11 +43,11 @@
 			</ul>
 		</div>
 	</nav>
-	<div class = "row">
-		<div class = "col-md-2" style = "margin-left:5px; margin-right:-10px;">
+	<div class = "row" style = "margin-right:0px !important;">
+		<div class = "col-md-2" style = "margin-left:5px; margin-right:-5px;">
 			<div class="list-group">
 				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/subjects'); ?>" class="list-group-item">Редактор дисциплин </a>
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/attributes'); ?>" class="list-group-item">Редактор аттрибутов</a>
+				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/attributes'); ?>" class="list-group-item">Редактор атрибутов</a>
 				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/validators'); ?>" class="list-group-item">Редактор валидаторов</a>
 			</div>
 		</div>

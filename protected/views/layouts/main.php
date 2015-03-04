@@ -28,6 +28,7 @@
 			</ul>
 		</div>
 	</nav>
+
 	<div class = "col-md-12">
 		<?php echo $content; ?>
 	</div>
