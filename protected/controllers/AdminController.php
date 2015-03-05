@@ -32,6 +32,7 @@ class AdminController extends Controller
 	public function actionSaveSubject() {
 		$id = Yii::app()->request->getPost('id');
 		$data = Yii::app()->request->getPost('data');
+//		echo json_encode($data);
 		$responce = Subject::model()->saveData($id, $data);
 		$subjectId = $responce['id'];
 		$errors = $responce['errors'];

@@ -21,7 +21,7 @@
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.theme.min.css');
 		$cs->registerCssFile($baseUrl. '/plugins/bootstrap/css/bootstrap.min.css');
-//		$cs->registerCssFile('http://bootswatch.com/cerulean/bootstrap.min.css');
+
 		$cs->registerCssFile($baseUrl.'/css/subjectMenu.css');
 		require_once($baseUrl . '/templates/adminTemplate.php');
 	?>

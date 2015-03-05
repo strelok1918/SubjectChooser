@@ -43,10 +43,12 @@ class Subject extends Objects{
 			'title' => $data->title,
 			'attributes' => $attributes,
 			'validators' => $this->validatorList($data->validatorMappings, $attributes),
+			'customValidators' => $this->customValidatorList($subjectId),
 		);
 	}
 
 	public function saveData($objectId, $data) {
+//		echo json_encode($data);
 		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value']);
 
 		array_shift($data['attributes']);
@@ -58,6 +60,15 @@ class Subject extends Objects{
 			$errorList = array_merge($errorList, $this->saveValidator($objectId, $validator));
 		}
 
+		foreach((array)$data['customValidators'] as $validator) {
+			$errorList = array_merge($errorList, $this->saveCustomValidator($objectId, $validator));
+		}
+		foreach((array)$data['deleted']['validators'] as $validator) {
+			ValidatorMapping::model()->deleteByPk($validator);
+		}
+		foreach((array)$data['deleted']['customValidators'] as $validator) {
+			CustomValidators::model()->deleteByPk($validator);
+		}
 		return array('id' => $objectId, 'errors' => $errorList);
 	}
 
@@ -112,7 +123,18 @@ class Subject extends Objects{
 			return $mapping->getErrors();
 		}
 	}
-
+	private function saveCustomValidator($objectId, $validator) {
+		if(!empty($validator['id'])) {
+			CustomValidators::model()->updateByPk($validator['id'], array('value' => $validator['value']));
+			return $this->getErrors();
+		} else {
+			$validatorObject = new CustomValidators();
+			$validatorObject->object_id = $objectId;
+			$validatorObject->value = $validator['value'];
+			$validatorObject->save();
+			return $validatorObject->getErrors();
+		}
+	}
 	private function getAtrributeList($attributes) {
 		$attributeData = array();
 		foreach(AttributeType::model()->findAll() as $attribute) {
@@ -163,6 +185,16 @@ class Subject extends Objects{
 
 		return $result;
 	}
+
+	private function customValidatorList($objectId) {
+		$result = array();
+		foreach(CustomValidators::model()->findAll("object_id = :object_id", array(":object_id" => $objectId)) as $validator) {
+			$result[] = array( 'id' => $validator->id,
+								'value' => $validator->value);
+		}
+		return $result;
+	}
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

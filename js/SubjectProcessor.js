@@ -15,6 +15,7 @@ var SubjectProcessor = (
                         });
             },
             saveSubject : function(subjectId, data) {
+                //console.log(data);
                 return $.ajax({
                             url : _saveActionURL,
                             type : 'POST',

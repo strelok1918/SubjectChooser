@@ -25,6 +25,17 @@
 		</div>
 	</div>
 </script>
+
+<script type = "text/template" id = "customValidatorTemplate">
+	<div class="form-group">
+		<span class = "glyphicon glyphicon-remove pull-right" style ="color : #c71c22; font-size:30px; margin-right: 15px; margin-top: 4px;" onclick = "responceHandler.deleteValidatorField(<%= id %>)"></span>
+		<div class="col-md-11 pull-right">
+			<input type = "text" class = "form-control" id = "customValidator<%= id %>" placeholder = "SQL Text" value = "<%= value %>">
+		</div>
+
+	</div>
+</script>
+
 <script type = "text/template" id = "subjectListItem">
 	<li class="list-group-item" id = "subjectItem<%=id %>">
 		<span class = "subjectItemTitle"><%= title %></span>

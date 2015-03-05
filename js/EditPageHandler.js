@@ -1,7 +1,15 @@
 var EditPageHandler = (function(){
     var _attributesFields = {};
     var _validatorFields = {};
+    var _customValidatorFields = {};
     var _subjectListPage = "";
+    var _customValidatorLastId = 0;
+    var customValidator;
+    var _deletedValidators = {
+        'validators' : [],
+        'customValidators' :[]
+    };
+
     var operationTypes = {
         "1" : {"value" : "equals", "title" : "="},
         "2" : {"value" : "less_than", "title" : "&lt;"},
@@ -29,24 +37,57 @@ var EditPageHandler = (function(){
         var validators = [];
         for(var key in _validatorFields){
             if(_validatorFields.hasOwnProperty(key)) {
-                validators.push({
-                    value:	$('#validatorOperator' + key).val() + ';' + $('#validatorValue' + key).val(),
-                    type_id : key,
-                    validator_id :  _validatorFields[key]
-                });
+                if(!$('#validatorValue' + key).val()) {
+                   if(_validatorFields[key])
+                       _deletedValidators.validators.push(_validatorFields[key]);
+                } else {
+                    validators.push({
+                        value:	$('#validatorOperator' + key).val() + ';' + $('#validatorValue' + key).val(),
+                        type_id : key,
+                        validator_id :  _validatorFields[key]
+                    });
+                }
+
             }
         }
         return validators;
     };
+    var _collectCustomValidatorsData = function() {
+        var data = [];
+        for(var key in _customValidatorFields) {
+            if(_customValidatorFields.hasOwnProperty(key)) {
+                if(!$('#customValidator' + key).val()) {
+                    if(_customValidatorFields[key])
+                        _deletedValidators.customValidators.push(_customValidatorFields[key]);
+                } else {
+                    data.push({
+                        'id': _customValidatorFields[key],
+                        'value': $('#customValidator' + key).val()
+                    });
+                }
+            }
+        }
+        //console.log(_deletedValidators);
+        return data;
+    };
     var _collectData = function() {
+
         return {
             'attributes' : _collectAttributesdata(),
-            'validators' : _collectValidatorsData()
+            'validators' : _collectValidatorsData(),
+            'customValidators' : _collectCustomValidatorsData(),
+            'deleted' : _deletedValidators
         };
     };
     var _fillFormData = function(subjectData) {
         subjectData.attributes[0] = {'attribute_title' : 'Название','attribute_value' : subjectData.title};
-        return _fillAttributeFields(subjectData.attributes) + _fillValidatorFields(subjectData.validators);
+        data = {'attributes' : _fillAttributeFields(subjectData.attributes),
+                'validators':  _fillValidatorFields(subjectData.validators),
+                'customValidators' : _fillCustomValidatorFields(subjectData.customValidators)};
+        _deletedValidators = {'validators' : [], 'customValidators' :[]};
+        $('#subjectFormFields').prepend(data.attributes);
+        $('#validators').prepend(data.validators);
+        $('#customValidators').prepend(data.customValidators);
     };
     var _fillAttributeFields = function(attributesData) {
         var inputText = _.template($('#formInputText').html());
@@ -80,6 +121,24 @@ var EditPageHandler = (function(){
         }
         return result;
     };
+    var _fillCustomValidatorFields = function(validatorsData) {
+        var result = "";
+        for(var key in validatorsData) {
+            if(validatorsData.hasOwnProperty(key)) {
+                result += _addCustomValidator(validatorsData[key].id, validatorsData[key].value);
+            }
+        }
+        //console.log(_customValidatorFields);
+        return result;
+    };
+    var _compileTemplates = function() {
+        customValidator = _.template($('#customValidatorTemplate').html());
+    };
+    var _addCustomValidator = function(id, value) {
+        _customValidatorLastId++;
+        _customValidatorFields[_customValidatorLastId] = id;
+        return customValidator({'id' : _customValidatorLastId, 'value' : value});
+    };
 
     var showResponceAlert = function(errors, successMessage) {
 
@@ -94,13 +153,21 @@ var EditPageHandler = (function(){
         }
         $('#messageBox').prepend(resultAlert({message : message}));
     };
+
     return{
+        init: function() {
+          _compileTemplates();
+        },
         saveData : function() {
             SubjectProcessor.saveSubject(currentSubjectId, _collectData()).done(function(responce) {
                 var data = JSON.parse(responce);
                 currentSubjectId = data.subjectData.id;
                 $('#subjectFormFields').empty();
-                $('#subjectFormFields').prepend(_fillFormData(data.subjectData));
+                $('#validators').empty();
+                $('#customValidators').empty();
+                _customValidatorLastId = 0;
+                _customValidatorFields = {};
+                _fillFormData(data.subjectData);
                 showResponceAlert(data.errors, "Изменения сохранены.");
             });
         },
@@ -117,10 +184,22 @@ var EditPageHandler = (function(){
             });
         },
         fillForm : function(subjectData) {
-            $('#subjectFormFields').prepend(_fillFormData(subjectData));
+            //console.log(subjectData);
+            _fillFormData(subjectData);
         },
         setSubjectListPage : function(URL) {
             _subjectListPage = URL;
+        },
+        addValidatorField : function() {
+            $('#customValidators').append(_addCustomValidator(null, null));
+        },
+        deleteValidatorField : function(id) {
+            $('#customValidator' + id).parent().parent().remove();
+            if(_customValidatorFields[id]) {
+                _deletedValidators.customValidators.push(_customValidatorFields[id]);
+            }
+            delete _customValidatorFields[id];
+            //console.log(_deletedValidators);
         }
     };
 })();
