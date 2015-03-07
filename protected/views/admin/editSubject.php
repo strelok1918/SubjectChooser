@@ -22,7 +22,7 @@
 					<div id = "validators"></div>
 					<div id = "customValidators"></div>
 
-					<button type="button" class="btn btn-primary pull-right" onclick = "responceHandler.addValidatorField()">Добавить валидатор</button>
+					<button type="button" class="btn btn-primary btn-sm" onclick = "responceHandler.addValidatorField()">Добавить валидатор</button>
 				</div>
 		</div>
 	</div>

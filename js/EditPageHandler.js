@@ -145,8 +145,8 @@ var EditPageHandler = (function(){
         console.log(errors);
         console.log($.isEmptyObject(errors));
 
-        var resultAlert = "";
-        var message;
+        var resultAlert = _.template($('#savedSuccessMessage').html());
+        var message = successMessage;
         if($.isEmptyObject(errors)) {
             resultAlert = _.template($('#savedSuccessMessage').html());
             message = successMessage;

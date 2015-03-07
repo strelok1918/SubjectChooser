@@ -1,3 +1,41 @@
+<div class="modal" id = "disciplineChoose">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Выбор предмета</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class = "form-group">
+						<label for = "year" class="col-md-3 control-label">Год обучения</label>
+						<div class="col-md-9">
+							<select class="form-control" id = "year">
+								<option><?php echo date("Y"); ?></option>
+								<option><?php echo date("Y") + 1; ?></option>
+							</select>
+						</div>
+					</div>
+					<div class = "form-group">
+						<label for = "year" class="col-md-3 control-label">Семестр</label>
+						<div class="col-md-9">
+							<select class="form-control">
+								<option>I</option>
+								<option>II</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+				<button type="button" class="btn btn-success">Сохранить</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div class="list-group" id = "subjectList"></div>
 <script>
 	var subjectList = <?php echo json_encode($subjects); ?>;

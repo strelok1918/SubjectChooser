@@ -6,7 +6,7 @@
 				<%= value %>
 			</ul>
 			<div class ="panel-body">
-				<button type="button" class="btn btn-info pull-right">Записаться</button>
+				<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#disciplineChoose">Записаться</button>
 			</div>
 		</div>
 	</div>

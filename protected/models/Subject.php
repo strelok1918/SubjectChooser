@@ -86,9 +86,10 @@ class Subject extends Objects{
 		if($objectId != 'new') {
 			$this->model()->updateByPk($objectId, array('title' => $title));
 		} else {
-			$this->title = $title;
-			$this->save();
-			$objectId = $this->id;
+			$subject = new Objects();
+			$subject->title = $title;
+			$subject->save();
+			$objectId = $subject->id;
 		}
 		return $this->getErrors();
 	}
