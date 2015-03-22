@@ -18,22 +18,47 @@ class Subject extends Objects{
 	public function subjectDetailedList() {
 		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findAll();
 		$result = array();
-		foreach($data as $subject) {
-			$subjectData = array('id' => $subject->id, 'title' => $subject->title, 'attributes' => array());
-			foreach($subject->attributeMappings as $attribute) {
-				if(!empty($attribute->attributes)) {
-					$subjectData['attributes'][] = array(
-						'id' => $attribute->id,
-						'value' => $attribute->value,
-						'title' => $attribute->attributeType->title,
-						'type' => $attribute->attributeType->type,
-					);
-				}
-			}
+		foreach((array)$data as $subject) {
+//			print_r($subject);
+			$result[] = $this->userSubject($subject);
+		}
+		return $result;
+	}
+
+	public function userSubjectList($userId) {
+		$data = StudentsSubjects::model()->with(array('object', 'object.attributeMappings','object.attributeMappings.attributeType', 'object.validatorMappings', 'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
+		$result = array();
+
+		foreach((array)$data as $subject) {
+			$subjectData = $this->userSubject($subject->object);
+			$subjectData['attributes'][] = array(
+				'value' => $subject->year,
+				'title' => "Год",
+			);
+			$subjectData['attributes'][] = array(
+				'value' => $subject->semester,
+				'title' => "Семестр",
+			);
+			$subjectData['id'] = $subject->id;
+
 			$result[] = $subjectData;
 		}
-
 		return $result;
+	}
+
+	private function userSubject($subject) {
+		$subjectData = array('id' => $subject->id, 'title' => $subject->title, 'attributes' => array());
+		foreach((array)$subject->attributeMappings as $attribute) {
+			if(!empty($attribute->attributes)) {
+				$subjectData['attributes'][] = array(
+					'id' => $attribute->id,
+					'value' => $attribute->value,
+					'title' => $attribute->attributeType->title,
+					'type' => $attribute->attributeType->type,
+				);
+			}
+		}
+		return $subjectData;
 	}
 	public function subjectInfo($subjectId) {
 		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findByPk($subjectId);

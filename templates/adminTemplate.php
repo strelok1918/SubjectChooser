@@ -28,7 +28,7 @@
 
 <script type = "text/template" id = "customValidatorTemplate">
 	<div class="form-group">
-		<span class = "glyphicon glyphicon-remove pull-right" style ="color : #c71c22; font-size:30px; margin-right: 15px; margin-top: 4px;" onclick = "responceHandler.deleteValidatorField(<%= id %>)"></span>
+		<span class = "glyphicon glyphicon-remove pull-right" style ="color : #c71c22; font-size:30px; margin-right: 15px; margin-top: 4px;" onclick = "CustomValidatorProcessor.deleteField(<%= id %>)"></span>
 		<div class="col-md-11 pull-right">
 			<input type = "text" class = "form-control" id = "customValidator<%= id %>" placeholder = "SQL Text" value = "<%= value %>">
 		</div>
@@ -42,19 +42,9 @@
 		<div class = "pull-right">
 			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/info.png" class = "subjectItemIcon">
 			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/edit.png" class = "subjectItemIcon" onclick = "location.href = '<?php echo Yii::app()->createAbsoluteUrl('admin/editSubject', array('id' => '')); ?><%= id %>'">
-			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/delete.png"onclick = "SubjectMenu.showDeleteDialog(<%= id %>)" class = "subjectItemIcon">
+			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/delete.png"onclick = "SubjectMenuPageProcessor.showDeleteModal(<%= id %>)" class = "subjectItemIcon">
 		</div>
 	</li>
-</script>
-
-<script type = "text/template" id = "savedSuccessMessage">
-	<div class="alert alert-success alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert"
-		        aria-hidden="true">
-			&times;
-		</button>
-		<%= message %>
-	</div>
 </script>
 
 <div class="modal fade" id="deleteSubjectModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -69,7 +59,7 @@
 			</div>
 			<div class="modal-footer">
 				<input type = "hidden" id = "dropSubjectId">
-				<button type="button" class="btn btn-danger" onclick="responceHandler.deleteSubject($('#dropSubjectId').val())">Удалить</button>
+				<button type="button" class="btn btn-danger" onclick="DeleteHandler.deleteSubject()">Удалить</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
 			</div>
 		</div>

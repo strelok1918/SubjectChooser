@@ -1,7 +1,6 @@
 <script>
-	responceHandler = MenuHandler;
 	$(document).ready(function(){
-		SubjectMenu.fillSubjectList(<?php echo $subjects; ?>);
+		SubjectMenuPageProcessor.fillData(<?php echo $subjects; ?>);
 	});
 </script>
 

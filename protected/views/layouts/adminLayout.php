@@ -9,10 +9,15 @@
 		$cs->registerScriptFile($baseUrl. '/plugins/jquery/jquery-1.11.2.min.js', CClientScript::POS_HEAD);
 		$cs->registerScriptFile($baseUrl. '/plugins/jquery-ui/jquery-ui.min.js', CClientScript::POS_HEAD);
 		$cs->registerScriptFile($baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');
-		$cs->registerScriptFile($baseUrl.'/js/SubjectProcessor.js');
-		$cs->registerScriptFile($baseUrl.'/js/SubjectMenu.js');
-		$cs->registerScriptFile($baseUrl.'/js/MenuHandler.js');
-		$cs->registerScriptFile($baseUrl.'/js/EditPageHandler.js');
+
+		$cs->registerScriptFile($baseUrl.'/js/common/AlertHandler.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/AjaxController.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/AttributeProcessor.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/CustomValidatorProcessor.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/ValidatorProcessor.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/EditSubjectFormProcessor.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/SubjectMenuPageProcessor.js');
+
 		$cs->registerScriptFile($baseUrl.'/plugins/underscore/underscore.js', CClientScript::POS_HEAD);
 		$cs->registerScriptFile($baseUrl.'/plugins/jtable/jquery.jtable.js');
 		$cs->registerScriptFile($baseUrl.'/plugins/jtable/localization/jquery.jtable.ru.js');
@@ -24,14 +29,23 @@
 
 		$cs->registerCssFile($baseUrl.'/css/subjectMenu.css');
 		require_once($baseUrl . '/templates/adminTemplate.php');
+		require_once($baseUrl . '/templates/commonTemplate.php');
 	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <script>
-	var responceHandler;
+	var DeleteHandler;
 	$(document).ready(function(){
-		SubjectProcessor.init('<?php echo Yii::app()->createAbsoluteUrl("admin/saveSubject"); ?>', '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteSubject"); ?>');
+		SubjectMenuPageProcessor.init();
+		AlertHandler.init();
+		AjaxController.init('<?php echo Yii::app()->createAbsoluteUrl("admin/saveSubject"); ?>', '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteSubject"); ?>');
 		$('[href = "' + window.location.href + '"]').addClass('list-group-item-info');
+
+		if(<?php echo (int)(!isset($_GET['id'])); ?>) {
+			DeleteHandler = SubjectMenuPageProcessor;
+		} else {
+			DeleteHandler = EditSubjectFormProcessor;
+		}
 	});
 </script>
 <body>
