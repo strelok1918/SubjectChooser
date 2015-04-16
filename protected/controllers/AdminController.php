@@ -8,6 +8,7 @@ class AdminController extends Controller
 	}
 	public function filters() {
 		return array(
+			'accessControl',
 			'ajaxOnly +  saveSubject, deleteSubject, attributeList, saveAttribute, deleteAttribute, getDataTypeList, validatorList, getAttributeListInValidatorEditor, saveValidator, deleteValidator'
 		);
 	}
@@ -16,23 +17,124 @@ class AdminController extends Controller
 		$this->render('index');
 	}
 	public function actionSubjects() {
+//		echo (int)Yii::app()->user->isGuest;
 		$this->render('subjectList', array('subjects' => json_encode(Subject::model()->subjectList())));
 	}
 	public function actionAttributes() {
 		$this->render('attributeEditor');
 	}
 	public function actionEditSubject() {
-		$id = $_GET['id'];
-		$this->render('editSubject', array('subjectData' => json_encode(Subject::model()->subjectInfo($id))));
+		$this->render('editSubject', array('subjectData' => json_encode(Subject::model()->subjectInfo($_GET['id']))));
 	}
 	public function actionValidators() {
 		$this->render('validatorEditor');
 	}
+	public function actionUsers() {
+		$this->render('users');
+	}
+	public function actionGroups() {
+		$this->render('groups');
+	}
+	public function actionStat(){
+		$this->render('stat', array('stats' => Subject::model()->subjectsStatistics()));
+	}
 
+	//groups
+	public function actionGroupList() {
+		echo json_encode(array( "Result" => "OK",
+			"Records" => UserGroups::model()->groupList()));
+	}
+	public function actionGetGroupList() {
+		$result = array();
+		foreach(UserGroups::model()->groupList() as $key => $value) {
+			$result[] = array(
+				'Value' => $value['id'],
+				'DisplayText' => $value['title']
+			);
+		}
+		echo json_encode(array("Result" => "OK", "Options" => $result));
+	}
+
+	//roles
+	public function actionRolesList() {
+		$result = array();
+		foreach(UserRoles::model()->rolesList() as $key => $value) {
+			$result[] = array(
+				'Value' => $value['id'],
+				'DisplayText' => $value['title']
+			);
+		}
+		echo json_encode(array("Result" => "OK", "Options" => $result));
+	}
+
+
+	public function actionUserSubjectList() {
+		$userId = $_GET['userId'];
+		echo json_encode(array( "Result" => "OK",
+			"Records" => Subject::model()->simplifiedSubjectList($userId)));
+	}
+
+	public function actionFullSubjectList() {
+		$result = array();
+		foreach(Subject::model()->subjectList() as $key => $value) {
+			$result[] = array(
+				'Value' => $value['id'],
+				'DisplayText' => $value['title']
+			);
+		}
+		echo json_encode(array("Result" => "OK", "Options" => $result));
+	}
+
+	public function actionSaveChoose() {
+		$choose = new ChooseHandler();
+		$responce = $choose->saveChoose($_POST, $_GET['userId']);
+		if(empty($responce['errors']))
+			echo json_encode(array ("Result" => "OK", "Record" => $responce['data']));
+		else
+			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
+	}
+
+	public function actionDismissChoose() {
+		$errors = ChooseHandler::model()->dismissChoose($_POST['id'], $_GET['userId']);
+		if(empty($errors))
+			echo json_encode(array ("Result" => "OK"));
+		else
+			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
+	}
+
+	public function actionSaveUserData() {
+		$user = new UserData();
+		$errors = $user->saveData($_POST, true);
+		if(empty($errors))
+			echo json_encode(array ("Result" => "OK", "Record" => $user->attributes));
+		else
+			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
+	}
+
+	public function actionUserList() {
+		echo json_encode(array( "Result" => "OK",
+			"Records" => UserData::model()->userList()));
+	}
+	public function actionDeleteGroup() {
+		$errors = UserGroups::model()->dropGroupItem($_POST['id']);
+		if(empty($errors))
+			echo json_encode(array ("Result" => "OK"));
+		else
+			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
+	}
+
+	public function actionSaveGroupData() {
+		$group = new UserGroups();
+		$errors = $group->saveData($_POST);
+		if(empty($errors))
+			echo json_encode(array ("Result" => "OK", "Record" => $group->attributes));
+		else
+			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
+	}
 	public function actionSaveSubject() {
 		$id = Yii::app()->request->getPost('id');
 		$data = Yii::app()->request->getPost('data');
-//		echo json_encode($data);
+
 		$responce = Subject::model()->saveData($id, $data);
 		$subjectId = $responce['id'];
 		$errors = $responce['errors'];
@@ -95,6 +197,8 @@ class AdminController extends Controller
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
 
+
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -108,33 +212,39 @@ class AdminController extends Controller
 				$this->render('error', $error);
 		}
 	}
+	public function accessRules() {
 
-//
-//	/**
-//	 * Displays the login page
-//	 */
-//	public function actionLogin()
-//	{
-//		$model=new LoginForm;
-//
-//		// if it is ajax validation request
-//		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-//		{
-//			echo CActiveForm::validate($model);
-//			Yii::app()->end();
-//		}
-//
-//		// collect user input data
-//		if(isset($_POST['LoginForm']))
-//		{
-//			$model->attributes=$_POST['LoginForm'];
-//			// validate user input and redirect to the previous page if valid
-//			if($model->validate() && $model->login())
-//				$this->redirect(Yii::app()->user->returnUrl);
-//		}
-//		// display the login form
-//		$this->render('login',array('model'=>$model));
-//	}
+		return array(
+			array('allow',
+				'actions'=>array('subjects'),
+				'users'=>array('@'),
+//				'roles' => array('Admin'),
+			),
+			array('deny',
+				'actions'=>array('subjects'),
+				'users'=>array('?'),
+			),
+
+		);
+	}
+	public function actionLogin()
+	{
+		$errors = array();
+		if(isset($_POST['loginData']))
+		{
+			$model = new LoginForm();
+			$model->attributes=$_POST['loginData'];
+
+			$model->validate();
+			$model->authenticate();
+			if(!sizeof($model->getErrors())) {
+				$this->redirect(Yii::app()->createAbsoluteUrl("admin/index"));
+			} else {
+				$errors = $model->getErrors();
+			}
+		}
+		$this->renderPartial('user/login', array('errors' => json_encode($errors)));
+	}
 //
 //	/**
 //	 * Logs out the current user and redirect to homepage.

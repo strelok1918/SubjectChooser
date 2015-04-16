@@ -5,17 +5,18 @@ class UserController extends Controller
 	public function filters() {
 		return array(
 			'accessControl',
-			'ajaxOnly + saveChoose, dismissChoose',
+			'ajaxOnly + saveChoose, dismissChoose, saveUserData',
 		);
 	}
 	public function accessRules() {
 		return array(
 			array('allow',
-				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose'),
+				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose', 'editInfo', 'index'),
 				'users'=>array('@'),
+//				'roles' => array('Admin'),
 			),
 			array('deny',
-				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose'),
+				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose', 'editInfo', 'index'),
 				'users'=>array('?'),
 			),
 
@@ -25,22 +26,31 @@ class UserController extends Controller
 		$this->actionSubjectList();
 	}
 	public function actionSubjectList() {
-		$this->render('subjectList', array('subjects' => Subject::model()->subjectDetailedList()));
+		$this->render('subjectList', array('subjects' => Subject::model()->subjectList()));
 	}
 	public function actionSaveChoose() {
-		$responce = array();
-		$responce['errors'] = ChooseHandler::model()->saveChoose($_POST['data']);
-		echo json_encode($responce);
+		$responce = ChooseHandler::model()->saveChoose($_POST['data'], Yii::app()->user->id);
+		echo json_encode($responce['errors']);
 	}
 	public function actionDismissChoose() {
 		$responce = array();
-		$responce['errors'] = ChooseHandler::model()->dismissChoose($_POST['data']);
+		$responce['errors'] = ChooseHandler::model()->dismissChoose($_POST['data'], Yii::app()->user->id);
 		echo json_encode($responce);
 	}
 	public function actionMySubjects() {
 		$userId = Yii::app()->user->id;
-		$this->render('mySubjects', array('subjects' => Subject::model()->userSubjectList($userId), 'mySubjectsPage' => 1));
+		$this->render('mySubjects', array('subjects' => Subject::model()->userSubjectList($userId)));
 	}
+
+	public function actionEditInfo() {
+		$this->render('userInfo', array('info' => UserData::model()->getUserInfo(), 'groupList' => UserGroups::model()->groupList()));
+	}
+	public function actionSaveUserData() {
+		$data = $_POST['data'];
+		$responce['errors'] = UserData::model()->saveData($data);
+		echo json_encode($responce);
+	}
+
 	public function actionError()
 	{
 		if($error=Yii::app()->errorHandler->error)

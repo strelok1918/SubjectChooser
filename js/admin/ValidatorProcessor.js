@@ -39,7 +39,7 @@ var ValidatorProcessor = (function(){
                 _fieldIds[key] = data[key].validator_id || null;
                 result += validatorField({
                     'id' : key,
-                    'title' : data[key].validator_title,
+                    'title' : data[key].title,
                     'value' : data[key].value,
                     'operators': _operationTypes,
                     'selectedOperator' : data[key].operator

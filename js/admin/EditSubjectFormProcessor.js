@@ -3,8 +3,8 @@ var EditSubjectFormProcessor = (function(){
     var _subjectListPage;
 
     var _fillData = function(data) {
-        data.attributes[0] = {'attribute_title' : 'Название',
-                              'attribute_value' : data.title};
+        data.attributes[0] = {'title' : 'Название',
+                              'value' : data.title};
 
         $('#attributes').prepend(AttributeProcessor.fillData(data.attributes));
         $('#validators').prepend(ValidatorProcessor.fillData(data.validators));

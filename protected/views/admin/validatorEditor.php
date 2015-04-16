@@ -3,7 +3,6 @@
 		var listContainer = $('#validatorListContainer');
 		listContainer.jtable({
 			title: 'Список валидаторов',
-			jqueryuiTheme: true,
 			actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/validatorList"); ?>',
 				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveValidator"); ?>',

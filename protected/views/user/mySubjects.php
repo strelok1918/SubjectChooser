@@ -1,22 +1,29 @@
 <script>
-	$(document).ready(function(){
+		var button;
+		$(document).ready(function(){
 		AjaxController.init("<?php echo Yii::app()->createAbsoluteURL('user/saveChoose'); ?>", "<?php echo Yii::app()->createAbsoluteURL('user/dismissChoose'); ?>");
-		var button  = _.template($('#dismissButton').html());
-		SubjectListPageProcessor.fillSubjectList( <?php echo json_encode($subjects); ?>, button);
+		button = _.template($('#dismissButton').html());
+		SubjectListPageProcessor.init(<?php echo json_encode($subjects); ?>);
+		SubjectListPageProcessor.fillSubjectList(button);
 	});
 </script>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<form class="form-inline">
+		<form class="form-inline" onsubmit = "return false;">
 			<div class="form-group">
-				<label for="exampleInputName2">Name</label>
-				<input type="text" class="form-control input-sm" id="exampleInputName2" placeholder="Jane Doe">
+				<label for="yearFilter">Год</label>
+				<input type="text" class="form-control input-sm" id="yearFilter" placeholder="Год">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail2">Email</label>
-				<input type="email" class="form-control input-sm" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+				<label for="semesterFilter">Семестр</label>
+				<select class="form-control input-sm" id = "semesterFilter">
+					<option value = "" selested></option>
+					<option value = "1">I</option>
+					<option value = "2">II</option>
+				</select>
 			</div>
-			<button type="submit" class="btn btn-default btn-sm"">Send invitation</button>
+			<button type="button" class="btn btn-default btn-sm" onclick = "SubjectListPageProcessor.filterSubjects(button)">Выбрать</button>
+			<button type="button" class="btn btn-default btn-sm" onclick = "SubjectListPageProcessor.fillSubjectList(button)">Clear</button>
 		</form>
 	</div>
 </div>

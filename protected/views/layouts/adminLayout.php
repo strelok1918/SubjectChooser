@@ -9,12 +9,14 @@
 		$cs->registerScriptFile($baseUrl. '/plugins/jquery/jquery-1.11.2.min.js', CClientScript::POS_HEAD);
 		$cs->registerScriptFile($baseUrl. '/plugins/jquery-ui/jquery-ui.min.js', CClientScript::POS_HEAD);
 		$cs->registerScriptFile($baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');
+		$cs->registerScriptFile($baseUrl.'/plugins/select2/js/select2.min.js');
 
 		$cs->registerScriptFile($baseUrl.'/js/common/AlertHandler.js');
 		$cs->registerScriptFile($baseUrl.'/js/admin/AjaxController.js');
 		$cs->registerScriptFile($baseUrl.'/js/admin/AttributeProcessor.js');
 		$cs->registerScriptFile($baseUrl.'/js/admin/CustomValidatorProcessor.js');
 		$cs->registerScriptFile($baseUrl.'/js/admin/ValidatorProcessor.js');
+		$cs->registerScriptFile($baseUrl.'/js/admin/SubjectStatistics.js');
 		$cs->registerScriptFile($baseUrl.'/js/admin/EditSubjectFormProcessor.js');
 		$cs->registerScriptFile($baseUrl.'/js/admin/SubjectMenuPageProcessor.js');
 
@@ -22,10 +24,11 @@
 		$cs->registerScriptFile($baseUrl.'/plugins/jtable/jquery.jtable.js');
 		$cs->registerScriptFile($baseUrl.'/plugins/jtable/localization/jquery.jtable.ru.js');
 
-		$cs->registerCssFile($baseUrl.'/plugins/jtable/themes/jqueryui/jtable_jqueryui.css');
+		$cs->registerCssFile($baseUrl.'/plugins/jtable/themes/lightcolor/blue/jtable.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.theme.min.css');
 		$cs->registerCssFile($baseUrl. '/plugins/bootstrap/css/bootstrap.min.css');
+		$cs->registerCssFile($baseUrl. '/plugins/select2/css/select2.min.css');
 
 		$cs->registerCssFile($baseUrl.'/css/subjectMenu.css');
 		require_once($baseUrl . '/templates/adminTemplate.php');
@@ -52,8 +55,8 @@
 	<nav class="navbar navbar-default" style="border-radius: 0 !important;margin-bottom:5px;">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><b>Marchenko Igor</b></a></li>
-				<li><a href="#">Logout</a></li>
+				<li><a href="#">Marchenko Igor</a></li>
+				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("admin/logout"); ?>">Выход</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -63,6 +66,9 @@
 				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/subjects'); ?>" class="list-group-item">Редактор дисциплин </a>
 				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/attributes'); ?>" class="list-group-item">Редактор атрибутов</a>
 				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/validators'); ?>" class="list-group-item">Редактор валидаторов</a>
+				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/users'); ?>" class="list-group-item">Редактор пользователей</a>
+				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/groups'); ?>" class="list-group-item">Редактор групп</a>
+				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/stat'); ?>" class="list-group-item">Статистика</a>
 			</div>
 		</div>
 		<div class = "col-md-10">

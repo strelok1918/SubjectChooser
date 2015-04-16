@@ -1,23 +1,38 @@
 var SubjectListPageProcessor = (function(){
+    var _subjects,
+        _subjectListItemDetails,
+        _listItem;
+
+    var compileTemplates = function(){
+        _subjectListItemDetails = _.template($('#subjectDetailsListItem').html());
+        _listItem = _.template($('#subjectListItem').html());
+    };
+    var compileSubjectData = function(subjectData) {
+        var attributeData = "";
+        for(var attrId in subjectData) {
+            if(subjectData.hasOwnProperty(attrId)) {
+                attributeData += _subjectListItemDetails({
+                    'value': subjectData[attrId].value,
+                    'title': subjectData[attrId].title});
+            }
+        }
+        return attributeData;
+    };
     return {
-        fillSubjectList : function(subjectList, button) {
-            var subjectListItemDetails = _.template($('#subjectDetailsListItem').html());
-            var listItem = _.template($('#subjectListItem').html());
+        init : function(subjectList){
+            _subjects = subjectList;
+            compileTemplates();
+        },
+        fillSubjectList : function(button) {
+            $('#subjectList').empty();
             var data = "";
-            for(var id in subjectList) {
-                if(subjectList.hasOwnProperty(id)) {
-                    var attributeData = "";
-                    for(var attrId in subjectList[id].attributes) {
-                        if(subjectList[id].attributes.hasOwnProperty(attrId)) {
-                            attributeData += subjectListItemDetails({
-                                'value': subjectList[id].attributes[attrId].value,
-                                'title': subjectList[id].attributes[attrId].title});
-                        }
-                    }
-                    data += listItem({  'id' : subjectList[id].id,
-                        'value': attributeData,
-                        'button' : button({'id' : subjectList[id].id}),
-                        'title': subjectList[id].title});
+            for(var id in _subjects) {
+                if(_subjects.hasOwnProperty(id)) {
+
+                    data += _listItem({  'id' : _subjects[id].id,
+                        'value': compileSubjectData(_subjects[id].attributes),
+                        'button' : button({'id' : _subjects[id].id}),
+                        'title': _subjects[id].title});
                 }
             }
             $('#subjectList').append(data);
@@ -25,6 +40,25 @@ var SubjectListPageProcessor = (function(){
         toggleData : function(id) {
             $('#subjectDetails' + id).toggle(200, null);
             $('#caret' + id).toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+        },
+        filterSubjects : function(button) {
+            $('#subjectList').empty();
+            var year = $('#yearFilter').val();
+            var semester = $('#semesterFilter').val();
+            var data = "";
+            for(var id in _subjects) {
+                if(_subjects.hasOwnProperty(id)) {
+                    var yearValid = (year) ? _subjects[id].attributes['year'].value == year : true;
+                    var semesterValid = (semester) ? _subjects[id].attributes['semester'].value == semester : true;
+                    if(yearValid && semesterValid) {
+                        data += _listItem({  'id' : _subjects[id].id,
+                            'value': compileSubjectData(_subjects[id].attributes),
+                            'button' : button({'id' : _subjects[id].id}),
+                            'title': _subjects[id].title});
+                    }
+                }
+            }
+            $('#subjectList').append(data);
         }
     };
 })();

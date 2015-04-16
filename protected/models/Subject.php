@@ -1,41 +1,48 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Igor
- * Date: 02.02.2015
- * Time: 13:21
- */
 
 class Subject extends Objects{
-	public function subjectList() {
-		$subjectList = array();
-		foreach($this->model()->findAll() as $subjectRecord) {
-			$subjectList[$subjectRecord->id] = $subjectRecord->title;
-		}
-		return $subjectList;
-	}
-
-	public function subjectDetailedList() {
-		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findAll();
+	public function simplifiedSubjectList($userId) {
+		$data = StudentsSubjects::model()->with(array('object', 'object.attributeMappings','object.attributeMappings.attributeType', 'object.validatorMappings', 'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
 		$result = array();
 		foreach((array)$data as $subject) {
-//			print_r($subject);
-			$result[] = $this->userSubject($subject);
+
+			$subjectData = array(   'id'=> $subject->id,
+									'student_id' => $userId,
+									'object_id' => $subject->object_id,
+									'year' => $subject->year,
+									'semester' => $subject->semester);
+			$result[] = $subjectData;
 		}
 		return $result;
 	}
 
-	public function userSubjectList($userId) {
-		$data = StudentsSubjects::model()->with(array('object', 'object.attributeMappings','object.attributeMappings.attributeType', 'object.validatorMappings', 'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
+	//list for user/subjectList
+	public function subjectList() {
+		$data = $this->model()->with(array( 'attributeMappings',
+											'attributeMappings.attributeType',
+											'validatorMappings',
+											'validatorMappings.validator'))->findAll();
 		$result = array();
-
 		foreach((array)$data as $subject) {
-			$subjectData = $this->userSubject($subject->object);
-			$subjectData['attributes'][] = array(
+			$result[] = $this->linkSubjectItemData($subject);
+		}
+		return $result;
+	}
+	//detailed list for user/mySubjects
+	public function userSubjectList($userId) {
+		$data = StudentsSubjects::model()->with(array(  'object',
+														'object.attributeMappings',
+														'object.attributeMappings.attributeType',
+														'object.validatorMappings',
+														'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
+		$result = array();
+		foreach((array)$data as $subject) {
+			$subjectData = $this->linkSubjectItemData($subject->object);
+			$subjectData['attributes']['year'] = array(
 				'value' => $subject->year,
 				'title' => "Год",
 			);
-			$subjectData['attributes'][] = array(
+			$subjectData['attributes']['semester'] = array(
 				'value' => $subject->semester,
 				'title' => "Семестр",
 			);
@@ -45,9 +52,10 @@ class Subject extends Objects{
 		}
 		return $result;
 	}
-
-	private function userSubject($subject) {
-		$subjectData = array('id' => $subject->id, 'title' => $subject->title, 'attributes' => array());
+	private function linkSubjectItemData($subject) {
+		$subjectData = array(   'id' => $subject->id,
+								'title' => $subject->title,
+								'attributes' => array());
 		foreach((array)$subject->attributeMappings as $attribute) {
 			if(!empty($attribute->attributes)) {
 				$subjectData['attributes'][] = array(
@@ -60,6 +68,7 @@ class Subject extends Objects{
 		}
 		return $subjectData;
 	}
+
 	public function subjectInfo($subjectId) {
 		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findByPk($subjectId);
 		$attributes = $this->getAtrributeList($data->attributeMappings);
@@ -73,7 +82,6 @@ class Subject extends Objects{
 	}
 
 	public function saveData($objectId, $data) {
-//		echo json_encode($data);
 		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value']);
 
 		array_shift($data['attributes']);
@@ -98,14 +106,10 @@ class Subject extends Objects{
 	}
 
 	public function dropSubject($subjectId) {
-		$this->dropObject($subjectId);
-		return $this->getErrors();
+		AttributeMapping::model()->deleteAll("object_id = " . $subjectId);
+		Objects::model()->deleteByPk($subjectId);
 	}
 
-	private function dropObject($id) {
-		AttributeMapping::model()->deleteAll("object_id = " . $id);
-		Objects::model()->deleteByPk($id);
-	}
 
 	private function saveObject(&$objectId, $title) {
 		if($objectId != 'new') {
@@ -162,21 +166,15 @@ class Subject extends Objects{
 		}
 	}
 	private function getAtrributeList($attributes) {
-		$attributeData = array();
-		foreach(AttributeType::model()->findAll() as $attribute) {
-			$attributeData[$attribute->id] = array(
-				'attribute_title' => $attribute->title,
-				'attribute_type' => $attribute->type,
-			);
-		}
+		$attributeData = Attribute::model()->attributeList();
 
 		if(!empty($attributes)) {
 			foreach ($attributes as $attribute) {
 				$attributeData[$attribute->attribute_type_id] =
 					array(
-						'attribute_value' => $attribute->value,
+						'value' => $attribute->value,
 						'attribute_id' => $attribute->id,
-						'attribute_title' => $attribute->attributeType->title,
+						'title' => $attribute->attributeType->title,
 						'attribute_type' => $attribute->attributeType->type,
 					);
 			}
@@ -185,30 +183,20 @@ class Subject extends Objects{
 	}
 
 	private function validatorList($validatorData, $attributeData) {
-		$result = array();
-		foreach(Validator::model()->findAll() as $validator) {
-			$result[$validator->id] = array(
-				'validator_title' => $validator->title,
-				'attribute_title' => $attributeData[$validator->attribute_id]['attribute_title'],
-				'attribute_id' => $validator->attribute_id,
-			);
-		}
-
+		$result = Validator::model()->validatorList();
 		if(!empty($validatorData)) {
 			foreach ($validatorData as $validator) {
 				$validatorValue = explode(';', $validator->value);
 				$result[$validator->validator_id] =
 					array(
-						'validator_title' => $validator->validator->title,
-						'attribute_id' => $validator->validator->attribute_id,
-						'validator_id' => $validator->id,
-						'attribute_title' => $attributeData[$validator->validator->attribute_id]['attribute_title'],
+						'title' => $validator['title'],
+						'attribute_id' => $validator['attribute_id'],
+						'id' => $validator['id'],
 						'operator' => trim($validatorValue[0]),
 						'value' => trim($validatorValue[1]),
 					);
 			}
 		}
-
 		return $result;
 	}
 
@@ -217,6 +205,25 @@ class Subject extends Objects{
 		foreach(CustomValidators::model()->findAll("object_id = :object_id", array(":object_id" => $objectId)) as $validator) {
 			$result[] = array( 'id' => $validator->id,
 								'value' => $validator->value);
+		}
+		return $result;
+	}
+
+	public function subjectsStatistics() {
+		$data = StudentsSubjects::model()->with('object', 'user', 'user.groupRel')->findAll();
+		$result = array();
+		foreach($data as $item) {
+			$result[] = array(
+				'subject_id' => $item->object_id,
+				'title' => $item->object->title,
+				'year' => $item->year,
+				'semester' => $item->semester,
+				'user_id' => $item->user->id,
+				'first_name' => $item->user->first_name,
+				'second_name' => $item->user->second_name,
+				'group_id' => $item->user->groupRel->id,
+				'group' => $item->user->groupRel->title,
+			);
 		}
 		return $result;
 	}

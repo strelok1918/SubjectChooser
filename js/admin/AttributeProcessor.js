@@ -8,8 +8,8 @@ var AttributeProcessor  = (function(){
                 _fieldIds[key] = data[key].attribute_id || null;
                 result += inputText({
                     'id' : key,
-                    'title' : data[key].attribute_title,
-                    'value' : data[key].attribute_value
+                    'title' : data[key].title,
+                    'value' : data[key].value
                 });
             }
         }

@@ -2,7 +2,7 @@ var ChooseHandler = (function(){
     return {
          saveChoose : function() {
             var data = {
-                'subject_id' : $('#subjectId').val(),
+                'object_id' : $('#subjectId').val(),
                 'year' : $('#year').val(),
                 'semester' : $('#semester').val()
             };

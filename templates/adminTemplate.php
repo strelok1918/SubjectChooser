@@ -40,13 +40,37 @@
 	<li class="list-group-item" id = "subjectItem<%=id %>">
 		<span class = "subjectItemTitle"><%= title %></span>
 		<div class = "pull-right">
-			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/info.png" class = "subjectItemIcon">
 			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/edit.png" class = "subjectItemIcon" onclick = "location.href = '<?php echo Yii::app()->createAbsoluteUrl('admin/editSubject', array('id' => '')); ?><%= id %>'">
 			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/delete.png"onclick = "SubjectMenuPageProcessor.showDeleteModal(<%= id %>)" class = "subjectItemIcon">
 		</div>
 	</li>
 </script>
 
+<script type = "text/template" id = "statListItem">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><b><%= subject_title %></b><span class="pull-right badge"><%= count %></span></h3>
+	</div>
+	<ul class="list-group">
+		<%= groups %>
+	</ul>
+</div>
+</script>
+
+<script type = "text/template" id = "statGroupItem">
+	<div class="list-group-item">
+		<h4 class="list-group-item-heading"><%= title %><span class="pull-right badge"><%= count %></span></h4>
+		<p class="list-group-item-text">
+		<ol>
+			<%= student_list %>
+		</ol>
+		</p>
+	</div>
+</script>
+
+<script type = "text/template" id = "statUserItem">
+	<li><%= first_name %>  <%= second_name %>  (<%= semester %> семестр, <%= year %>)</li>
+</script>
 <div class="modal fade" id="deleteSubjectModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -65,3 +89,4 @@
 		</div>
 	</div>
 </div>
+

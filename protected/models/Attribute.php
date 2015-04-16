@@ -11,7 +11,7 @@ class Attribute extends AttributeType{
 	public function attributeList() {
 		$attributeList = array();
 		foreach($this->findAll() as $attribute) {
-			$attributeList[] = $attribute->attributes;
+			$attributeList[$attribute->id] = $attribute->attributes;
 		}
 		return $attributeList;
 	}

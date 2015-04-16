@@ -10,7 +10,7 @@ class Validator extends Validators{
 	public function validatorlist() {
 		$validatorlist = array();
 		foreach($this->findAll() as $validator) {
-			$validatorlist[] = $validator->attributes;
+			$validatorlist[$validator->id] = $validator->attributes;
 		}
 		return $validatorlist;
 	}

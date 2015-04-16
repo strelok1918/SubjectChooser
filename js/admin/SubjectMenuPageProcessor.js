@@ -32,8 +32,8 @@ var SubjectMenuPageProcessor = (function(){
                 if(subjectData.hasOwnProperty(key)) {
                     _subjectTitleMapping[key] = subjectData[key];
                     $('#subjectMenu').append(subjectItem({
-                        id : key,
-                        title : subjectData[key]
+                        id : subjectData[key].id,
+                        title : subjectData[key].title
                     }));
                 }
             }
