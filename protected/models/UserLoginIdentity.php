@@ -12,9 +12,14 @@ class UserLoginIdentity extends CUserIdentity
 		} else {
 			$this->errorCode = self::ERROR_NONE;
 			$this->_id = $record->id;
+//             echo "<pre>";
+//            print_r($record->role);
 			$this->setState('id', $record->id);
 			$this->setState('first_name', $record->first_name);
 			$this->setState('second_name', $record->second_name);
+            $this->setState('role', $record->role);
+
+//            Yii::app()->authManager->assign($record->role, $record->id);
 		}
 		return !$this->errorCode;
 	}

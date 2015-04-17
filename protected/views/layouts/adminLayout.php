@@ -52,14 +52,19 @@
 	});
 </script>
 <body>
-	<nav class="navbar navbar-default" style="border-radius: 0 !important;margin-bottom:5px;">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Marchenko Igor</a></li>
-				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("admin/logout"); ?>">Выход</a></li>
-			</ul>
-		</div>
-	</nav>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/subjectList"); ?>">Список предметов <span class="sr-only">(current)</span></a></li>
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/mySubjects"); ?>">Мои предметы</a></li>
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("admin/subjects"); ?>">Admin Panel</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/editInfo"); ?>"><b><?php echo Yii::app()->user->first_name . " " . Yii::app()->user->second_name; ?> </b></a></li>
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/logout"); ?>">Выход</a></li>
+            </ul>
+        </div>
+    </nav>
 	<div class = "row" style = "margin-right:0px !important;">
 		<div class = "col-md-2" style = "margin-left:5px; margin-right:-5px;">
 			<div class="list-group">

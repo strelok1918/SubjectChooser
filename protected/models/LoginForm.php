@@ -37,18 +37,19 @@ class LoginForm extends CFormModel
 			$identity->authenticate();
 			switch($identity->errorCode)
 			{
-				case UserIdentity::ERROR_NONE:
+				case CUserIdentity::ERROR_NONE:
 					$duration=$this->rememberMe ? 3600*24*30 : 0;
 
 					Yii::app()->user->login($identity, $duration);
 					break;
-				case UserIdentity::ERROR_USERNAME_INVALID:
+				case CUserIdentity::ERROR_USERNAME_INVALID:
 					$this->addError('username','Username is incorrect.');
 					break;
 				default: // UserIdentity::ERROR_PASSWORD_INVALID
 					$this->addError('password','Password is incorrect.');
 					break;
 			}
+
 		}
 		return $this->getErrors();
 	}

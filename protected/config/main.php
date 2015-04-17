@@ -37,6 +37,7 @@ return array(
 			'autoStart'=>true,
 		),
 		'user'=>array(
+//            'class' => 'WebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin' => 1,
 			'loginUrl' => array('user/login'),
@@ -64,8 +65,11 @@ return array(
 		'db'=>require(dirname(__FILE__).'/database.php'),
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',
+//            'class'=>'PhpAuthManager',
 			'connectionID'=>'db',
-		),
+//            'defaultRoles' => array('guest', 'admin', 'user'),
+        ),
+
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'user/error',

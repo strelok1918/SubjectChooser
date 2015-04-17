@@ -12,12 +12,30 @@ class AdminController extends Controller
 			'ajaxOnly +  saveSubject, deleteSubject, attributeList, saveAttribute, deleteAttribute, getDataTypeList, validatorList, getAttributeListInValidatorEditor, saveValidator, deleteValidator'
 		);
 	}
+    public function accessRules() {
+        return array(
+            array('allow',
+                'actions'=>array('subjects'),
+//                'users'=>array('@'),
+                'expression' => array('AdminController', 'allowOnlyAdmin'),
+            ),
+            array('deny',
+                'actions'=>array('subjects'),
+                'users'=>array('*'),
+            ),
 
+        );
+    }
+
+    public static function allowOnlyAdmin() {
+        return Yii::app()->user->role == "Admin";
+    }
 	public function actionIndex() {
 		$this->render('index');
 	}
 	public function actionSubjects() {
 //		echo (int)Yii::app()->user->isGuest;
+        echo (Yii::app()->user->role);
 		$this->render('subjectList', array('subjects' => json_encode(Subject::model()->subjectList())));
 	}
 	public function actionAttributes() {
@@ -212,21 +230,7 @@ class AdminController extends Controller
 				$this->render('error', $error);
 		}
 	}
-	public function accessRules() {
 
-		return array(
-			array('allow',
-				'actions'=>array('subjects'),
-				'users'=>array('@'),
-//				'roles' => array('Admin'),
-			),
-			array('deny',
-				'actions'=>array('subjects'),
-				'users'=>array('?'),
-			),
-
-		);
-	}
 	public function actionLogin()
 	{
 		$errors = array();
