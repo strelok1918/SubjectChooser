@@ -17,7 +17,7 @@ class UserController extends Controller
 			),
 			array('deny',
 				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose', 'editInfo', 'index'),
-				'users'=>array('?'),
+				'users'=>array('*'),
 			),
 
 		);

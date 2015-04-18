@@ -15,12 +15,12 @@ class AdminController extends Controller
     public function accessRules() {
         return array(
             array('allow',
-                'actions'=>array('subjects'),
+                'controllers'=>array('admin'),
 //                'users'=>array('@'),
                 'expression' => array('AdminController', 'allowOnlyAdmin'),
             ),
             array('deny',
-                'actions'=>array('subjects'),
+                'controllers'=>array('admin'),
                 'users'=>array('*'),
             ),
 
@@ -35,7 +35,7 @@ class AdminController extends Controller
 	}
 	public function actionSubjects() {
 //		echo (int)Yii::app()->user->isGuest;
-        echo (Yii::app()->user->role);
+//        echo (Yii::app()->user->role);
 		$this->render('subjectList', array('subjects' => json_encode(Subject::model()->subjectList())));
 	}
 	public function actionAttributes() {

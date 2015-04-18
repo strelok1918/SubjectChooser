@@ -12,10 +12,12 @@
 		$cs->registerScriptFile($baseUrl. '/plugins/jquery-ui/jquery-ui.min.js', CClientScript::POS_HEAD);
 		$cs->registerScriptFile($baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');
 		$cs->registerScriptFile($baseUrl.'/plugins/underscore/underscore.js', CClientScript::POS_HEAD);
+         $cs->registerScriptFile($baseUrl.'/plugins/select2/js/select2.min.js');
 
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.theme.min.css');
 		$cs->registerCssFile($baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');
+        $cs->registerCssFile($baseUrl. '/plugins/select2/css/select2.min.css');
 
 		$cs->registerScriptFile($baseUrl.'/js/common/AlertHandler.js');
 		$cs->registerScriptFile($baseUrl.'/js/user/AjaxController.js');
