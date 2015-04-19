@@ -46,7 +46,12 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/subjectList"); ?>">Список предметов <span class="sr-only">(current)</span></a></li>
 				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/mySubjects"); ?>">Мои предметы</a></li>
-				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("admin/subjects"); ?>">Admin Panel</a></li>
+                <?php
+                    if(Yii::app()->user->role == "Admin") {
+                        echo "<li><a href='". Yii::app()->createAbsoluteUrl('admin/subjects')."'>Admin Panel</a></li>";
+                    }
+
+                ?>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/editInfo"); ?>"><b><?php echo Yii::app()->user->first_name . " " . Yii::app()->user->second_name; ?> </b></a></li>
