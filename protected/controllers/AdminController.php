@@ -28,7 +28,7 @@ class AdminController extends Controller
     }
 
     public static function allowOnlyAdmin() {
-        return Yii::app()->user->role == "Admin";
+        return !(Yii::app()->user->isGuest) && Yii::app()->user->role == "Admin";
     }
 	public function actionIndex() {
 		$this->render('index');
@@ -72,20 +72,6 @@ class AdminController extends Controller
 		}
 		echo json_encode(array("Result" => "OK", "Options" => $result));
 	}
-
-	//roles
-	public function actionRolesList() {
-		$result = array();
-		foreach(UserRoles::model()->rolesList() as $key => $value) {
-			$result[] = array(
-				'Value' => $value['id'],
-				'DisplayText' => $value['title']
-			);
-		}
-		echo json_encode(array("Result" => "OK", "Options" => $result));
-	}
-
-
 	public function actionUserSubjectList() {
 		$userId = $_GET['userId'];
 		echo json_encode(array( "Result" => "OK",
@@ -215,8 +201,6 @@ class AdminController extends Controller
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
 
-
-
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -230,33 +214,4 @@ class AdminController extends Controller
 				$this->render('error', $error);
 		}
 	}
-
-	public function actionLogin()
-	{
-		$errors = array();
-		if(isset($_POST['loginData']))
-		{
-			$model = new LoginForm();
-			$model->attributes=$_POST['loginData'];
-
-			$model->validate();
-			$model->authenticate();
-			if(!sizeof($model->getErrors())) {
-				$this->redirect(Yii::app()->createAbsoluteUrl("admin/index"));
-			} else {
-				$errors = $model->getErrors();
-			}
-		}
-		$this->renderPartial('user/login', array('errors' => json_encode($errors)));
-	}
-//
-//	/**
-//	 * Logs out the current user and redirect to homepage.
-//	 */
-//	public function actionLogout()
-//	{
-//		Yii::app()->user->logout();
-//		$this->redirect(Yii::app()->homeUrl);
-//	}
-
 }

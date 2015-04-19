@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'Users':
  * @property integer $id
- * @property integer $role
+ * @property string $role
  * @property string $acquisition_year
  * @property string $login
  * @property string $mail
@@ -15,6 +15,7 @@
  * @property integer $group
  *
  * The followings are the available model relations:
+ * @property StudentsSubjects[] $studentsSubjects
  * @property Groups $group0
  */
 class Users extends CActiveRecord
@@ -35,7 +36,8 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role, group', 'numerical', 'integerOnly'=>true),
+			array('group', 'numerical', 'integerOnly'=>true),
+			array('role', 'length', 'max'=>5),
 			array('acquisition_year', 'length', 'max'=>4),
 			array('login, mail, password, first_name, second_name', 'length', 'max'=>50),
 			// The following rule is used by search().
@@ -52,6 +54,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'studentsSubjects' => array(self::HAS_MANY, 'StudentsSubjects', 'user_id'),
 			'groupRel' => array(self::BELONGS_TO, 'Groups', 'group'),
 		);
 	}
@@ -93,7 +96,7 @@ class Users extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('role',$this->role);
+		$criteria->compare('role',$this->role,true);
 		$criteria->compare('acquisition_year',$this->acquisition_year,true);
 		$criteria->compare('login',$this->login,true);
 		$criteria->compare('mail',$this->mail,true);

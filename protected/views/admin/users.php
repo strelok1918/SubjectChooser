@@ -66,7 +66,7 @@
 				},
 				role: {
 					title: 'Роль',
-					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/rolesList"); ?>'
+				    options : ['User', 'Admin']
 				},
 				first_name: {
 					title: 'Имя',
