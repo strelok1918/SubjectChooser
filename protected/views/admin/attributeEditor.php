@@ -22,7 +22,12 @@
 					title: 'Тип',
 					width: '20%',
 					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getDataTypeList"); ?>'
-				}
+                },
+                is_visible: {
+                    title: 'Видимый',
+                    width: '20%',
+                    options : {'0' : 'No', '1' : 'Yes'}
+                }
 			},
 			formClosed :  function() {
 				listContainer.jtable('reload');

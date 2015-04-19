@@ -11,8 +11,9 @@
 		<script>
 			$(document).ready(function(){
 				AlertHandler.init();
-				var errors = JSON.parse(<?php echo $errors;?>);
-				if(errors)
+				var errors = JSON.parse(<?php echo json_encode($errors);?>);
+                //console.log(errors);
+				if(errors.length)
 					AlertHandler.showAlert(errors);
 			});
 		</script>

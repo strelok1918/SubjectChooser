@@ -7,10 +7,11 @@
  * @property integer $id
  * @property string $title
  * @property string $type
+ * @property integer $is_visible
  *
  * The followings are the available model relations:
  * @property AttributeMapping[] $attributeMappings
- * @property AttributeMapping $id0
+ * @property Validators[] $validators
  */
 class AttributeType extends CActiveRecord
 {
@@ -30,10 +31,11 @@ class AttributeType extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('is_visible', 'numerical', 'integerOnly'=>true),
 			array('title, type', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, type', 'safe', 'on'=>'search'),
+			array('id, title, type, is_visible', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +48,7 @@ class AttributeType extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'attributeMappings' => array(self::HAS_MANY, 'AttributeMapping', 'attribute_type_id'),
+			'validators' => array(self::HAS_MANY, 'Validators', 'attribute_id'),
 		);
 	}
 
@@ -58,6 +61,7 @@ class AttributeType extends CActiveRecord
 			'id' => 'ID',
 			'title' => 'Title',
 			'type' => 'Type',
+			'is_visible' => 'Is Visible',
 		);
 	}
 
@@ -82,6 +86,7 @@ class AttributeType extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('type',$this->type,true);
+		$criteria->compare('is_visible',$this->is_visible);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

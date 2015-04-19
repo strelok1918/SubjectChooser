@@ -25,6 +25,7 @@ var AlertHandler = (function(){
             _compileTemplates();
         },
         showAlert : function(errors, successMessage) {
+
             _showAlert(errors, successMessage);
         }
     };

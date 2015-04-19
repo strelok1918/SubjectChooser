@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<label for="input<%= id %>" class="col-md-2 control-label"><%= title %></label>
 		<div class="col-md-10">
-			<input type="text" class="form-control" id="input<%= id %>" value = "<%= value %>">
+            <input type="text" class="form-control" id="input<%= id %>" value = "<%= value %>">
 		</div>
 	</div>
 </script>

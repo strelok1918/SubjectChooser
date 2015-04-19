@@ -21,7 +21,7 @@ class Subject extends Objects{
 		$data = $this->model()->with(array( 'attributeMappings',
 											'attributeMappings.attributeType',
 											'validatorMappings',
-											'validatorMappings.validator'))->findAll();
+											'validatorMappings.validator'))->findAll('is_visible = 1');
 		$result = array();
 		foreach((array)$data as $subject) {
 			$result[] = $this->linkSubjectItemData($subject);
@@ -34,7 +34,7 @@ class Subject extends Objects{
 														'object.attributeMappings',
 														'object.attributeMappings.attributeType',
 														'object.validatorMappings',
-														'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
+														'object.validatorMappings.validator'))->findAll('user_id = :userId AND is_visible = 1', array(':userId' => $userId));
 		$result = array();
 		foreach((array)$data as $subject) {
 			$subjectData = $this->linkSubjectItemData($subject->object);
@@ -175,6 +175,7 @@ class Subject extends Objects{
 						'value' => $attribute->value,
 						'attribute_id' => $attribute->id,
 						'title' => $attribute->attributeType->title,
+//                        'is_visible' => $attribute->attributeType->is_visible,
 						'attribute_type' => $attribute->attributeType->type,
 					);
 			}

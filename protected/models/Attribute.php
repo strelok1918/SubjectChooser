@@ -28,11 +28,12 @@ class Attribute extends AttributeType{
 	public function saveData($data) {
 		try {
 			if(isset($data['id'])) {
-				$this->updateByPk($data['id'], array('title' => $data['title'], 'type' => $data['type']));
+				$this->updateByPk($data['id'], array('title' => $data['title'], 'type' => $data['type'], 'is_visible' => $data['is_visible']));
 				$this->id = $data['id'];
 			} else {
 				$this->title = $data['title'];
 				$this->type = $data['type'];
+                $this->is_visible = $data['is_visible'];
 				$this->save();
 			}
 			$message = $this->getErrors();

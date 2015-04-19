@@ -14,7 +14,6 @@ var EditSubjectFormProcessor = (function(){
         var attributeData = AttributeProcessor.collectData();
         var validatorData = ValidatorProcessor.collectData();
         var customValidatorData = CustomValidatorProcessor.collectData();
-        console.log(customValidatorData);
         return {
             'attributes' : attributeData,
             'validators' : validatorData.data,
