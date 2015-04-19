@@ -26,60 +26,63 @@
 <script type = "text/template" id = "dismissButton">
 	<button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#deleteSubjectModal" onclick="ModalHandler.fillDismissModal(<%= id %>)">Отписаться</button>
 </script>
+<script type = "text/template" id = "disciplineChooseModalTemplate">
+    <div class="modal" id = "disciplineChooseModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Выбор предмета</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <input type = "hidden" id = "subjectId">
+                        <div class = "form-group">
+                            <label for = "year" class="col-md-3 control-label">Год обучения</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id = "year">
+                                    <option><?php echo date("Y"); ?></option>
+                                    <option><?php echo date("Y") + 1; ?></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class = "form-group">
+                            <label for = "year" class="col-md-3 control-label">Семестр</label>
+                            <div class="col-md-9">
+                                <select class="form-control" id = "semester">
+                                    <option value = "1">I</option>
+                                    <option value = "2">II</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-success" onclick="ChooseHandler.saveChoose()">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 
-<div class="modal" id = "disciplineChooseModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Выбор предмета</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal">
-					<input type = "hidden" id = "subjectId">
-					<div class = "form-group">
-						<label for = "year" class="col-md-3 control-label">Год обучения</label>
-						<div class="col-md-9">
-							<select class="form-control" id = "year">
-								<option><?php echo date("Y"); ?></option>
-								<option><?php echo date("Y") + 1; ?></option>
-							</select>
-						</div>
-					</div>
-					<div class = "form-group">
-						<label for = "year" class="col-md-3 control-label">Семестр</label>
-						<div class="col-md-9">
-							<select class="form-control" id = "semester">
-								<option value = "1">I</option>
-								<option value = "2">II</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-				<button type="button" class="btn btn-success" onclick="ChooseHandler.saveChoose()">Сохранить</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="deleteSubjectModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Отмена выбора дисциплины</h4>
-			</div>
-			<div class="modal-body">
-				<p>Отписаться от дисциплины?</p>
-			</div>
-			<div class="modal-footer">
-				<input type = "hidden" id = "chooseId">
-				<button type="button" class="btn btn-danger" onclick="ChooseHandler.dismissChoose($('#chooseId').val())">Отписаться</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-			</div>
-		</div>
-	</div>
-</div>
+<script type = "text/template" id = "deleteSubjectModalTemplate">
+    <div class="modal fade" id="deleteSubjectModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Отмена выбора дисциплины</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Отписаться от дисциплины?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type = "hidden" id = "chooseId">
+                    <button type="button" class="btn btn-danger" onclick="ChooseHandler.dismissChoose($('#chooseId').val())">Отписаться</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

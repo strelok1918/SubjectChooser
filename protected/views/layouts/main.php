@@ -36,6 +36,8 @@
 		$(document).ready(function(){
 			AlertHandler.init();
 			$('[href = "' + window.location.href + '"]').parent().addClass('active');
+            $('body').append($('#disciplineChooseModalTemplate').html());
+            $('body').append($('#deleteSubjectModalTemplate').html());
 		});
 	</script>
 </head>
