@@ -23,7 +23,9 @@
 		$cs->registerScriptFile($baseUrl.'/js/user/AjaxController.js');
 		$cs->registerScriptFile($baseUrl.'/js/user/Choosehandler.js');
 		$cs->registerScriptFile($baseUrl.'/js/user/ModalHandler.js');
+
 		$cs->registerScriptFile($baseUrl.'/js/user/SubjectListPageProcessor.js');
+        $cs->registerScriptFile($baseUrl.'/js/user/SubjectListFilter.js');
 
 		require_once($baseUrl . '/templates/userTemplate.php');
 		require_once($baseUrl . '/templates/commonTemplate.php');

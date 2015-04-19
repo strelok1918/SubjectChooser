@@ -2,16 +2,15 @@
 		var button;
 		$(document).ready(function(){
             AjaxController.init("<?php echo Yii::app()->createAbsoluteURL('user/saveChoose'); ?>", "<?php echo Yii::app()->createAbsoluteURL('user/dismissChoose'); ?>");
-            button = _.template($('#dismissButton').html());
-            SubjectListPageProcessor.init(<?php echo json_encode($subjects); ?>);
-            SubjectListPageProcessor.fillSubjectList(button);
+            SubjectListFilter.init(<?php echo json_encode($subjects); ?>);
+
             $("#yearFilter").select2();
-            $("#yearFilter").on("select2:select", function (e) { SubjectStatistics.selectYear(e.params.data.id); });
-            $("#yearFilter").on("select2:unselect", function (e) { SubjectStatistics.selectYear(e.params.data.id); });
+            $("#yearFilter").on("select2:select", function (e) { SubjectListFilter.selectYear(e.params.data.id); });
+            $("#yearFilter").on("select2:unselect", function (e) { SubjectListFilter.selectYear(e.params.data.id); });
 
             $("#subjectFilter").select2();
-            $("#subjectFilter").on("select2:select", function (e) { SubjectStatistics.selectSubject(e.params.data.id); });
-            $("#subjectFilter").on("select2:unselect", function (e) { SubjectStatistics.selectSubject(e.params.data.id); });
+            $("#subjectFilter").on("select2:select", function (e) { SubjectListFilter.selectSubject(e.params.data.id); });
+            $("#subjectFilter").on("select2:unselect", function (e) { SubjectListFilter.selectSubject(e.params.data.id); });
 	    });
 </script>
 <div class="panel panel-default">
@@ -45,7 +44,7 @@
 
             <div class = "form-group col-xs-12">
                 <div class ="pull-right" style = "padding-right: 15px;">
-                    <button type="button" class="btn btn-primary" onclick = "SubjectStatistics.filterSubjects()">Выбрать</button>
+                    <button type="button" class="btn btn-primary" onclick = "SubjectListFilter.filterSubjects()">Выбрать</button>
                 </div>
             </div>
         </form>

@@ -19,11 +19,11 @@ var SubjectListPageProcessor = (function(){
         return attributeData;
     };
     return {
-        init : function(subjectList){
-            _subjects = subjectList;
+        init : function(){
             compileTemplates();
         },
-        fillSubjectList : function(button) {
+        fillSubjectList : function(subjectList, button) {
+            _subjects = subjectList;
             $('#subjectList').empty();
             var data = "";
             for(var id in _subjects) {
