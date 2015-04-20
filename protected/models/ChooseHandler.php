@@ -2,17 +2,24 @@
 
 class ChooseHandler extends StudentsSubjects {
 	public function saveChoose($data, $userId) {
-		$choose = new StudentsSubjects();
-		$choose->user_id = $userId;
-		$choose->object_id = $data['object_id'];
-		$choose->year = $data['year'];
-		$choose->semester = $data['semester'];
-//		print_r($this);
-		try {
-			$choose->save();
-		} catch(CdbException $ex) {
-			$choose->addError('error', "Вы уже выбрали данный предмет на заданный период обучения.");
-		}
+        $choose = new StudentsSubjects();
+        $choose->user_id = $userId;
+        $choose->object_id = $data['object_id'];
+        $choose->year = $data['year'];
+        $choose->semester = $data['semester'];
+
+        if(isset($data['id'])) {
+            $choose->updateByPk($data['id'], array('user_id' => $data['student_id'],
+                                                    'object_id' => $data['object_id'],
+                                                    'semester' => $data['semester'],
+                                                    'year' => $data['year']));
+        } else {
+            try {
+                $choose->save();
+            } catch(CdbException $ex) {
+                $choose->addError('error', "Вы уже выбрали данный предмет на заданный период обучения.");
+            }
+        }
 		return array('data' => $choose->attributes, 'errors' => $choose->getErrors());
 	}
 

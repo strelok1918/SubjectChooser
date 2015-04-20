@@ -63,10 +63,6 @@
 				login: {
 					title: 'Логин'
 				},
-				role: {
-					title: 'Роль',
-				    options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'}
-				},
 				first_name: {
 					title: 'Имя'
 				},
@@ -84,6 +80,10 @@
 					title: 'Год поступления',
 					list: false
 				},
+                role: {
+                    title: 'Роль',
+                    options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'}
+                },
 				password: {
 					title :  'Изменить пароль',
 					list: false

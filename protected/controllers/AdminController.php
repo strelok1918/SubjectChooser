@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function accessRules() {
         return array(
             array('allow',
-                'actions'=>array('subjects', 'editSubject'),
+                'actions'=>array('subjects', 'editSubject','stat'),
                 'expression' => array('AdminController', 'allowAdminAndModerator'),
             ),
             array('allow',

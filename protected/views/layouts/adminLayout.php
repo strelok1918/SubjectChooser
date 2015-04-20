@@ -74,8 +74,8 @@
                     <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/validators'); ?>" class="list-group-item">Редактор валидаторов</a>
                     <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/users'); ?>" class="list-group-item">Редактор пользователей</a>
                     <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/groups'); ?>" class="list-group-item">Редактор групп</a>
-                    <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/stat'); ?>" class="list-group-item">Статистика</a>
                 <?php } ?>
+                <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/stat'); ?>" class="list-group-item">Статистика</a>
 			</div>
 		</div>
 		<div class = "col-md-10">
