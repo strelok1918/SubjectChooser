@@ -69,11 +69,13 @@
 		<div class = "col-md-2" style = "margin-left:5px; margin-right:-5px;">
 			<div class="list-group">
 				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/subjects'); ?>" class="list-group-item">Редактор дисциплин </a>
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/attributes'); ?>" class="list-group-item">Редактор атрибутов</a>
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/validators'); ?>" class="list-group-item">Редактор валидаторов</a>
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/users'); ?>" class="list-group-item">Редактор пользователей</a>
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/groups'); ?>" class="list-group-item">Редактор групп</a>
-				<a href="<?php echo Yii::app()->createAbsoluteUrl('admin/stat'); ?>" class="list-group-item">Статистика</a>
+				 <?php if(Yii::app()->user->role == "Admin") { ?>
+                    <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/attributes'); ?>" class="list-group-item">Редактор атрибутов</a>
+                    <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/validators'); ?>" class="list-group-item">Редактор валидаторов</a>
+                    <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/users'); ?>" class="list-group-item">Редактор пользователей</a>
+                    <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/groups'); ?>" class="list-group-item">Редактор групп</a>
+                    <a href="<?php echo Yii::app()->createAbsoluteUrl('admin/stat'); ?>" class="list-group-item">Статистика</a>
+                <?php } ?>
 			</div>
 		</div>
 		<div class = "col-md-10">

@@ -15,19 +15,25 @@ class AdminController extends Controller
     public function accessRules() {
         return array(
             array('allow',
+                'actions'=>array('subjects', 'editSubject'),
+                'expression' => array('AdminController', 'allowAdminAndModerator'),
+            ),
+            array('allow',
                 'controllers'=>array('admin'),
-//                'users'=>array('@'),
                 'expression' => array('AdminController', 'allowOnlyAdmin'),
             ),
             array('deny',
                 'controllers'=>array('admin'),
                 'users'=>array('*'),
             ),
-
         );
     }
 
     public static function allowOnlyAdmin() {
+        return !(Yii::app()->user->isGuest) && (Yii::app()->user->role == "Admin");
+    }
+
+    public static function allowAdminAndModerator() {
         return !(Yii::app()->user->isGuest) && (Yii::app()->user->role == "Admin" || Yii::app()->user->role == "Moderator");
     }
 	public function actionIndex() {

@@ -43,39 +43,38 @@
 											options : '<?php echo Yii::app()->createAbsoluteUrl("admin/fullSubjectList"); ?>'
 										},
 										year: {
-											title: 'Год',
+											title: 'Год'
 										},
 										semester: {
 											title: 'Семестр',
-											options : ['1', '2'],
+											options : ['1', '2']
 										},
 										student_id: {
-											type: 'hidden',
+											type: 'hidden'
 										}
 									}
 								}, function (data) { //opened handler
 									data.childTable.jtable('load');
 								});
 						});
-						//Return image to show on the person row
 						return $img;
 					}
 				},
 				login: {
-					title: 'Логин',
+					title: 'Логин'
 				},
 				role: {
 					title: 'Роль',
 				    options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'}
 				},
 				first_name: {
-					title: 'Имя',
+					title: 'Имя'
 				},
 				second_name: {
-					title: 'Фамилия',
+					title: 'Фамилия'
 				},
 				mail: {
-					title: 'E-Mail',
+					title: 'E-Mail'
 				},
 				group: {
 					title: 'Группа',
