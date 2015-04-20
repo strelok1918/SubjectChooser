@@ -6,6 +6,9 @@
  * The followings are the available columns in table 'Groups':
  * @property integer $id
  * @property string $title
+ *
+ * The followings are the available model relations:
+ * @property Users[] $users
  */
 class Groups extends CActiveRecord
 {
@@ -25,7 +28,6 @@ class Groups extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -41,6 +43,7 @@ class Groups extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'users' => array(self::HAS_MANY, 'Users', 'group'),
 		);
 	}
 

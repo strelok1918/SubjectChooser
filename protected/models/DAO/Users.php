@@ -15,6 +15,7 @@
  * @property integer $group
  *
  * The followings are the available model relations:
+ * @property Objects[] $objects
  * @property StudentsSubjects[] $studentsSubjects
  * @property Groups $group0
  */
@@ -54,6 +55,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'objects' => array(self::HAS_MANY, 'Objects', 'owner'),
 			'studentsSubjects' => array(self::HAS_MANY, 'StudentsSubjects', 'user_id'),
 			'groupRel' => array(self::BELONGS_TO, 'Groups', 'group'),
 		);
