@@ -28,7 +28,7 @@ class AdminController extends Controller
     }
 
     public static function allowOnlyAdmin() {
-        return !(Yii::app()->user->isGuest) && Yii::app()->user->role == "Admin";
+        return !(Yii::app()->user->isGuest) && (Yii::app()->user->role == "Admin" || Yii::app()->user->role == "Moderator");
     }
 	public function actionIndex() {
 		$this->render('index');
@@ -36,7 +36,7 @@ class AdminController extends Controller
 	public function actionSubjects() {
 //		echo (int)Yii::app()->user->isGuest;
 //        echo (Yii::app()->user->role);
-		$this->render('subjectList', array('subjects' => json_encode(Subject::model()->subjectList())));
+		$this->render('subjectList', array('subjects' => json_encode(Subject::model()->subjectList(true))));
 	}
 	public function actionAttributes() {
 		$this->render('attributeEditor');

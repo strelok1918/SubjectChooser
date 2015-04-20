@@ -49,7 +49,7 @@
 				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/subjectList"); ?>">Список предметов <span class="sr-only">(current)</span></a></li>
 				<li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/mySubjects"); ?>">Мои предметы</a></li>
                 <?php
-                    if(Yii::app()->user->role == "Admin") {
+                    if(Yii::app()->user->role == "Admin" || Yii::app()->user->role == "Moderator") {
                         echo "<li><a href='". Yii::app()->createAbsoluteUrl('admin/subjects')."'>Admin Panel</a></li>";
                     }
 

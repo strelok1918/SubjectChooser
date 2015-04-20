@@ -17,11 +17,17 @@ class Subject extends Objects{
 	}
 
 	//list for user/subjectList
-	public function subjectList() {
+	public function subjectList($fromAdmin = false) {
+        $addExpr = "";
+        if($fromAdmin) {
+            if(Yii::app()->user->role == "Moderator") {
+                $addExpr = " AND owner = :user_id";
+            }
+        }
 		$data = $this->model()->with(array( 'attributeMappings',
 											'attributeMappings.attributeType',
 											'validatorMappings',
-											'validatorMappings.validator'))->findAll('is_visible = 1');
+											'validatorMappings.validator'))->findAll('is_visible = 1' . $addExpr, array(":user_id" => Yii::app()->user->id));
 		$result = array();
 		foreach((array)$data as $subject) {
 			$result[] = $this->linkSubjectItemData($subject);

@@ -66,7 +66,7 @@
 				},
 				role: {
 					title: 'Роль',
-				    options : ['User', 'Admin']
+				    options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'}
 				},
 				first_name: {
 					title: 'Имя',

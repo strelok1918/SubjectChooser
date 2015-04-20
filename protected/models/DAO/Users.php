@@ -38,7 +38,7 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('group', 'numerical', 'integerOnly'=>true),
-			array('role', 'length', 'max'=>5),
+			array('role', 'length', 'max'=>9),
 			array('acquisition_year', 'length', 'max'=>4),
 			array('login, mail, password, first_name, second_name', 'length', 'max'=>50),
 			// The following rule is used by search().
