@@ -81,6 +81,7 @@ class Subject extends Objects{
 		return array(
 			'id' => $subjectId,
 			'title' => $data->title,
+            'owner' => $data->owner,
 			'attributes' => $attributes,
 			'validators' => $this->validatorList($data->validatorMappings, $attributes),
 			'customValidators' => $this->customValidatorList($subjectId),
@@ -88,7 +89,7 @@ class Subject extends Objects{
 	}
 
 	public function saveData($objectId, $data) {
-		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value']);
+		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value'], $data['owner']);
 
 		array_shift($data['attributes']);
 		foreach((array)$data['attributes'] as $attribute) {
@@ -117,12 +118,13 @@ class Subject extends Objects{
 	}
 
 
-	private function saveObject(&$objectId, $title) {
+	private function saveObject(&$objectId, $title, $owner = null) {
 		if($objectId != 'new') {
-			$this->model()->updateByPk($objectId, array('title' => $title));
+			$this->model()->updateByPk($objectId, array('title' => $title, 'owner' => $owner));
 		} else {
 			$subject = new Objects();
 			$subject->title = $title;
+//            $subject->owner = Yii::app()->user->id;
 			$subject->save();
 			$objectId = $subject->id;
 		}

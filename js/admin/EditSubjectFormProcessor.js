@@ -5,7 +5,11 @@ var EditSubjectFormProcessor = (function(){
     var _fillData = function(data) {
         data.attributes[0] = {'title' : 'Название',
                               'value' : data.title};
+        if(data.owner) {
+            $('#owner').val(data.owner);
+        }
 
+        //console.log(data);
         $('#attributes').prepend(AttributeProcessor.fillData(data.attributes));
         $('#validators').prepend(ValidatorProcessor.fillData(data.validators));
         $('#customValidators').prepend(CustomValidatorProcessor.fillData(data.customValidators));
@@ -15,6 +19,7 @@ var EditSubjectFormProcessor = (function(){
         var validatorData = ValidatorProcessor.collectData();
         var customValidatorData = CustomValidatorProcessor.collectData();
         return {
+            'owner' : $('#owner').val(),
             'attributes' : attributeData,
             'validators' : validatorData.data,
             'customValidators' : customValidatorData.data,

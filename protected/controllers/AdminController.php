@@ -48,7 +48,7 @@ class AdminController extends Controller
 		$this->render('attributeEditor');
 	}
 	public function actionEditSubject() {
-		$this->render('editSubject', array('subjectData' => json_encode(Subject::model()->subjectInfo($_GET['id']))));
+		$this->render('editSubject', array('subjectData' => json_encode(Subject::model()->subjectInfo($_GET['id'])), 'userList' => UserData::model()->userList()));
 	}
 	public function actionValidators() {
 		$this->render('validatorEditor');

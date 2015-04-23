@@ -85,7 +85,7 @@
                     options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'}
                 },
 				password: {
-					title :  'Изменить пароль',
+					title : 'Пароль',
 					list: false
 				}
 			},

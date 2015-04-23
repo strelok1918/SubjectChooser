@@ -12,7 +12,7 @@ class UserData extends Users{
 		return $this->generateUserData($data);
 	}
 	public function userList(){
-		$retult = array();
+		$result = array();
 		foreach($this->findAll() as $user) {
 			$result[] = $this->generateUserData($user);
 		}

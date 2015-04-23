@@ -2,16 +2,31 @@
 
 <script>
 	$(document).ready(function(){
+
+        $('#owner').val('<?php echo Yii::app()->user->id; ?>');
 		EditSubjectFormProcessor.init();
 		EditSubjectFormProcessor.setSubjectId('<?php echo $_GET['id']; ?>');
 		EditSubjectFormProcessor.setSubjectListPage("<?php echo Yii::app()->createAbsoluteURL('admin/subjects'); ?>");
 		EditSubjectFormProcessor.fillData(<?php echo $subjectData; ?>);
+        $("#owner").select2();
 	});
 </script>
 
-
 <form class="form-horizontal" id = "subjectInfoForm">
 	<div id = "attributes"></div>
+    <div class="form-group">
+        <label for="owner" class="col-md-2 control-label">Владелец</label>
+        <div class="col-md-10">
+            <select class="form-control" id = "owner">
+                <?php
+                    foreach($userList as $user) {
+                        if($user['role'] == 'Admin' || $user['role'] == 'Moderator')
+                            echo "<option value = '" . $user['id'] . "'>" . $user['first_name']. " " . $user['second_name'] . "</option>";
+                    }
+                ?>
+            </select>
+        </div>
+    </div>
 	<div>
 		<div class="panel panel-default">
 			<div class="panel-heading">Валидаторы</div>
