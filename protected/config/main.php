@@ -50,6 +50,7 @@ return array(
 			'showScriptName' => false,
 			'rules'=>array(
 				'gii'=>'gii',
+                'register' => 'user/register',
 				'gii/<controller:\w+>'=>'gii/<controller>',
 				'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
