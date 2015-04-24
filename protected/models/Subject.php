@@ -18,16 +18,18 @@ class Subject extends Objects{
 
 	//list for user/subjectList
 	public function subjectList($fromAdmin = false) {
-        $addExpr = "";
-        if($fromAdmin) {
-            if(Yii::app()->user->role == "Moderator") {
-                $addExpr = " AND owner = :user_id";
-            }
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('is_visible = 1');
+
+        if($fromAdmin && Yii::app()->user->role == "Moderator") {
+               $criteria->addInCondition('owner_id', array(Yii::app()->user->id));
         }
+
 		$data = $this->model()->with(array( 'attributeMappings',
 											'attributeMappings.attributeType',
+                                            'objectOwners',
 											'validatorMappings',
-											'validatorMappings.validator'))->findAll('is_visible = 1' . $addExpr, array(":user_id" => Yii::app()->user->id));
+											'validatorMappings.validator'))->findAll($criteria);
 		$result = array();
 		foreach((array)$data as $subject) {
 			$result[] = $this->linkSubjectItemData($subject);
@@ -76,12 +78,17 @@ class Subject extends Objects{
 	}
 
 	public function subjectInfo($subjectId) {
-		$data = $this->model()->with(array('attributeMappings','attributeMappings.attributeType', 'validatorMappings', 'validatorMappings.validator'))->findByPk($subjectId);
+		$data = $this->model()->with(array( 'attributeMappings',
+                                            'attributeMappings.attributeType',
+                                            'validatorMappings',
+                                            'validatorMappings.validator',
+                                            'objectOwners'))->findByPk($subjectId);
 		$attributes = $this->getAtrributeList($data->attributeMappings);
+
 		return array(
 			'id' => $subjectId,
 			'title' => $data->title,
-            'owner' => $data->owner,
+            'owner' => $this->ownerList($data->objectOwners),
 			'attributes' => $attributes,
 			'validators' => $this->validatorList($data->validatorMappings, $attributes),
 			'customValidators' => $this->customValidatorList($subjectId),
@@ -89,9 +96,15 @@ class Subject extends Objects{
 	}
 
 	public function saveData($objectId, $data) {
-		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value'], $data['owner']);
+		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value']);
 
-		array_shift($data['attributes']);
+
+        ObjectOwners::model()->deleteAll("object_id = :object_id", array(':object_id' => $objectId));
+        foreach((array)$data['owner'] as $owner) {
+            $errorList = array_merge($errorList, $this->saveOwner($objectId, $owner));
+        }
+
+        array_shift($data['attributes']);
 		foreach((array)$data['attributes'] as $attribute) {
 			$errorList = array_merge($errorList, $this->saveAttribute($objectId, $attribute));
 		}
@@ -118,18 +131,24 @@ class Subject extends Objects{
 	}
 
 
-	private function saveObject(&$objectId, $title, $owner = null) {
+	private function saveObject(&$objectId, $title) {
 		if($objectId != 'new') {
-			$this->model()->updateByPk($objectId, array('title' => $title, 'owner' => $owner));
+			$this->model()->updateByPk($objectId, array('title' => $title));
 		} else {
 			$subject = new Objects();
 			$subject->title = $title;
-//            $subject->owner = Yii::app()->user->id;
 			$subject->save();
 			$objectId = $subject->id;
 		}
 		return $this->getErrors();
 	}
+    private function saveOwner($objectId, $ownerId) {
+        $mapping = new ObjectOwners();
+        $mapping->object_id = $objectId;
+        $mapping->owner_id = $ownerId;
+        $mapping->save();
+        return $mapping->getErrors();
+    }
 
 	private function saveAttribute($objectId, $attributeData) {
 		if(empty($attributeData['value'])) return array();
@@ -173,6 +192,14 @@ class Subject extends Objects{
 			return $validatorObject->getErrors();
 		}
 	}
+
+    private function ownerList($data) {
+        $result = array();
+        foreach($data as $owner) {
+            $result[] = $owner['owner_id'];
+        }
+        return $result;
+    }
 	private function getAtrributeList($attributes) {
 		$attributeData = Attribute::model()->attributeList();
 

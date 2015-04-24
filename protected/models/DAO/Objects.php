@@ -6,12 +6,11 @@
  * The followings are the available columns in table 'Objects':
  * @property integer $id
  * @property string $title
- * @property integer $owner
  *
  * The followings are the available model relations:
  * @property AttributeMapping[] $attributeMappings
  * @property CustomValidators[] $customValidators
- * @property Users $owner0
+ * @property ObjectOwners[] $objectOwners
  * @property StudentsSubjects[] $studentsSubjects
  * @property ValidatorMapping[] $validatorMappings
  */
@@ -33,11 +32,10 @@ class Objects extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('owner', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, owner', 'safe', 'on'=>'search'),
+			array('id, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +49,7 @@ class Objects extends CActiveRecord
 		return array(
 			'attributeMappings' => array(self::HAS_MANY, 'AttributeMapping', 'object_id'),
 			'customValidators' => array(self::HAS_MANY, 'CustomValidators', 'object_id'),
-			'owner0' => array(self::BELONGS_TO, 'Users', 'owner'),
+			'objectOwners' => array(self::HAS_MANY, 'ObjectOwners', 'object_id'),
 			'studentsSubjects' => array(self::HAS_MANY, 'StudentsSubjects', 'object_id'),
 			'validatorMappings' => array(self::HAS_MANY, 'ValidatorMapping', 'object_id'),
 		);
@@ -65,7 +63,6 @@ class Objects extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
-			'owner' => 'Owner',
 		);
 	}
 
@@ -89,7 +86,6 @@ class Objects extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
-		$criteria->compare('owner',$this->owner);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -3,11 +3,15 @@
 <script>
 	$(document).ready(function(){
 
-        $('#owner').val('<?php echo Yii::app()->user->id; ?>');
+
 		EditSubjectFormProcessor.init();
 		EditSubjectFormProcessor.setSubjectId('<?php echo $_GET['id']; ?>');
 		EditSubjectFormProcessor.setSubjectListPage("<?php echo Yii::app()->createAbsoluteURL('admin/subjects'); ?>");
 		EditSubjectFormProcessor.fillData(<?php echo $subjectData; ?>);
+        if(EditSubjectFormProcessor.getSubjectId() == 'new') {
+            $('#owner').val(['<?php echo Yii::app()->user->id; ?>']);
+        }
+
         $("#owner").select2();
 	});
 </script>
@@ -17,7 +21,7 @@
     <div class="form-group">
         <label for="owner" class="col-md-2 control-label">Владелец</label>
         <div class="col-md-10">
-            <select class="form-control" id = "owner">
+            <select class="form-control" id = "owner" multiple>
                 <?php
                     foreach($userList as $user) {
                         if($user['role'] == 'Admin' || $user['role'] == 'Moderator')

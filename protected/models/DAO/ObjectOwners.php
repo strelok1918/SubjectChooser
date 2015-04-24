@@ -1,32 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "Users".
+ * This is the model class for table "ObjectOwners".
  *
- * The followings are the available columns in table 'Users':
+ * The followings are the available columns in table 'ObjectOwners':
  * @property integer $id
- * @property string $role
- * @property string $acquisition_year
- * @property string $login
- * @property string $mail
- * @property string $password
- * @property string $first_name
- * @property string $second_name
- * @property integer $group
+ * @property integer $object_id
+ * @property integer $owner_id
  *
  * The followings are the available model relations:
- * @property ObjectOwners[] $objectOwners
- * @property StudentsSubjects[] $studentsSubjects
- * @property Groups $group0
+ * @property Objects $object
+ * @property Users $owner
  */
-class Users extends CActiveRecord
+class ObjectOwners extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'Users';
+		return 'ObjectOwners';
 	}
 
 	/**
@@ -37,13 +30,10 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('group', 'numerical', 'integerOnly'=>true),
-			array('role', 'length', 'max'=>9),
-			array('acquisition_year', 'length', 'max'=>4),
-			array('login, mail, password, first_name, second_name', 'length', 'max'=>50),
+			array('object_id, owner_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, role, acquisition_year, login, mail, password, first_name, second_name, group', 'safe', 'on'=>'search'),
+			array('id, object_id, owner_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,9 +45,8 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'objectOwners' => array(self::HAS_MANY, 'ObjectOwners', 'owner_id'),
-			'studentsSubjects' => array(self::HAS_MANY, 'StudentsSubjects', 'user_id'),
-			'groupRel' => array(self::BELONGS_TO, 'Groups', 'group'),
+			'object' => array(self::BELONGS_TO, 'Objects', 'object_id'),
+			'owner' => array(self::BELONGS_TO, 'Users', 'owner_id'),
 		);
 	}
 
@@ -68,14 +57,8 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'role' => 'Role',
-			'acquisition_year' => 'Acquisition Year',
-			'login' => 'Login',
-			'mail' => 'Mail',
-			'password' => 'Password',
-			'first_name' => 'First Name',
-			'second_name' => 'Second Name',
-			'group' => 'Group',
+			'object_id' => 'Object',
+			'owner_id' => 'Owner',
 		);
 	}
 
@@ -98,14 +81,8 @@ class Users extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('role',$this->role,true);
-		$criteria->compare('acquisition_year',$this->acquisition_year,true);
-		$criteria->compare('login',$this->login,true);
-		$criteria->compare('mail',$this->mail,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('first_name',$this->first_name,true);
-		$criteria->compare('second_name',$this->second_name,true);
-		$criteria->compare('group',$this->group);
+		$criteria->compare('object_id',$this->object_id);
+		$criteria->compare('owner_id',$this->owner_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -116,7 +93,7 @@ class Users extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return ObjectOwners the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

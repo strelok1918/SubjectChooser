@@ -43,6 +43,9 @@ var EditSubjectFormProcessor = (function(){
         setSubjectId : function(id) {
             _subjectId = id;
         },
+        getSubjectId : function(){
+            return _subjectId;
+        },
         saveForm : function() {
             AjaxController.saveSubject(_subjectId, _collectData()).done(function(responce) {
                 var data = JSON.parse(responce);

@@ -27,6 +27,7 @@ var SubjectMenuPageProcessor = (function(){
             });
         },
         fillData : function(subjectData) {
+            //console.log(subjectData);
             var subjectItem = _.template($('#subjectListItem').html());
             for(var key in subjectData) {
                 if(subjectData.hasOwnProperty(key)) {
