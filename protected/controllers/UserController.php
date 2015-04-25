@@ -24,9 +24,9 @@ class UserController extends Controller
 	}
     public function actionRegister() {
         $errors = array();
-        if(isset($_POST['info'])) {
-            $_POST['info']['role'] = "User";
-            $errors = UserData::model()->saveNewUser($_POST['info']);
+        if(isset($_POST)) {
+            $_POST['role'] = "User";
+            $errors = UserData::model()->saveNewUser($_POST);
         }
         $this->layout = 'register';
         $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList()));

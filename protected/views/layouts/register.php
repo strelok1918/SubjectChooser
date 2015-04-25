@@ -11,15 +11,24 @@
         $cs->registerScriptFile($baseUrl.'/plugins/bootstrap/js/bootstrap.min.js');
         $cs->registerScriptFile($baseUrl.'/plugins/underscore/underscore.js', CClientScript::POS_HEAD);
         $cs->registerScriptFile($baseUrl.'/plugins/select2/js/select2.min.js');
+        $cs->registerScriptFile($baseUrl. '/plugins/validation/jquery.validate.min.js');
+        $cs->registerScriptFile($baseUrl. '/plugins/validation/localization/messages_ru.js');
 
         $cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.min.css');
         $cs->registerCssFile($baseUrl.'/plugins/jquery-ui/jquery-ui.theme.min.css');
         $cs->registerCssFile($baseUrl.'/plugins/bootstrap/css/bootstrap.min.css');
         $cs->registerCssFile($baseUrl. '/plugins/select2/css/select2.min.css');
+
         ?>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
-        <?php echo $content; ?>
+        <br>
+        <div class="panel panel-default col-md-10 col-md-offset-1">
+            <div class="panel-body">
+                <?php echo $content; ?>
+            </div>
+        </div>
+
     </body>
 </html>

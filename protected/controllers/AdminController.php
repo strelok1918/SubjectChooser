@@ -201,12 +201,16 @@ class AdminController extends Controller
 		if(empty($errors)) echo json_encode(array ("Result" => "OK", "Record" => $validator->attributes));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
 	}
-	public function actionDeleteValidator() {
-		$errors = Validator::model()->drop($_POST['id']);
+	public function actionDeleteUser() {
+		UserData::model()->deleteUser($_POST['id']);
 		if(empty($errors)) echo json_encode(array ("Result" => "OK"));
 		else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
-
+    public function actionDeleteValidator() {
+        $errors = Validator::model()->drop($_POST['id']);
+        if(empty($errors)) echo json_encode(array ("Result" => "OK"));
+        else echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
+    }
 	/**
 	 * This is the action to handle external exceptions.
 	 */

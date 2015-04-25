@@ -53,11 +53,15 @@ class UserData extends Users{
 	}
 
 	public function saveNewUser($data) {
+        print_r($data);
 		$users = new Users();
 		$users->attributes = $data;
 		$users->save();
 		return $users->getErrors();
 	}
+    public function deleteUser($userId) {
+        return Users::model()->deleteByPk($userId);
+    }
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
