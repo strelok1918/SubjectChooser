@@ -3,6 +3,7 @@
 		var listContainer = $('#attributeListContainer');
 		listContainer.jtable({
 			title: 'Список пользователей',
+            sorting: true,
 			actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/userList"); ?>',
 				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveUserData"); ?>',
