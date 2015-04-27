@@ -44,7 +44,13 @@ class UserData extends Users{
 	private function saveExistUser($id, $data, $isAdmin) {
 		$users = Users::model()->findByPk($id);
 		$users->attributes = $data;
-		$users->save();
+
+        try {
+            $users->save();
+        } catch(CDbException $e) {
+            return array("Invalid data.");
+        }
+
 		if(!$isAdmin && !$users->hasErrors()) {
 			Yii::app()->user->setState('first_name', $users->first_name);
 			Yii::app()->user->setState('second_name', $users->second_name);
@@ -56,7 +62,11 @@ class UserData extends Users{
 //        print_r($data);
 		$users = new Users();
 		$users->attributes = $data;
-		$users->save();
+        try {
+            $users->save();
+        } catch(CDbException $e) {
+            return array("Invalid data.");
+        }
 		return $users->getErrors();
 	}
     public function deleteUser($userId) {

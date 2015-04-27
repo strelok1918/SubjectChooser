@@ -1,9 +1,3 @@
-<?php
-    if(isset($errors) && !empty($errors)) {
-        print_r($errors);
-    }
-
-?>
 <script>
     $(document).ready(function(){
         var groupData = <?php echo json_encode($groups); ?>;
@@ -89,11 +83,11 @@
 
         });
         var userData = <?php  echo json_encode($userData); ?>;
-
-        if(!jQuery.isEmptyObject(userData)) {
+        var errors = <?php echo json_encode($errors);?>;
+        if(!jQuery.isEmptyObject(userData) || !jQuery.isEmptyObject(errors)) {
 
             fillForm(userData);
-            var errors = JSON.parse("<?php echo json_encode($errors);?>");
+
             AlertHandler.init();
             AlertHandler.showAlert(errors, "Пользователь успешно зарегистрирован.");
         }
