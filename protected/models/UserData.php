@@ -53,7 +53,7 @@ class UserData extends Users{
 	}
 
 	public function saveNewUser($data) {
-        print_r($data);
+//        print_r($data);
 		$users = new Users();
 		$users->attributes = $data;
 		$users->save();

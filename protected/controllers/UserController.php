@@ -24,12 +24,31 @@ class UserController extends Controller
 	}
     public function actionRegister() {
         $errors = array();
-        if(isset($_POST)) {
+        $data = array();
+        if(isset($_POST['login'])) {
             $_POST['role'] = "User";
             $errors = UserData::model()->saveNewUser($_POST);
+            $data = $_POST;
         }
         $this->layout = 'register';
-        $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList()));
+        $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList(), 'userData' => $data));
+    }
+    public function actionCheckUser() {
+        $count = Users::model()->countByAttributes(array('login'=> $_GET['login']));
+        if($count > 0) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
+
+    public function actionCheckMail() {
+        $count = Users::model()->countByAttributes(array('mail'=> $_GET['mail']));
+        if($count > 0) {
+            echo "false";
+        } else {
+            echo "true";
+        }
     }
 	public function actionIndex() {
 		$this->actionSubjectList();
@@ -67,7 +86,7 @@ class UserController extends Controller
 			if(Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
-				$this->render('error', $error);
+				$this->renderPartial('error', $error);
 		}
 	}
 	public function actionLogin()
@@ -86,7 +105,8 @@ class UserController extends Controller
 				$errors = $model->getErrors();
 			}
 		}
-		$this->renderPartial('login', array('errors' => json_encode($errors)));
+        $this->layout = 'register';
+		$this->render('login', array('errors' => json_encode($errors)));
 	}
 
 	public function actionLogout()

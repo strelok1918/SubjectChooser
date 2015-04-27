@@ -51,6 +51,7 @@ return array(
 			'rules'=>array(
 				'gii'=>'gii',
                 'register' => 'user/register',
+                'login' => 'user/login',
 				'gii/<controller:\w+>'=>'gii/<controller>',
 				'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
@@ -62,7 +63,17 @@ return array(
 		),
 
 
-		// database settings are configured in database.php
+
+        'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
+                    array(
+                        'class'=>'CFileLogRoute',
+                        'categories'=>'system.db.*',
+                        'logFile'=>'sql.log',
+                    ),
+                ),
+            ),
 		'db'=>require(dirname(__FILE__).'/database.php'),
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',

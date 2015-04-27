@@ -1,5 +1,5 @@
 var AlertHandler = (function(){
-    var _succesAlertTemaplte;
+    var _succesAlertTemplate;
     var _errorAlertTemplate;
 
     var _compileTemplates = function() {
