@@ -83,8 +83,13 @@ class AdminController extends Controller
 		echo json_encode(array( "Result" => "OK",
 			"Records" => Subject::model()->simplifiedSubjectList($userId)));
 	}
+    public function actionFullSubjectList() {
+        $sorting = $_GET['jtSorting'];
+        echo json_encode(array( "Result" => "OK",
+                                "Records" => Subject::model()->subjectList(true, $sorting)));
+    }
 
-	public function actionFullSubjectList() {
+	public function actionSubjectListOptions() {
 		$result = array();
 		foreach(Subject::model()->subjectList() as $key => $value) {
 			$result[] = array(
@@ -122,8 +127,9 @@ class AdminController extends Controller
 	}
 
 	public function actionUserList() {
+        $sorting = $_GET['jtSorting'];
 		echo json_encode(array( "Result" => "OK",
-			"Records" => UserData::model()->userList()));
+			"Records" => UserData::model()->userList($sorting)));
 	}
 	public function actionDeleteGroup() {
 		$errors = UserGroups::model()->dropGroupItem($_POST['id']);
@@ -152,7 +158,11 @@ class AdminController extends Controller
 		echo json_encode(array('errors' => $errors, 'subjectData' => $subjectInfo));
 	}
 	public function actionDeleteSubject() {
-		echo json_encode(Subject::model()->dropSubject($_GET['id']));
+		$errors = Subject::model()->dropSubject($_POST['id']);
+        if(empty($errors))
+            echo json_encode(array ("Result" => "OK"));
+        else
+            echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно удалить запись."));
 	}
 
 	public function actionAttributeList() {

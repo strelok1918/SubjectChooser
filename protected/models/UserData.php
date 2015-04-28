@@ -11,9 +11,9 @@ class UserData extends Users{
 		$data = $this->findByPk(Yii::app()->user->id);
 		return $this->generateUserData($data);
 	}
-	public function userList(){
+	public function userList($sorting){
 		$result = array();
-		foreach($this->findAll() as $user) {
+		foreach($this->findAll(array('order' => $sorting)) as $user) {
 			$result[] = $this->generateUserData($user);
 		}
 		return $result;

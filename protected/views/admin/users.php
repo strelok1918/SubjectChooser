@@ -4,7 +4,8 @@
 		listContainer.jtable({
 			title: 'Список пользователей',
             sorting: true,
-			actions: {
+
+            actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/userList"); ?>',
 				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveUserData"); ?>',
 				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveUserData"); ?>',
@@ -41,7 +42,7 @@
 										},
 										object_id: {
 											title: 'Название предмета',
-											options : '<?php echo Yii::app()->createAbsoluteUrl("admin/fullSubjectList"); ?>'
+											options : '<?php echo Yii::app()->createAbsoluteUrl("admin/subjectListOptions"); ?>'
 										},
 										year: {
 											title: 'Год'
@@ -75,7 +76,8 @@
 				},
 				group: {
 					title: 'Группа',
-					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getGroupList"); ?>'
+					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getGroupList"); ?>',
+                    sorting: false
 				},
 				acquisition_year: {
 					title: 'Год поступления',
@@ -83,7 +85,8 @@
 				},
                 role: {
                     title: 'Роль',
-                    options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'}
+                    options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'},
+                    sorting: false
                 },
 				password: {
 					title : 'Пароль',

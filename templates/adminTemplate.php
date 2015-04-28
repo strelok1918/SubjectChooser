@@ -36,16 +36,6 @@
 	</div>
 </script>
 
-<script type = "text/template" id = "subjectListItem">
-	<li class="list-group-item" id = "subjectItem<%=id %>">
-		<span class = "subjectItemTitle"><%= title %></span>
-		<div class = "pull-right">
-			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/edit.png" class = "subjectItemIcon" onclick = "location.href = '<?php echo Yii::app()->createAbsoluteUrl('admin/editSubject', array('id' => '')); ?><%= id %>'">
-			<img src = "<?php echo Yii::app()->baseUrl; ?>/images/icons/delete.png"onclick = "SubjectMenuPageProcessor.showDeleteModal(<%= id %>)" class = "subjectItemIcon">
-		</div>
-	</li>
-</script>
-
 <script type = "text/template" id = "statListItem">
 <div class="panel panel-default">
 	<div class="panel-heading">

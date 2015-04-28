@@ -17,9 +17,13 @@ class Subject extends Objects{
 	}
 
 	//list for user/subjectList
-	public function subjectList($fromAdmin = false) {
+	public function subjectList($fromAdmin = false, $sorting = null) {
         $criteria = new CDbCriteria;
         $criteria->addCondition('is_visible = 1');
+        if($sorting) {
+            if(substr($sorting, 0, strlen('title')) === 'title') $sorting = 't.'. $sorting;
+            $criteria->order = $sorting;
+        }
 
         if($fromAdmin && Yii::app()->user->role == "Moderator") {
                $criteria->addInCondition('owner_id', array(Yii::app()->user->id));
