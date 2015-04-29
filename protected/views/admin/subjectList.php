@@ -5,6 +5,8 @@
         listContainer.jtable({
             title: 'Список дисциплин',
             sorting: true,
+            paging: true,
+            pageSize : 20,
             actions: {
                 createAction : function(data) {
                     console.log("create");

@@ -1,7 +1,7 @@
 <?php
 
 class Subject extends Objects{
-	public function simplifiedSubjectList($userId) {
+	public function simplifiedSubjectList($userId, $sorting = null, $page = null) {
 		$data = StudentsSubjects::model()->with(array('object', 'object.attributeMappings','object.attributeMappings.attributeType', 'object.validatorMappings', 'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
 		$result = array();
 		foreach((array)$data as $subject) {
@@ -16,15 +16,24 @@ class Subject extends Objects{
 		return $result;
 	}
 
+    public function subjectCount() {
+        return $this->model()->count();
+    }
 	//list for user/subjectList
-	public function subjectList($fromAdmin = false, $sorting = null) {
+	public function subjectList($fromAdmin = false, $sorting = null, $page = null) {
         $criteria = new CDbCriteria;
-        $criteria->addCondition('is_visible = 1');
+
         if($sorting) {
             if(substr($sorting, 0, strlen('title')) === 'title') $sorting = 't.'. $sorting;
             $criteria->order = $sorting;
         }
-
+        if($page) {
+            $criteria->limit = $page['limit'];
+            $criteria->offset = $page['offset'];
+        }
+        if(!$fromAdmin) {
+            $criteria->addCondition('is_visible = 1');
+        }
         if($fromAdmin && Yii::app()->user->role == "Moderator") {
                $criteria->addInCondition('owner_id', array(Yii::app()->user->id));
         }

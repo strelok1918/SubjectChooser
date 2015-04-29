@@ -8,13 +8,23 @@
  */
 
 class Attribute extends AttributeType{
-	public function attributeList() {
+	public function attributeList($sorting = null, $page = null) {
+
 		$attributeList = array();
-		foreach($this->findAll() as $attribute) {
-			$attributeList[$attribute->id] = $attribute->attributes;
+        $params = array('order' => $sorting);
+        if($page) {
+            $params['limit'] = $page['limit'];
+            $params['offset'] = $page['offset'];
+        }
+		foreach($this->findAll($params) as $attribute) {
+                $attributeList[] = $attribute->attributes;
 		}
+//        print_r($attributeList);
 		return $attributeList;
 	}
+    public function attributeCount() {
+        return $this->model()->count();
+    }
 	public function drop($id) {
 		try {
 			$this->deleteByPk($id);

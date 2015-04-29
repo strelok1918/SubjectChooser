@@ -11,13 +11,21 @@ class UserData extends Users{
 		$data = $this->findByPk(Yii::app()->user->id);
 		return $this->generateUserData($data);
 	}
-	public function userList($sorting){
+	public function userList($sorting= null, $page = null){
 		$result = array();
-		foreach($this->findAll(array('order' => $sorting)) as $user) {
+        $params = array('order' => $sorting);
+        if($page) {
+            $params['limit'] = $page['limit'];
+            $params['offset'] = $page['offset'];
+        }
+		foreach($this->findAll($params) as $user) {
 			$result[] = $this->generateUserData($user);
 		}
 		return $result;
 	}
+    public function userCount() {
+        return $this->model()->count();
+    }
 	private function generateUserData($data) {
 		return array(
 			'id' => $data->id,

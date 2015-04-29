@@ -7,8 +7,13 @@
  */
 
 class UserGroups extends Groups{
-	public function groupList() {
-		$rows = $this->findAll();
+	public function groupList($sorting = null, $page = null) {
+        $params = array('order' => $sorting);
+        if($page) {
+            $params['limit'] = $page['limit'];
+            $params['offset'] = $page['offset'];
+        }
+		$rows = $this->findAll($params);
 		$result = array();
 		foreach($rows as $group) {
 			$result[] = array( 'id'=> $group->id,
@@ -16,6 +21,9 @@ class UserGroups extends Groups{
 		}
 		return $result;
 	}
+    public function groupCount() {
+        return $this->model()->count();
+    }
 	public function dropGroupItem($id) {
 		$this->deleteByPk($id);
 		return $this->getErrors();

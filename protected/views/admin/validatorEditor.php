@@ -3,6 +3,9 @@
 		var listContainer = $('#validatorListContainer');
 		listContainer.jtable({
 			title: 'Список валидаторов',
+            sorting: true,
+            paging: true,
+            pageSize : 20,
 			actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/validatorList"); ?>',
 				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveValidator"); ?>',
@@ -16,11 +19,13 @@
 				},
 				title: {
 					title: 'Заголовок',
-					width: '70%'
+					width: '70%',
+                    sorting: true
 				},
 				attribute_id: {
 					title: 'Зависимый атрибут',
 					width: '30%',
+                    sorting: true,
 					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getAttributeListInValidatorEditor"); ?>'
 				}
 			},

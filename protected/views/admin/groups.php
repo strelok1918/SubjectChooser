@@ -3,6 +3,9 @@
 		var listContainer = $('#groupListContainer');
 		listContainer.jtable({
 			title: 'Список групп',
+            sorting: true,
+            paging: true,
+            pageSize : 20,
 			actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/groupList"); ?>',
 				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveGroupData"); ?>',

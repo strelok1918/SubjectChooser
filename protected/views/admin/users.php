@@ -4,7 +4,8 @@
 		listContainer.jtable({
 			title: 'Список пользователей',
             sorting: true,
-
+            paging: true,
+            pageSize : 20,
             actions: {
 				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/userList"); ?>',
 				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveUserData"); ?>',
@@ -29,6 +30,7 @@
 								$img.closest('tr'),
 								{
 									title: 'Список предметов',
+                                    sorting: true,
 									actions: {
 										listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/userSubjectList", array('userId' => '')); ?>' + studentData.record.id,
 										deleteAction: "<?php echo Yii::app()->createAbsoluteURL('admin/dismissChoose', array('userId' => '')); ?>" + studentData.record.id,

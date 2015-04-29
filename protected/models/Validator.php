@@ -7,14 +7,21 @@
  */
 
 class Validator extends Validators{
-	public function validatorlist() {
+	public function validatorlist($sorting = null, $page = null) {
 		$validatorlist = array();
-		foreach($this->findAll() as $validator) {
-			$validatorlist[$validator->id] = $validator->attributes;
+        $params = array('order' => $sorting);
+        if($page) {
+            $params['limit'] = $page['limit'];
+            $params['offset'] = $page['offset'];
+        }
+		foreach($this->findAll($params) as $validator) {
+			$validatorlist[] = $validator->attributes;
 		}
 		return $validatorlist;
 	}
-
+    public function validatorCount() {
+        return $this->model()->count();
+    }
 	public function drop($id) {
 		try {
 			$this->deleteByPk($id);
