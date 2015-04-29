@@ -2,7 +2,25 @@
 
 class Subject extends Objects{
 	public function simplifiedSubjectList($userId, $sorting = null, $page = null) {
-		$data = StudentsSubjects::model()->with(array('object', 'object.attributeMappings','object.attributeMappings.attributeType', 'object.validatorMappings', 'object.validatorMappings.validator'))->findAll('user_id = :userId', array(':userId' => $userId));
+        $criteria = new CDbCriteria;
+
+        if($sorting) {
+            $criteria->order = "t.".$sorting;
+        }
+        if($page) {
+            $criteria->limit = $page['limit'];
+            $criteria->offset = $page['offset'];
+        }
+        $criteria->addCondition('user_id = :userId');
+        $criteria->params = array(':userId' => $userId);
+
+//        echo "<pre>";
+//        print_r($criteria);
+		$data = StudentsSubjects::model()->with(array(  'object',
+                                                        'object.attributeMappings',
+                                                        'object.attributeMappings.attributeType',
+                                                        'object.validatorMappings',
+                                                        'object.validatorMappings.validator'))->findAll($criteria);
 		$result = array();
 		foreach((array)$data as $subject) {
 

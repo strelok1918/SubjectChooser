@@ -66,12 +66,13 @@ class AdminController extends Controller
 	//groups
 	public function actionGroupList() {
         $sorting = $_GET['jtSorting'];
-        $limit = $_GET['jtPageSize'];
-        $offset = $_GET['jtStartIndex'];
-
+        $page = null;
+        if(isset($_GET['jtPageSize'])) {
+            $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
+        }
 		echo json_encode(array( "Result" => "OK",
             "TotalRecordCount" => UserGroups::model()->groupCount(),
-			"Records" => UserGroups::model()->groupList($sorting, array('limit' => $limit, 'offset' => $offset))));
+			"Records" => UserGroups::model()->groupList($sorting, $page)));
 	}
 	public function actionGetGroupList() {
 		$result = array();
@@ -85,19 +86,24 @@ class AdminController extends Controller
 	}
 	public function actionUserSubjectList() {
         $sorting = $_GET['jtSorting'];
-        $limit = $_GET['jtPageSize'];
-        $offset = $_GET['jtStartIndex'];
+        $page = null;
+        if(isset($_GET['jtPageSize'])) {
+            $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
+        }
+
 		$userId = $_GET['userId'];
 		echo json_encode(array( "Result" => "OK",
-			"Records" => Subject::model()->simplifiedSubjectList($userId, $sorting, array('limit' => $limit, 'offset' => $offset))));
+			"Records" => Subject::model()->simplifiedSubjectList($userId, $sorting, $page)));
 	}
     public function actionFullSubjectList() {
         $sorting = $_GET['jtSorting'];
-        $limit = $_GET['jtPageSize'];
-        $offset = $_GET['jtStartIndex'];
+        $page = null;
+        if(isset($_GET['jtPageSize'])) {
+            $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
+        }
         echo json_encode(array( "Result" => "OK",
                                 "TotalRecordCount" => Subject::model()->subjectCount(),
-                                "Records" => Subject::model()->subjectList(true, $sorting, array('limit' => $limit, 'offset' => $offset))));
+                                "Records" => Subject::model()->subjectList(true, $sorting, $page)));
     }
 
 	public function actionSubjectListOptions() {
@@ -139,11 +145,13 @@ class AdminController extends Controller
 
 	public function actionUserList() {
         $sorting = $_GET['jtSorting'];
-        $limit = $_GET['jtPageSize'];
-        $offset = $_GET['jtStartIndex'];
+        $page = null;
+        if(isset($_GET['jtPageSize'])) {
+            $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
+        }
 		echo json_encode(array( "Result" => "OK",
             "TotalRecordCount" => UserData::model()->userCount(),
-			"Records" => UserData::model()->userList($sorting, array('limit' => $limit, 'offset' => $offset))));
+			"Records" => UserData::model()->userList($sorting, $page)));
 	}
 	public function actionDeleteGroup() {
 		$errors = UserGroups::model()->dropGroupItem($_POST['id']);
@@ -181,11 +189,13 @@ class AdminController extends Controller
 
 	public function actionAttributeList() {
         $sorting = $_GET['jtSorting'];
-        $limit = $_GET['jtPageSize'];
-        $offset = $_GET['jtStartIndex'];
+        $page = null;
+        if(isset($_GET['jtPageSize'])) {
+            $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
+        }
 		echo json_encode(array( "Result" => "OK",
                                 "TotalRecordCount" => Attribute::model()->attributeCount(),
-								"Records" => Attribute::model()->attributeList($sorting, array('limit' => $limit, 'offset' => $offset))));
+								"Records" => Attribute::model()->attributeList($sorting, $page)));
 	}
 	public function actionSaveAttribute() {
 		$attribute = new Attribute();
@@ -211,11 +221,13 @@ class AdminController extends Controller
 
 	public function actionValidatorList() {
         $sorting = $_GET['jtSorting'];
-        $limit = $_GET['jtPageSize'];
-        $offset = $_GET['jtStartIndex'];
+        $page = null;
+        if(isset($_GET['jtPageSize'])) {
+            $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
+        }
 		echo json_encode(array( "Result" => "OK",
                         "TotalRecordCount" => Validator::model()->validatorCount(),
-						"Records" => Validator::model()->validatorlist($sorting, array('limit' => $limit, 'offset' => $offset))));
+						"Records" => Validator::model()->validatorlist($sorting, $page)));
 	}
 	public function actionGetAttributeListInValidatorEditor() {
 		$result = array();
