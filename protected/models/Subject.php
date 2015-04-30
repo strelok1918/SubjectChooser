@@ -40,7 +40,7 @@ class Subject extends Objects{
 	//list for user/subjectList
 	public function subjectList($fromAdmin = false, $sorting = null, $page = null) {
         $criteria = new CDbCriteria;
-
+        $criteria->together = true;
         if($sorting) {
             if(substr($sorting, 0, strlen('title')) === 'title') $sorting = 't.'. $sorting;
             $criteria->order = $sorting;
@@ -52,15 +52,18 @@ class Subject extends Objects{
         if(!$fromAdmin) {
             $criteria->addCondition('is_visible = 1');
         }
+//        $criteria->addCondition('owner_id = 1');
         if($fromAdmin && Yii::app()->user->role == "Moderator") {
                $criteria->addInCondition('owner_id', array(Yii::app()->user->id));
         }
 
-		$data = $this->model()->with(array( 'attributeMappings',
+		$data = $this->model()->with(array( 'objectOwners',
+                                            'attributeMappings',
 											'attributeMappings.attributeType',
-                                            'objectOwners',
 											'validatorMappings',
 											'validatorMappings.validator'))->findAll($criteria);
+//        echo "<pre>";
+//        print_r($data);
 		$result = array();
 		foreach((array)$data as $subject) {
 			$result[] = $this->linkSubjectItemData($subject);

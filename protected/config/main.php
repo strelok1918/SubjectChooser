@@ -64,16 +64,16 @@ return array(
 
 
 
-        'log'=>array(
-            'class'=>'CLogRouter',
-            'routes'=>array(
-                    array(
-                        'class'=>'CFileLogRoute',
-                        'categories'=>'system.db.*',
-                        'logFile'=>'sql.log',
-                    ),
-                ),
-            ),
+//        'log'=>array(
+//            'class'=>'CLogRouter',
+//            'routes'=>array(
+//                    array(
+//                        'class'=>'CFileLogRoute',
+//                        'categories'=>'system.db.*',
+//                        'logFile'=>'sql.log',
+//                    ),
+//                ),
+//            ),
 		'db'=>require(dirname(__FILE__).'/database.php'),
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',

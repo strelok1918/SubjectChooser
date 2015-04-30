@@ -91,9 +91,6 @@
             AlertHandler.init();
             AlertHandler.showAlert(errors, "Пользователь успешно зарегистрирован.");
         }
-
-
-
     });
     function fillForm(data) {
         $('#login').val(data.login);

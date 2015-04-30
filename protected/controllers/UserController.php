@@ -23,6 +23,7 @@ class UserController extends Controller
 		);
 	}
     public function actionRegister() {
+        Yii::app()->user->logout();
         $errors = array();
         $data = array();
         if(isset($_POST['login'])) {
@@ -34,7 +35,10 @@ class UserController extends Controller
         $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList(), 'userData' => $data));
     }
     public function actionCheckUser() {
-        $count = Users::model()->countByAttributes(array('login'=> $_GET['login']));
+
+            $count = Users::model()->countByAttributes(array('login'=> $_GET['login']));
+
+
         if($count > 0) {
             echo "false";
         } else {
@@ -43,7 +47,19 @@ class UserController extends Controller
     }
 
     public function actionCheckMail() {
-        $count = Users::model()->countByAttributes(array('mail'=> $_GET['mail']));
+        $count = 0;
+        if(Yii::app()->user->isGuest) {
+//            echo 228;
+           $count = Users::model()->countByAttributes(array('mail'=> $_GET['mail']));
+        } else {
+//            echo 1488;
+            $count = Users::model()->count(
+                new CDbCriteria(array
+                (
+                    'condition' => 'mail = :mail and id <> :user',
+                    'params' => array(':mail'=>$_GET['mail'], ':user' => Yii::app()->user->id)
+                )));
+        }
         if($count > 0) {
             echo "false";
         } else {

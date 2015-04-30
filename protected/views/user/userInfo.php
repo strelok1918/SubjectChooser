@@ -1,13 +1,58 @@
 <script>
-	$(document).ready(function(){
-		var userData = <?php echo json_encode($info); ?>;
+	$(document).ready(function() {
+        var userData = <?php echo json_encode($info); ?>;
 
-		$('#second_name').val(userData.second_name);
-		$('#first_name').val(userData.first_name);
-		$('#group').val(userData.group);
-		$('#acquisition_year').val(userData.acquisition_year);
-		$('#mail').val(userData.mail);
-	});
+        $('#second_name').val(userData.second_name);
+        $('#first_name').val(userData.first_name);
+        $('#group').val(userData.group);
+        $('#acquisition_year').val(userData.acquisition_year);
+        $('#mail').val(userData.mail);
+        $('#group').select2({});
+
+        $('#userForm').validate({
+            rules: {
+                mail: {
+                    required: true,
+                    email: true,
+                    remote: "<?php echo Yii::app()->createAbsoluteUrl('user/checkMail'); ?>",
+                },
+                first_name: {
+                    required: true,
+                    maxlength: 50
+                },
+                second_name: {
+                    required: true,
+                    maxlength: 50
+                },
+                acquisition_year: {
+                    required: true,
+                    number: true,
+                    range: [2000, <?php echo date("Y"); ?>]
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+                $(element).closest('.form-group').addClass('has-success');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            messages: {
+                mail: {
+                    remote: "Почтовый адрес уже используется."
+                }
+            }
+        });
+    });
 	function collectData() {
 		return  {
 			'first_name' : $('#first_name').val(),
@@ -18,6 +63,7 @@
 		};
 	}
 	function submitUserInfoForm() {
+        if(!$('#userForm').valid()) return false;
 		$.ajax({
 			url : '<?php echo Yii::app()->createAbsoluteUrl("user/saveUserData"); ?>',
 			type : 'POST',
@@ -28,24 +74,29 @@
 		});
 	}
 </script>
-
-<form class="form-horizontal">
+<style>
+    .form-control::-webkit-input-placeholder { font-size: 14px; }
+    .form-control:-moz-placeholder { font-size: 14px; }
+    .form-control::-moz-placeholder { font-size: 14px; }
+    .form-control:-ms-input-placeholder { font-size: 14px; }
+</style>
+<form class="form-horizontal" id = "userForm" method = "post">
 	<div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Фамилия</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="second_name" name = "info[second_name]" placeholder="Фамилия">
+			<input type="text" class="form-control input-sm" id="second_name" name = "second_name" placeholder="Фамилия">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">Имя</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="first_name" name = "info[first_name]" placeholder="Имя">
+			<input type="text" class="form-control input-sm" id="first_name" name = "first_name" placeholder="Имя">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">E-Mail</label>
 		<div class="col-sm-10">
-			<input type="email" class="form-control" id="mail" name = "info[mail]" placeholder="E-Mail">
+			<input type="email" class="form-control input-sm" id="mail" name = "mail" placeholder="E-Mail">
 		</div>
 	</div>
 	<div class="form-group">
@@ -65,7 +116,7 @@
 	<div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">Год поступления</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="acquisition_year" name = "info[year]" placeholder="Год поступления">
+			<input type="text" class="form-control input-sm" id="acquisition_year" name = "acquisition_year" placeholder="Год поступления">
 		</div>
 	</div>
 
