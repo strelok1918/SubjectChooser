@@ -28,6 +28,17 @@
                     required: true,
                     number: true,
                     range: [2000, <?php echo date("Y"); ?>]
+                },
+                new_password: {
+                    required: true,
+                    minlength: 5,
+                    maxlength : 20
+                },
+                new_password_repeat: {
+                    required: true,
+                    minlength: 5,
+                    maxlength : 20,
+                    equalTo: "#new_password"
                 }
             },
             highlight: function (element) {
@@ -54,13 +65,17 @@
         });
     });
 	function collectData() {
-		return  {
+		var result =  {
 			'first_name' : $('#first_name').val(),
 			'second_name' : $('#second_name').val(),
 			'acquisition_year' : $('#acquisition_year').val(),
 			'group' : $('#group').val(),
 			'mail' : $('#mail').val(),
 		};
+        if($('#new_password').val().length) {
+            result['password'] = $('#new_password').val();
+        }
+        return result;
 	}
 	function submitUserInfoForm() {
         if(!$('#userForm').valid()) return false;
@@ -81,62 +96,72 @@
     .form-control:-ms-input-placeholder { font-size: 14px; }
 </style>
 <form class="form-horizontal" id = "userForm" method = "post">
-	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">Фамилия</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control input-sm" id="second_name" name = "second_name" placeholder="Фамилия">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Имя</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control input-sm" id="first_name" name = "first_name" placeholder="Имя">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">E-Mail</label>
-		<div class="col-sm-10">
-			<input type="email" class="form-control input-sm" id="mail" name = "mail" placeholder="E-Mail">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Группа</label>
-		<div class="col-sm-10">
-			<select class="form-control" id = "group">
-				<?php
-					foreach($groupList as $group) {
-						$selected = ($group['id'] == $info['group'])? "selected" : "";
-						echo "<option value = '" .$group['id'] ."' " . $selected." >" .$group['title'] . "</option>";
-					}
-				?>
-			</select>
-<!--			<input type="text" class="form-control" id="group" name = "info[group]" placeholder="Группа">-->
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Год поступления</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control input-sm" id="acquisition_year" name = "acquisition_year" placeholder="Год поступления">
-		</div>
-	</div>
+    <div class="panel panel-default">
 
-	<!--<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Старый пароль</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="old_password" placeholder="Пароль">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="new_password" placeholder="Пароль">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Повторите пароль</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="new_password_repeat" placeholder="Пароль">
-		</div>
-	</div>-->
-	<button type="button" class="btn btn-success pull-right" onclick = "submitUserInfoForm()">Сохранить</button>
+            <ul class="list-group">
+                <li class="list-group-item">
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Фамилия</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control input-sm" id="second_name" name = "second_name" placeholder="Фамилия">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Имя</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control input-sm" id="first_name" name = "first_name" placeholder="Имя">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">E-Mail</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control input-sm" id="mail" name = "mail" placeholder="E-Mail">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Группа</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id = "group">
+                                <?php
+                                    foreach($groupList as $group) {
+                                        $selected = ($group['id'] == $info['group'])? "selected" : "";
+                                        echo "<option value = '" .$group['id'] ."' " . $selected." >" .$group['title'] . "</option>";
+                                    }
+                                ?>
+                            </select>
+                <!--			<input type="text" class="form-control" id="group" name = "info[group]" placeholder="Группа">-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Год поступления</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control input-sm" id="acquisition_year" name = "acquisition_year" placeholder="Год поступления">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="inputPassword3" class="col-sm-2 control-label">Старый пароль</label>-->
+<!--                        <div class="col-sm-10">-->
+<!--                            <input type="text" class="form-control" id="old_password" placeholder="Пароль">-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control input-sm" id="new_password" name = "new_password" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Повторите пароль</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control input-sm" id="new_password_repeat" name ="new_password_repeat" placeholder="Пароль">
+                        </div>
+                    </div
+                </li>
+
+    </div>
+    <button type="button" class="btn btn-success pull-right" onclick = "submitUserInfoForm()">Сохранить</button>
 </form>

@@ -35,9 +35,7 @@ class UserController extends Controller
         $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList(), 'userData' => $data));
     }
     public function actionCheckUser() {
-
-            $count = Users::model()->countByAttributes(array('login'=> $_GET['login']));
-
+        $count = Users::model()->countByAttributes(array('login'=> $_GET['login']));
 
         if($count > 0) {
             echo "false";
@@ -49,10 +47,8 @@ class UserController extends Controller
     public function actionCheckMail() {
         $count = 0;
         if(Yii::app()->user->isGuest) {
-//            echo 228;
            $count = Users::model()->countByAttributes(array('mail'=> $_GET['mail']));
         } else {
-//            echo 1488;
             $count = Users::model()->count(
                 new CDbCriteria(array
                 (

@@ -52,7 +52,7 @@ class UserData extends Users{
 	private function saveExistUser($id, $data, $isAdmin) {
 		$users = Users::model()->findByPk($id);
 		$users->attributes = $data;
-
+//        print_r($users->attributes);
         try {
             $users->save();
         } catch(CDbException $e) {
