@@ -11,13 +11,40 @@ class UserData extends Users{
 		$data = $this->findByPk(Yii::app()->user->id);
 		return $this->generateUserData($data);
 	}
-	public function userList($sorting= null, $page = null){
+	public function userList($sorting= null, $page = null, $filter = null){
+
 		$result = array();
         $params = array('order' => $sorting);
         if($page) {
             $params['limit'] = $page['limit'];
             $params['offset'] = $page['offset'];
         }
+        $where = "";
+        $data = array();
+        if($filter) {
+            if(!empty($filter['first_name'])) {
+                $where = "first_name = :first_name";
+                $data[':first_name'] = $filter['first_name'];
+            }
+            if(!empty($filter['second_name'])) {
+                if(!empty($where)) $where .= " AND ";
+                $where .= "second_name = :second_name";
+                $data[':first_name'] = $filter['first_name'];
+            }
+            if(!empty($filter['login'])) {
+                if(!empty($where)) $where .= " AND ";
+                $where .= "login = :login";
+                $data[':login'] = $filter['login'];
+            }
+            if(!empty($filter['mail'])) {
+                if(!empty($where)) $where .= " AND ";
+                $where .= "mail = :mail";
+                $data[':mail'] = $filter['mail'];
+            }
+        }
+        $params['condition'] = $where;
+        $params['params'] = $data;
+        //print_r($params);
 		foreach($this->findAll($params) as $user) {
 			$result[] = $this->generateUserData($user);
 		}
@@ -56,7 +83,10 @@ class UserData extends Users{
         try {
             $users->save();
         } catch(CDbException $e) {
-            return array("Invalid data.");
+
+            if(strpos($e->errorInfo[2], 'login')) return "Пользователь с таким логином уже существует.";
+            if(strpos($e->errorInfo[2], 'mail')) return "Пользователь с таким E-mail адресом уже существует.";
+            return "Invalid data";
         }
 
 		if(!$isAdmin && !$users->hasErrors()) {

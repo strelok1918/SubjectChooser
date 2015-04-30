@@ -137,21 +137,28 @@ class AdminController extends Controller
 	public function actionSaveUserData() {
 		$user = new UserData();
 		$errors = $user->saveData($_POST, true);
+       //print_r($errors);
 		if(empty($errors))
 			echo json_encode(array ("Result" => "OK", "Record" => $user->attributes));
-		else
-			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
+		else {
+            $err = "";
+            foreach($errors as $error)
+                $err .= $error[0];
+            echo json_encode(array ("Result" => "ERROR", "Message" => $err));
+        }
+
 	}
 
 	public function actionUserList() {
         $sorting = $_GET['jtSorting'];
         $page = null;
+
         if(isset($_GET['jtPageSize'])) {
             $page = array('limit' => $_GET['jtPageSize'], 'offset' => $_GET['jtStartIndex']);
         }
 		echo json_encode(array( "Result" => "OK",
             "TotalRecordCount" => UserData::model()->userCount(),
-			"Records" => UserData::model()->userList($sorting, $page)));
+			"Records" => UserData::model()->userList($sorting, $page, $_POST)));
 	}
 	public function actionDeleteGroup() {
 		$errors = UserGroups::model()->dropGroupItem($_POST['id']);

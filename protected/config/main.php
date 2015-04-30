@@ -52,6 +52,7 @@ return array(
 				'gii'=>'gii',
                 'register' => 'user/register',
                 'login' => 'user/login',
+                'recovery' => 'user/recovery',
 				'gii/<controller:\w+>'=>'gii/<controller>',
 				'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',

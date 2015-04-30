@@ -40,7 +40,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="<?php echo Yii::app()->createAbsoluteUrl("login"); ?>">Логин <span class="sr-only">(current)</span></a></li>
                 <li><a href="<?php echo Yii::app()->createAbsoluteUrl("register"); ?>">Регистрация</a></li>
-<!--                <li><a href="--><?php //echo Yii::app()->createAbsoluteUrl("recovery"); ?><!--">Восстановление пароля</a></li>-->
+                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("recovery"); ?>">Восстановление пароля</a></li>
             </ul>
 
         </div>

@@ -22,6 +22,11 @@ class UserController extends Controller
 
 		);
 	}
+    public function actionRecovery() {
+        Yii::app()->user->logout();
+        $this->layout = 'register';
+        $this->render('recovery');
+    }
     public function actionRegister() {
         Yii::app()->user->logout();
         $errors = array();
