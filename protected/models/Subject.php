@@ -41,6 +41,7 @@ class Subject extends Objects{
 	public function subjectList($fromAdmin = false, $sorting = null, $page = null) {
         $criteria = new CDbCriteria;
         $criteria->together = true;
+
         if($sorting) {
             if(substr($sorting, 0, strlen('title')) === 'title') $sorting = 't.'. $sorting;
             $criteria->order = $sorting;
@@ -60,13 +61,24 @@ class Subject extends Objects{
 		$data = $this->model()->with(array( 'objectOwners',
                                             'attributeMappings',
 											'attributeMappings.attributeType',
+                                            'customValidators',
 											'validatorMappings',
 											'validatorMappings.validator'))->findAll($criteria);
-//        echo "<pre>";
-//        print_r($data);
 		$result = array();
 		foreach((array)$data as $subject) {
-			$result[] = $this->linkSubjectItemData($subject);
+            $display = 1;
+            if(!$fromAdmin) {
+                foreach($subject['customValidators'] as $validator) {
+                    $sql = "SELECT CASE WHEN (" .$validator->value . ") THEN TRUE ELSE FALSE END AS EXPR";
+                    $res = Yii::app()->db->createCommand($sql)->queryRow();
+                    if($res['EXPR'] == 0) {
+                        $display = 0;
+                        break;
+                    }
+                }
+            }
+            if($display == 1)
+			    $result[] = $this->linkSubjectItemData($subject);
 		}
 		return $result;
 	}
@@ -216,12 +228,13 @@ class Subject extends Objects{
 	}
 	private function saveCustomValidator($objectId, $validator) {
 		if(!empty($validator['id'])) {
-			CustomValidators::model()->updateByPk($validator['id'], array('value' => $validator['value']));
+			CustomValidators::model()->updateByPk($validator['id'], array('value' => $validator['value'], 'action' => $validator['action']));
 			return $this->getErrors();
 		} else {
 			$validatorObject = new CustomValidators();
 			$validatorObject->object_id = $objectId;
 			$validatorObject->value = $validator['value'];
+            $validatorObject->action = $validator['action'];
 			$validatorObject->save();
 			return $validatorObject->getErrors();
 		}
@@ -273,7 +286,8 @@ class Subject extends Objects{
 	private function customValidatorList($objectId) {
 		$result = array();
 		foreach(CustomValidators::model()->findAll("object_id = :object_id", array(":object_id" => $objectId)) as $validator) {
-			$result[] = array( 'id' => $validator->id,
+			$result[] = array(  'id' => $validator->id,
+                                'action' => $validator->action,
 								'value' => $validator->value);
 		}
 		return $result;

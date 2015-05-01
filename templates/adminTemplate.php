@@ -29,10 +29,18 @@
 <script type = "text/template" id = "customValidatorTemplate">
 	<div class="form-group">
 		<span class = "glyphicon glyphicon-remove pull-right" style ="color : #c71c22; font-size:30px; margin-right: 15px; margin-top: 4px;" onclick = "CustomValidatorProcessor.deleteField(<%= id %>)"></span>
-		<div class="col-md-11 pull-right">
-			<input type = "text" class = "form-control" id = "customValidator<%= id %>" placeholder = "SQL Text" value = "<%= value %>">
-		</div>
 
+        <div class="btn-group col-md-3  pull-right" data-toggle="buttons">
+            <label class="btn btn-default col-xs-6 <% if(display == '1'){ print('active'); } %>">
+                <input type="checkbox" autocomplete="off" id = "validDisplay<%= id %>" <% if(display == '1'){ print('checked'); } %>> Вывод
+            </label>
+            <label class="btn btn-default col-xs-6 <% if(save == '1'){ print('active'); } %>">
+                <input type="checkbox" autocomplete="off" id = "validSave<%= id %>" <% if(save == '1'){ print('checked'); } %>> Сохранение
+            </label>
+        </div>
+        <div class="col-md-8 pull-right">
+            <input type = "text" class = "form-control" id = "customValidator<%= id %>" placeholder = "SQL Text" value = "<%= value %>">
+        </div>
 	</div>
 </script>
 

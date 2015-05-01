@@ -4,17 +4,18 @@ var CustomValidatorProcessor = (function(){
     var _deleted = [];
     var _validatorTemplate;
 
-    var _addValidator = function(id, value) {
+    var _addValidator = function(id, value, action) {
+        //console.log(value, action);
         _lastId++;
         _fieldIds[_lastId] = id;
-        return _validatorTemplate({'id' : _lastId, 'value' : value});
+        return _validatorTemplate({'id' : _lastId, 'value' : value, 'display' : action[0], 'save' : action[1]});
     };
 
     var _fillData = function(data) {
         var result = "";
         for(var key in data) {
             if(data.hasOwnProperty(key)) {
-                result += _addValidator(data[key].id, data[key].value);
+                result += _addValidator(data[key].id, data[key].value, data[key].action);
             }
         }
 
@@ -29,9 +30,11 @@ var CustomValidatorProcessor = (function(){
                         _deleted.push(_fieldIds[key]);
                     }
                 } else {
+                    var action = +$('#validDisplay' + key).prop('checked') + '' + +$('#validSave' + key).prop('checked');
                     data.push({
                         'id': _fieldIds[key],
-                        'value': $('#customValidator' + key).val()
+                        'value': $('#customValidator' + key).val(),
+                        'action' : action
                     });
                 }
             }
@@ -56,7 +59,7 @@ var CustomValidatorProcessor = (function(){
             return _fillData(data);
         },
         addField : function() {
-            $('#customValidators').append(_addValidator(null, null));
+            $('#customValidators').append(_addValidator(null, null, "11"));
         },
         deleteField : function(id) {
             $('#customValidator' + id).parent().parent().remove();

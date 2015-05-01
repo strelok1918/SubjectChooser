@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'CustomValidators':
  * @property integer $id
  * @property integer $object_id
+ * @property string $action
  * @property string $value
  *
  * The followings are the available model relations:
@@ -31,9 +32,10 @@ class CustomValidators extends CActiveRecord
 		return array(
 			array('value', 'required'),
 			array('object_id', 'numerical', 'integerOnly'=>true),
+			array('action', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, object_id, value', 'safe', 'on'=>'search'),
+			array('id, object_id, action, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +59,7 @@ class CustomValidators extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'object_id' => 'Object',
+			'action' => 'Action',
 			'value' => 'Value',
 		);
 	}
@@ -81,6 +84,7 @@ class CustomValidators extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('object_id',$this->object_id);
+		$criteria->compare('action',$this->action,true);
 		$criteria->compare('value',$this->value,true);
 
 		return new CActiveDataProvider($this, array(
