@@ -69,9 +69,8 @@ class Subject extends Objects{
             $display = 1;
             if(!$fromAdmin) {
                 foreach($subject['customValidators'] as $validator) {
-                    $sql = "SELECT CASE WHEN (" .$validator->value . ") THEN TRUE ELSE FALSE END AS EXPR";
-                    $res = Yii::app()->db->createCommand($sql)->queryRow();
-                    if($res['EXPR'] == 0) {
+                    if($validator->action[0] == '0') continue;
+                    if(!$validator->checkValid()) {
                         $display = 0;
                         break;
                     }

@@ -75,6 +75,7 @@ class UserController extends Controller
 	}
 	public function actionSaveChoose() {
 		$responce = ChooseHandler::model()->saveChoose($_POST['data'], Yii::app()->user->id);
+        //print_r($responce);
 		echo json_encode($responce['errors']);
 	}
 	public function actionDismissChoose() {

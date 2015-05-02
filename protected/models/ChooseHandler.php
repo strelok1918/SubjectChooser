@@ -2,6 +2,15 @@
 
 class ChooseHandler extends StudentsSubjects {
 	public function saveChoose($data, $userId) {
+        $validators = CustomValidators::model()->findAll('object_id = :object_id', array(':object_id' => $data['object_id']));
+        //print_r($validators);
+        foreach($validators as $validator) {
+            if($validator->action[1] == '0') continue;
+            if(!$validator->checkValid()) {
+                return array('errors' => array('errors' => array("Невозможно записаться на дисциплину.")));
+            }
+        }
+
         $choose = new StudentsSubjects();
         $choose->user_id = $userId;
         $choose->object_id = $data['object_id'];
@@ -17,7 +26,7 @@ class ChooseHandler extends StudentsSubjects {
             try {
                 $choose->save();
             } catch(CdbException $ex) {
-                $choose->addError('error', "Вы уже выбрали данный предмет на заданный период обучения.");
+                $choose->addError('errors', "Вы уже выбрали данный предмет на заданный период обучения.");
             }
         }
 		return array('data' => $choose->attributes, 'errors' => $choose->getErrors());
