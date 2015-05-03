@@ -38,7 +38,7 @@ class Subject extends Objects{
         return $this->model()->count();
     }
 	//list for user/subjectList
-	public function subjectList($fromAdmin = false, $sorting = null, $page = null) {
+	public function subjectList($fromAdmin = false, $sorting = null, $page = null, $filter = null) {
         $criteria = new CDbCriteria;
         $criteria->together = true;
 
@@ -53,7 +53,11 @@ class Subject extends Objects{
         if(!$fromAdmin) {
             $criteria->addCondition('is_visible = 1');
         }
-//        $criteria->addCondition('owner_id = 1');
+        if($filter['title']) {
+            $criteria->addCondition('t.title = :title');
+            $criteria->params[':title'] = $filter['title'];
+        }
+
         if($fromAdmin && Yii::app()->user->role == "Moderator") {
                $criteria->addInCondition('owner_id', array(Yii::app()->user->id));
         }

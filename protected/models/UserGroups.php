@@ -40,6 +40,7 @@ class UserGroups extends Groups{
 	}
 
 	public function saveData($data) {
+        $message = "";
 		try {
 			if(isset($data['id'])) {
 				$this->updateByPk($data['id'], array('title' => $data['title']));
@@ -50,8 +51,10 @@ class UserGroups extends Groups{
 			}
 			$message = $this->getErrors();
 
-		} catch (Exception $e) {
-			$message = array($e->getMessage());
+		} catch (CDbException $e) {
+			$message = $e->errorInfo;
+            //print_r($message);
+            if(strpos($e->errorInfo[2], 'title')) return "Такая группа уже существует.";
 		}
 		return $message;
 	}

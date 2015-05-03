@@ -103,7 +103,7 @@ class AdminController extends Controller
         }
         echo json_encode(array( "Result" => "OK",
                                 "TotalRecordCount" => Subject::model()->subjectCount(),
-                                "Records" => Subject::model()->subjectList(true, $sorting, $page)));
+                                "Records" => Subject::model()->subjectList(true, $sorting, $page, $_POST)));
     }
 
 	public function actionSubjectListOptions() {
@@ -174,7 +174,7 @@ class AdminController extends Controller
 		if(empty($errors))
 			echo json_encode(array ("Result" => "OK", "Record" => $group->attributes));
 		else
-			echo json_encode(array ("Result" => "ERROR", "Message" => "Невозможно сохранить запись."));
+			echo json_encode(array ("Result" => "ERROR", "Message" => $errors));
 	}
 	public function actionSaveSubject() {
 		$id = Yii::app()->request->getPost('id');
