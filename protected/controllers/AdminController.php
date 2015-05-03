@@ -72,7 +72,7 @@ class AdminController extends Controller
         }
 		echo json_encode(array( "Result" => "OK",
             "TotalRecordCount" => UserGroups::model()->groupCount(),
-			"Records" => UserGroups::model()->groupList($sorting, $page)));
+			"Records" => UserGroups::model()->groupList($sorting, $page, $_POST)));
 	}
 	public function actionGetGroupList() {
 		$result = array();

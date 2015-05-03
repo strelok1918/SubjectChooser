@@ -38,7 +38,7 @@
 					<div id = "validators"></div>
 					<div id = "customValidators"></div>
 
-					<button type="button" class="btn btn-primary btn-sm" onclick = "CustomValidatorProcessor.addField()">Добавить валидатор</button>
+					<button type="button" class="btn btn-primary btn-sm pull-right" onclick = "CustomValidatorProcessor.addField()">Добавить валидатор</button>
 				</div>
 		</div>
 	</div>

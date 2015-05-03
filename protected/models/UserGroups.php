@@ -7,12 +7,22 @@
  */
 
 class UserGroups extends Groups{
-	public function groupList($sorting = null, $page = null) {
+	public function groupList($sorting = null, $page = null, $filter = null) {
         $params = array('order' => $sorting);
         if($page) {
             $params['limit'] = $page['limit'];
             $params['offset'] = $page['offset'];
         }
+        $where = "";
+        $data = array();
+        if($filter) {
+            if(!empty($filter['title'])) {
+                $where = "title = :title";
+                $data[':title'] = $filter['title'];
+            }
+        }
+        $params['condition'] = $where;
+        $params['params'] = $data;
 		$rows = $this->findAll($params);
 		$result = array();
 		foreach($rows as $group) {
