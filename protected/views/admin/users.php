@@ -110,12 +110,18 @@
 
             });
         });
+        $('#expandFilter').click(function(){
+            $('#filterBlock').toggle(200, null);
+            $('#expandFilter').toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+        });
+        $('#filterBlock').hide();
 	});
 
 </script>
 
 <div class="panel panel-default">
-    <div class="panel-body">
+    <div class="panel-heading">Фильтр<span id = "expandFilter" class="glyphicon glyphicon-chevron-down pull-right" style = "margin-top:5px;cursor: pointer;"></span></div>
+    <div class="panel-body" id = "filterBlock">
         <form class="form-horizontal" onsubmit = "return false;">
 
 
