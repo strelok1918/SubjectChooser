@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $title
  * @property integer $attribute_id
+ * @property string $user_state
  *
  * The followings are the available model relations:
  * @property ValidatorMapping[] $validatorMappings
@@ -31,10 +32,10 @@ class Validators extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('attribute_id', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>50),
+			array('title, user_state', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, attribute_id', 'safe', 'on'=>'search'),
+			array('id, title, attribute_id, user_state', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +61,7 @@ class Validators extends CActiveRecord
 			'id' => 'ID',
 			'title' => 'Title',
 			'attribute_id' => 'Attribute',
+			'user_state' => 'User State',
 		);
 	}
 
@@ -84,6 +86,7 @@ class Validators extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('attribute_id',$this->attribute_id);
+		$criteria->compare('user_state',$this->user_state,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

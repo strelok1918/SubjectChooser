@@ -18,7 +18,7 @@ class UserLoginIdentity extends CUserIdentity
 			$this->setState('first_name', $record->first_name);
 			$this->setState('second_name', $record->second_name);
             $this->setState('role', $record->role);
-
+            $this->setState('course', date("Y") - $record->acquisition_year);
 //            Yii::app()->authManager->assign($record->role, $record->id);
 		}
 		return !$this->errorCode;

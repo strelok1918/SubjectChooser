@@ -19,7 +19,7 @@
 				},
 				title: {
 					title: 'Заголовок',
-					width: '70%',
+					width: '35%',
                     sorting: true
 				},
 				attribute_id: {
@@ -27,7 +27,11 @@
 					width: '30%',
                     sorting: true,
 					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getAttributeListInValidatorEditor"); ?>'
-				}
+				},
+                user_state: {
+                    title: 'User state',
+                    width: '35%'
+                }
 			},
 			formClosed :  function() {
 				listContainer.jtable('reload');
@@ -37,5 +41,8 @@
 	});
 
 </script>
+<?php
+    echo Yii::app()->user->getState('second_name');
 
+?>
 <div id="validatorListContainer"></div>

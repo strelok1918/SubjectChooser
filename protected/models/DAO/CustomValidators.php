@@ -102,9 +102,4 @@ class CustomValidators extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-    public function checkValid() {
-        $sql = "SELECT CASE WHEN (" .$this->value . ") THEN TRUE ELSE FALSE END AS EXPR";
-        $res = Yii::app()->db->createCommand($sql)->queryRow();
-        return $res['EXPR'];
-    }
 }

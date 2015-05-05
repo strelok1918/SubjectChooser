@@ -20,6 +20,7 @@
                     title: 'Название',
                     width: '97%'
                 },
+
                 editColumn: {
                     title: '',
                     edit: false,
