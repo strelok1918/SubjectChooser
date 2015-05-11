@@ -30,12 +30,10 @@
                     range: [2000, <?php echo date("Y"); ?>]
                 },
                 new_password: {
-                    required: true,
                     minlength: 5,
                     maxlength : 20
                 },
                 new_password_repeat: {
-                    required: true,
                     minlength: 5,
                     maxlength : 20,
                     equalTo: "#new_password"

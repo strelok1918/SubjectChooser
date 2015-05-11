@@ -30,7 +30,8 @@
 				},
                 user_state: {
                     title: 'User state',
-                    width: '35%'
+                    width: '35%',
+                    options : ["course", "role"]
                 }
 			},
 			formClosed :  function() {
@@ -42,7 +43,7 @@
 
 </script>
 <?php
-    echo Yii::app()->user->getState('second_name');
+    //echo  Yii::app()->user->course;
 
 ?>
 <div id="validatorListContainer"></div>

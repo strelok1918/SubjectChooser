@@ -6,11 +6,12 @@ var ValidatorProcessor = (function(){
         "3" : {"value" : "less_than_or_equal_to", "title" : "&le;"},
         "4" : {"value" : "greater_than", "title" : "&gt"},
         "5" : {"value" : "greater_than_or_equal_to", "title" : "&ge;"},
-        "6" : {"value" : "now_equal_to", "title" : "&lt;&gt;"},
+        "6" : {"value" : "not_equal_to", "title" : "&lt;&gt;"},
         "7" : {"value" : "in", "title" : "IN"}
     };
 
     var _collectData = function() {
+        console.log(_fieldIds);
         var data = [],
             deleted = [];
         for(var key in _fieldIds){
@@ -34,9 +35,10 @@ var ValidatorProcessor = (function(){
     var _fillFields = function(data) {
         var validatorField = _.template($('#formValidatorTemplate').html());
         var result = "";
+        console.log(data);
         for(var key in data) {
             if(data.hasOwnProperty(key)) {
-                _fieldIds[key] = data[key].validator_id || null;
+                _fieldIds[key] = key || null;
                 result += validatorField({
                     'id' : key,
                     'title' : data[key].title,

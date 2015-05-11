@@ -69,7 +69,9 @@ class Subject extends Objects{
 											'validatorMappings',
 											'validatorMappings.validator'))->findAll($criteria);
 		$result = array();
+
 		foreach((array)$data as $subject) {
+            $validatorChecker = new AttributeValidation($subject['validatorMappings']);
             $display = 1;
             if(!$fromAdmin) {
                 foreach($subject['customValidators'] as $validator) {
@@ -146,7 +148,7 @@ class Subject extends Objects{
 
 	public function saveData($objectId, $data) {
 		$errorList = $this->saveObject($objectId, $data['attributes'][0]['value']);
-
+        //print_r($data);
 
         ObjectOwners::model()->deleteAll("object_id = :object_id", array(':object_id' => $objectId));
         foreach((array)$data['owner'] as $owner) {
@@ -270,19 +272,22 @@ class Subject extends Objects{
 
 	private function validatorList($validatorData, $attributeData) {
 		$result = Validator::model()->validatorList();
+
 		if(!empty($validatorData)) {
 			foreach ($validatorData as $validator) {
+//                print_r($validator)
 				$validatorValue = explode(';', $validator->value);
 				$result[$validator->validator_id] =
 					array(
-						'title' => $validator['title'],
-						'attribute_id' => $validator['attribute_id'],
+						'title' => $validator->validator->title,
+						'attribute_id' => $validator->validator->attribute_id,
 						'id' => $validator['id'],
 						'operator' => trim($validatorValue[0]),
 						'value' => trim($validatorValue[1]),
 					);
 			}
 		}
+
 		return $result;
 	}
 

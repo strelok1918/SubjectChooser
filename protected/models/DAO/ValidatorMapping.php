@@ -7,10 +7,11 @@
  * @property integer $id
  * @property integer $object_id
  * @property integer $validator_id
+ * @property string $value
  *
  * The followings are the available model relations:
- * @property Validators $validator
  * @property Objects $object
+ * @property Validators $validator
  */
 class ValidatorMapping extends CActiveRecord
 {
@@ -30,10 +31,12 @@ class ValidatorMapping extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('object_id, validator_id', 'required'),
 			array('object_id, validator_id', 'numerical', 'integerOnly'=>true),
+			array('value', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, object_id, validator_id', 'safe', 'on'=>'search'),
+			array('id, object_id, validator_id, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,8 +48,8 @@ class ValidatorMapping extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'validator' => array(self::BELONGS_TO, 'Validators', 'validator_id'),
 			'object' => array(self::BELONGS_TO, 'Objects', 'object_id'),
+			'validator' => array(self::BELONGS_TO, 'Validators', 'validator_id'),
 		);
 	}
 
@@ -59,6 +62,7 @@ class ValidatorMapping extends CActiveRecord
 			'id' => 'ID',
 			'object_id' => 'Object',
 			'validator_id' => 'Validator',
+			'value' => 'Value',
 		);
 	}
 
@@ -83,6 +87,7 @@ class ValidatorMapping extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('object_id',$this->object_id);
 		$criteria->compare('validator_id',$this->validator_id);
+		$criteria->compare('value',$this->value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
