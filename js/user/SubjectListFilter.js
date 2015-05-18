@@ -16,7 +16,7 @@ var SubjectListFilter = (function(){
         for(var key in _subjectList) {
             if(_subjectList.hasOwnProperty(key)) {
                 var item = _subjectList[key],
-                    semesterValid =  (year || (semester[1] || semester[2])) ? semester[item.attributes.semester.value] : true,
+                    semesterValid =  (semester[1] || semester[2]) ? semester[item.attributes.semester.value] : false,
                     yearValid = (year) ? _yearsVisible[item.attributes.year.value] : true,
                     subjectValid = (subjects) ? _subjectsVisible[_subjectList[key].title] : true;
                 if(semesterValid && yearValid && subjectValid) {

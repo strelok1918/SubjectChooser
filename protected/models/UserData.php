@@ -14,7 +14,11 @@ class UserData extends Users{
 	public function userList($sorting= null, $page = null, $filter = null){
 
 		$result = array();
-        $params = array('order' => $sorting);
+        $params = array();
+        if($sorting) {
+            $params['order'] = $sorting;
+        }
+
         if($page) {
             $params['limit'] = $page['limit'];
             $params['offset'] = $page['offset'];
@@ -45,7 +49,7 @@ class UserData extends Users{
         $params['condition'] = $where;
         $params['params'] = $data;
         //print_r($params);
-		foreach($this->findAll($params) as $user) {
+		foreach($this->with('groupRel')->findAll($params) as $user) {
 			$result[] = $this->generateUserData($user);
 		}
 		return $result;
@@ -57,7 +61,7 @@ class UserData extends Users{
 		return array(
 			'id' => $data->id,
 			'role' => $data->role,
-			'acquisition_year' => $data->acquisition_year,
+			'acquisition_year' => $data->groupRel->acquisition_year,
 			'login' => $data->login,
 			'first_name' => $data->first_name,
 			'second_name' => $data->second_name,

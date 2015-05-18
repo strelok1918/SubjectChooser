@@ -76,7 +76,7 @@ class Subject extends Objects{
             if(!$fromAdmin) {
                 foreach($subject['customValidators'] as $validator) {
                     if($validator->action[0] == '0') continue;
-                    if(!$validator->checkValid()) {
+                    if($validator->checkValid() != true) {
                         $display = 0;
                         break;
                     }

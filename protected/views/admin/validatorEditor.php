@@ -19,19 +19,23 @@
 				},
 				title: {
 					title: 'Заголовок',
-					width: '35%',
+					width: '25%',
                     sorting: true
 				},
 				attribute_id: {
 					title: 'Зависимый атрибут',
-					width: '30%',
+					width: '20%',
                     sorting: true,
 					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getAttributeListInValidatorEditor"); ?>'
 				},
                 user_state: {
                     title: 'User state',
-                    width: '35%',
+                    width: '25%',
                     options : ["course", "role"]
+                },
+                message: {
+                    title: 'Сообщение',
+                    width: '30%'
                 }
 			},
 			formClosed :  function() {

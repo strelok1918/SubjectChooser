@@ -19,8 +19,14 @@
 				},
 				title: {
 					title: 'Название',
-				}
-
+				},
+                faculty: {
+                    title: 'Факультет',
+                    options : {'elit' : 'ЭлИТ', 'teset' : 'ТЭСЭТ'}
+                },
+                acquisition_year: {
+                    title: 'Год поступления'
+                },
 			},
 			formClosed :  function() {
 				listContainer.jtable('reload');

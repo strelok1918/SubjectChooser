@@ -18,8 +18,9 @@ class UserLoginIdentity extends CUserIdentity
 			$this->setState('first_name', $record->first_name);
 			$this->setState('second_name', $record->second_name);
             $this->setState('role', $record->role);
-            $this->setState('course', date("Y") - $record->acquisition_year + (date("n") > 7));
-            $this->setState('acquisition_year', $record->acquisition_year);
+            $this->setState('course', date("Y") - $record->groupRel->acquisition_year + (date("n") > 7));
+            $this->setState('acquisition_year', $record->groupRel->acquisition_year);
+            $this->setState('acquisition_year', $record->groupRel->faculty);
 //            Yii::app()->authManager->assign($record->role, $record->id);
 		}
 		return !$this->errorCode;

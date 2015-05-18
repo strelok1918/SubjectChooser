@@ -36,6 +36,11 @@ return array(
 		'session' => array(
 			'autoStart'=>true,
 		),
+        'email'=>array(
+            'class'=>'application.extensions.email.Email',
+            'delivery'=>'php', //Will use the php mailing function.
+            //May also be set to 'debug' to instead dump the contents of the email into the view
+        ),
 		'user'=>array(
 //            'class' => 'WebUser',
 			// enable cookie-based authentication

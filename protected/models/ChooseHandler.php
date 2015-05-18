@@ -13,8 +13,9 @@ class ChooseHandler extends StudentsSubjects {
 
         $validators = ValidatorMapping::model()->with('validator')->findAll('object_id = :object_id', array(':object_id' => $data['object_id']));
         $validation = new AttributeValidation($validators, $data['year'], $data['semester']);
-        if(!$validation->validate()) {
-            return array('data' => null, 'errors' => array('errors' => array("Невозможно записаться на дисциплину.")));
+        $validationResult = $validation->validate();
+        if(!$validationResult['result']) {
+            return array('data' => null, 'errors' => array('errors' => array($validationResult['message'])));
         }
         $choose = new StudentsSubjects();
         $choose->user_id = $userId;

@@ -7,6 +7,7 @@ var AlertHandler = (function(){
         _errorAlertTemplate =_.template($('#errorAlert').html());
     };
     var _showAlert = function(errorList, successMessage) {
+        console.log(errorList);
         var resultAlert = "";
         if($.isEmptyObject(errorList)) {
             resultAlert = _succesAlertTemplate({message : successMessage});

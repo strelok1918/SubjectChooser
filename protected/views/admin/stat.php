@@ -43,7 +43,7 @@
 			</div>
             <div class = "clearfix"></div>
 			<div class="form-group col-xs-12">
-				<label for="semesterFilter" class="col-xs-1">Предмет</label>
+				<label for="semesterFilter" class="col-xs-1">Дисциплина</label>
 				<div class = "col-xs-11">
 					<select class="form-control input-sm" id = "subjectFilter" multiple="multiple">
 					</select>

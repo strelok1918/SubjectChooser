@@ -8,7 +8,8 @@ class AttributeValidation {
         foreach($validators as $validator) {
             $this->_validatorData[] = array(
                 'user_state' => $validator->validator->user_state,
-                'value' =>  $validator->value
+                'value' =>  $validator->value,
+                'message' => $validator->validator->message
             );
         }
 
@@ -30,11 +31,11 @@ class AttributeValidation {
                  $operator = $data[0];
                  $a = $data[1];
                  if(!$this->checkExpression($a, $b, $operator)) {
-                     return false;
+                     return array('result' => false, 'message' => $field['message']);
                  }
              }
         }
-        return true;
+        return array('result' => true);
     }
 
     private function checkExpression($a, $b, $operation) {
@@ -51,6 +52,8 @@ class AttributeValidation {
                 return $a >= $b;
             case 'not_equal_to':
                 return $a != $b;
+            case 'in' :
+                return in_array($b, explode(',', $a));
         }
     }
 }

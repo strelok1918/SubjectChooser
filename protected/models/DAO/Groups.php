@@ -6,6 +6,8 @@
  * The followings are the available columns in table 'Groups':
  * @property integer $id
  * @property string $title
+ * @property string $faculty
+ * @property string $acquisition_year
  *
  * The followings are the available model relations:
  * @property Users[] $users
@@ -29,9 +31,11 @@ class Groups extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'length', 'max'=>50),
+			array('faculty', 'length', 'max'=>5),
+			array('acquisition_year', 'length', 'max'=>4),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+			array('id, title, faculty, acquisition_year', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +59,8 @@ class Groups extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
+			'faculty' => 'Faculty',
+			'acquisition_year' => 'Acquisition Year',
 		);
 	}
 
@@ -78,6 +84,8 @@ class Groups extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('faculty',$this->faculty,true);
+		$criteria->compare('acquisition_year',$this->acquisition_year,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

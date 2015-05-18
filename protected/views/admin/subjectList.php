@@ -65,7 +65,7 @@
     <div class="panel-body" id = "filterBlock">
         <form class="form-horizontal" onsubmit = "return false;">
             <div class="form-group col-xs-12">
-                <label for="semesterFilter" class="col-xs-1">Название</label>
+                <label for="semesterFilter" class="col-xs-1">Дисциплина</label>
                 <div class = "col-xs-11">
                     <input type = "text" class="form-control input-sm" id = "title">
                 </div>

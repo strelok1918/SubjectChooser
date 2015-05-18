@@ -56,9 +56,9 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <ul class="nav navbar-nav">
-                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/subjectList"); ?>">Список предметов <span class="sr-only">(current)</span></a></li>
-                <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/mySubjects"); ?>">Мои предметы</a></li>
-                <li class = "active"><a href="<?php echo Yii::app()->createAbsoluteUrl("admin/subjects"); ?>" >Admin Panel</a></li>
+                <li><a href="<?php echo strtolower(Yii::app()->createAbsoluteUrl("user/subjectList")); ?>">Список дисциплин <span class="sr-only">(current)</span></a></li>
+                <li><a href="<?php echo strtolower(Yii::app()->createAbsoluteUrl("user/mySubjects")); ?>">Мои дисциплины</a></li>
+                <li class = "active"><a href="<?php echo Yii::app()->createAbsoluteUrl("admin/subjects"); ?>" >Панель управления</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo Yii::app()->createAbsoluteUrl("user/editInfo"); ?>"><b><?php echo Yii::app()->user->first_name . " " . Yii::app()->user->second_name; ?> </b></a></li>

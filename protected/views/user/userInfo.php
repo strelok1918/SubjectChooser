@@ -5,7 +5,6 @@
         $('#second_name').val(userData.second_name);
         $('#first_name').val(userData.first_name);
         $('#group').val(userData.group);
-        $('#acquisition_year').val(userData.acquisition_year);
         $('#mail').val(userData.mail);
         $('#group').select2({});
 
@@ -24,11 +23,7 @@
                     required: true,
                     maxlength: 50
                 },
-                acquisition_year: {
-                    required: true,
-                    number: true,
-                    range: [2000, <?php echo date("Y"); ?>]
-                },
+
                 new_password: {
                     minlength: 5,
                     maxlength : 20
@@ -66,7 +61,6 @@
 		var result =  {
 			'first_name' : $('#first_name').val(),
 			'second_name' : $('#second_name').val(),
-			'acquisition_year' : $('#acquisition_year').val(),
 			'group' : $('#group').val(),
 			'mail' : $('#mail').val(),
 		};
@@ -129,12 +123,6 @@
                                 ?>
                             </select>
                 <!--			<input type="text" class="form-control" id="group" name = "info[group]" placeholder="Группа">-->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Год поступления</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control input-sm" id="acquisition_year" name = "acquisition_year" placeholder="Год поступления">
                         </div>
                     </div>
                 </li>

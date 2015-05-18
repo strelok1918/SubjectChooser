@@ -26,8 +26,10 @@ class UserGroups extends Groups{
 		$rows = $this->findAll($params);
 		$result = array();
 		foreach($rows as $group) {
-			$result[] = array( 'id'=> $group->id,
-			                   'title' => $group->title);
+			$result[] = array(  'id'=> $group->id,
+                                'faculty' => $group->faculty,
+                                'acquisition_year' => $group->acquisition_year,
+                                 'title' => $group->title);
 		}
 		return $result;
 	}
@@ -43,7 +45,7 @@ class UserGroups extends Groups{
         $message = "";
 		try {
 			if(isset($data['id'])) {
-				$this->updateByPk($data['id'], array('title' => $data['title']));
+				$this->updateByPk($data['id'], array('title' => $data['title'], 'acquisition_year' => $data['acquisition_year'], 'faculty' => $data['faculty']));
 				$this->id = $data['id'];
 			} else {
 				$this->title = $data['title'];

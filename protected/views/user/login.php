@@ -2,7 +2,7 @@
     $(document).ready(function(){
         AlertHandler.init();
         var errors = JSON.parse(<?php echo json_encode($errors);?>);
-        if(errors.length)
+        if(!$.isEmptyObject(errors))
             AlertHandler.showAlert(errors);
     });
 </script>

@@ -25,7 +25,23 @@ class UserController extends Controller
     public function actionRecovery() {
         Yii::app()->user->logout();
         $this->layout = 'register';
-        $this->render('recovery');
+        $errors = array();
+        $step = 1;
+        if(isset($_POST['login'])) {
+//            echo $_POST['login'];
+            $count = Users::model()->countByAttributes(array('login'=> $_POST['login']));
+            if($count == 0) {
+                $errors = array('Пользователь не найден.');
+            } else {
+                $email = Yii::app()->email;
+                $email->to = "strelok1918@gmail.com";
+                $email->subject = 'Код активации аккаунта для сайта '.Yii::app()->name;
+                $email->message = 'Код активации аккаунта: <a href="'.Yii::app()->homeUrl.'/user/default/activation/key/"></a>';
+                $email->send();
+            }
+            $step = 2;
+        }
+        $this->render('recovery', array('errors' => $errors, 'step' => $step));
     }
     public function actionRegister() {
         Yii::app()->user->logout();
@@ -49,24 +65,6 @@ class UserController extends Controller
         }
     }
 
-    public function actionCheckMail() {
-        $count = 0;
-        if(Yii::app()->user->isGuest) {
-           $count = Users::model()->countByAttributes(array('mail'=> $_GET['mail']));
-        } else {
-            $count = Users::model()->count(
-                new CDbCriteria(array
-                (
-                    'condition' => 'mail = :mail and id <> :user',
-                    'params' => array(':mail'=>$_GET['mail'], ':user' => Yii::app()->user->id)
-                )));
-        }
-        if($count > 0) {
-            echo "false";
-        } else {
-            echo "true";
-        }
-    }
 	public function actionIndex() {
 		$this->actionSubjectList();
 	}

@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'Users':
  * @property integer $id
  * @property string $role
- * @property string $acquisition_year
  * @property string $login
  * @property string $mail
  * @property string $password
@@ -37,14 +36,13 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('role, acquisition_year, login, mail, password, first_name, second_name', 'required'),
+			array('role, login, mail, password, first_name, second_name', 'required'),
 			array('group', 'numerical', 'integerOnly'=>true),
 			array('role', 'length', 'max'=>9),
-			array('acquisition_year', 'length', 'max'=>4),
 			array('login, mail, password, first_name, second_name', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, role, acquisition_year, login, mail, password, first_name, second_name, group', 'safe', 'on'=>'search'),
+			array('id, role, login, mail, password, first_name, second_name, group', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,7 +68,6 @@ class Users extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'role' => 'Role',
-			'acquisition_year' => 'Acquisition Year',
 			'login' => 'Login',
 			'mail' => 'Mail',
 			'password' => 'Password',
@@ -100,7 +97,6 @@ class Users extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('role',$this->role,true);
-		$criteria->compare('acquisition_year',$this->acquisition_year,true);
 		$criteria->compare('login',$this->login,true);
 		$criteria->compare('mail',$this->mail,true);
 		$criteria->compare('password',$this->password,true);

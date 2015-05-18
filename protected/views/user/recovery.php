@@ -1,8 +1,19 @@
-<form class="form-horizontal" action = "<?php echo Yii::app()->createAbsoluteUrl('recovery'); ?>" >
+<script>
+    $(document).ready(function() {
+        var errors = <?php echo json_encode($errors);?>;
+        var stage = <?php echo $step; ?>;
+        if(stage == 2) {
+            AlertHandler.init();
+            AlertHandler.showAlert(errors, "Письмо отправлено на ваш E-Mail адрес.");
+        }
+    });
+</script>
+<?php $this->widget('application.extensions.email.debug'); ?>
+<form class="form-horizontal" action = "<?php echo Yii::app()->createAbsoluteUrl('recovery'); ?>" method = "post" id = "recoveryForm">
     <div class="form-group">
-        <label for="email" class="col-sm-2 control-label">Адрес E-Mail</label>
+        <label for="login" class="col-sm-2 control-label">Логин</label>
         <div class="col-sm-10">
-            <input type="email" class="form-control" id = "email" name="mail" placeholder="E-Mail">
+            <input type="text" class="form-control" id = "login" name="login" placeholder="Username">
         </div>
     </div>
 

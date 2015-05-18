@@ -81,10 +81,6 @@
 					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getGroupList"); ?>',
                     sorting: false
 				},
-				acquisition_year: {
-					title: 'Год поступления',
-					list: false
-				},
                 role: {
                     title: 'Роль',
                     options : {'User' : 'Студент', 'Admin' : 'Администратор', 'Moderator' : 'Преподаватель'},
@@ -105,6 +101,9 @@
             $('#studentListContainer').jtable('load', {
                 first_name: $('#first_name').val(),
                 second_name: $('#second_name').val(),
+
+
+
                 login: $('#login').val(),
                 mail: $('#mail').val(),
 

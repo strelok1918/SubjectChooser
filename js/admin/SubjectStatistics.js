@@ -22,7 +22,7 @@ var SubjectStatistics = (function(){
         for(var key in _data) {
             if(_data.hasOwnProperty(key)) {
                 var item = _data[key],
-                    semesterValid =  (year || (semester[1] || semester[2])) ? semester[item.semester] : true,
+                    semesterValid =  (semester[1] || semester[2]) ? semester[item.semester] : false,
                     userValid = (users) ? _studentsVisible[item.user_id] : true,
                     groupValid = (groups) ? _groupsVisible[item.group_id] : true,
                     yearValid = (year) ? _yearsVisible[item.year] : true,
