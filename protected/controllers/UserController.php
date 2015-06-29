@@ -13,7 +13,6 @@ class UserController extends Controller
 			array('allow',
 				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose', 'editInfo', 'index'),
 				'users'=>array('@'),
-//				'roles' => array('Admin'),
 			),
 			array('deny',
 				'actions'=>array('subjectList', 'saveChoose', 'mySubjects', 'dismissChoose', 'editInfo', 'index'),
@@ -28,7 +27,6 @@ class UserController extends Controller
         $errors = array();
         $step = 1;
         if(isset($_POST['login'])) {
-//            echo $_POST['login'];
             $count = Users::model()->countByAttributes(array('login'=> $_POST['login']));
             if($count == 0) {
                 $errors = array('Пользователь не найден.');
@@ -56,9 +54,7 @@ class UserController extends Controller
         $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList(), 'userData' => $data));
     }
     public function actionCheckUser() {
-        $count = Users::model()->countByAttributes(array('login'=> $_GET['login']));
-
-        if($count > 0) {
+        if(Users::model()->countByAttributes(array('login'=> $_GET['login'])) > 0) {
             echo "false";
         } else {
             echo "true";
@@ -68,18 +64,17 @@ class UserController extends Controller
 	public function actionIndex() {
 		$this->actionSubjectList();
 	}
-	public function actionSubjectList() {
-		$this->render('subjectList', array('subjects' => Subject::model()->subjectList()));
-	}
+    public function actionSubjectList() {
+        $this->render('subjectList', array('subjects' => Subject::model()->subjectList()));
+    }
+
 	public function actionSaveChoose() {
 		$responce = ChooseHandler::model()->saveChoose($_POST['data'], Yii::app()->user->id);
-        //print_r($responce);
 		echo json_encode($responce['errors']);
 	}
+
 	public function actionDismissChoose() {
-		$responce = array();
-		$responce['errors'] = ChooseHandler::model()->dismissChoose($_POST['data'], Yii::app()->user->id);
-		echo json_encode($responce);
+		echo json_encode(array('errors' => ChooseHandler::model()->dismissChoose($_POST['data'], Yii::app()->user->id)));
 	}
 	public function actionMySubjects() {
 		$userId = Yii::app()->user->id;

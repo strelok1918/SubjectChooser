@@ -8,8 +8,8 @@
             paging: true,
             pageSize : 20,
             actions: {
-                listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/fullSubjectList"); ?>',
-                deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteSubject"); ?>'
+                listAction: '<?php echo Yii::app()->createAbsoluteUrl("list/subjectList"); ?>',
+                deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/deleteSubject"); ?>'
             },
             fields: {
                 id: {

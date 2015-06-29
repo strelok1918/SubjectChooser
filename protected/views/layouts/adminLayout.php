@@ -42,7 +42,7 @@
 	$(document).ready(function(){
 		SubjectMenuPageProcessor.init();
 		AlertHandler.init();
-		AjaxController.init('<?php echo Yii::app()->createAbsoluteUrl("admin/saveSubject"); ?>', '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteSubject"); ?>');
+		AjaxController.init('<?php echo Yii::app()->createAbsoluteUrl("ajax/saveSubject"); ?>', '<?php echo Yii::app()->createAbsoluteUrl("ajax/deleteSubject"); ?>');
 		$('[href = "' + window.location.href + '"]').addClass('list-group-item-info');
 
 		if(<?php echo (int)(!isset($_GET['id'])); ?>) {

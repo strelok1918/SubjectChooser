@@ -7,10 +7,10 @@
             paging: true,
             pageSize : 20,
 			actions: {
-				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/attributeList"); ?>',
-				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveAttribute"); ?>',
-				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveAttribute"); ?>',
-				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteAttribute"); ?>'
+				listAction: '<?php echo Yii::app()->createAbsoluteUrl("list/attributeList"); ?>',
+				createAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveAttribute"); ?>',
+				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveAttribute"); ?>',
+				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/deleteAttribute"); ?>'
 			},
 			fields: {
 				id: {
@@ -26,7 +26,7 @@
 					title: 'Тип',
 					width: '20%',
                     sorting: false,
-					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getDataTypeList"); ?>'
+					options: '<?php echo Yii::app()->createAbsoluteUrl("list/getDataTypeList"); ?>'
                 },
                 is_visible: {
                     title: 'Видимый',

@@ -7,10 +7,10 @@
             paging: true,
             pageSize : 20,
             actions: {
-				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/userList"); ?>',
-				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveUserData"); ?>',
-				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveUserData"); ?>',
-				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteUser"); ?>'
+				listAction: '<?php echo Yii::app()->createAbsoluteUrl("list/userList"); ?>',
+				createAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveUserData"); ?>',
+				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveUserData"); ?>',
+				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/deleteUser"); ?>'
 			},
 			fields: {
 				id: {
@@ -32,10 +32,10 @@
 									title: 'Список предметов',
                                     sorting: true,
 									actions: {
-										listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/userSubjectList", array('userId' => '')); ?>' + studentData.record.id,
-										deleteAction: "<?php echo Yii::app()->createAbsoluteURL('admin/dismissChoose', array('userId' => '')); ?>" + studentData.record.id,
-										updateAction: "<?php echo Yii::app()->createAbsoluteURL('admin/saveChoose', array('userId' => '')); ?>" + studentData.record.id,
-										createAction: "<?php echo Yii::app()->createAbsoluteURL('admin/saveChoose', array('userId' => '')); ?>" + studentData.record.id
+										listAction: '<?php echo Yii::app()->createAbsoluteUrl("list/userSubjectList", array('userId' => '')); ?>' + studentData.record.id,
+										deleteAction: "<?php echo Yii::app()->createAbsoluteURL('ajax/dismissChoose', array('userId' => '')); ?>" + studentData.record.id,
+										updateAction: "<?php echo Yii::app()->createAbsoluteURL('ajax/saveChoose', array('userId' => '')); ?>" + studentData.record.id,
+										createAction: "<?php echo Yii::app()->createAbsoluteURL('ajax/saveChoose', array('userId' => '')); ?>" + studentData.record.id
 									},
 									fields: {
 										id: {
@@ -44,7 +44,7 @@
 										},
 										object_id: {
 											title: 'Название предмета',
-											options : '<?php echo Yii::app()->createAbsoluteUrl("admin/subjectListOptions"); ?>'
+											options : '<?php echo Yii::app()->createAbsoluteUrl("list/subjectListOptions"); ?>'
 										},
 										year: {
 											title: 'Год'
@@ -78,7 +78,7 @@
 				},
 				group: {
 					title: 'Группа',
-					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getGroupList"); ?>',
+					options: '<?php echo Yii::app()->createAbsoluteUrl("list/groupListOptions"); ?>',
                     sorting: false
 				},
                 role: {
@@ -101,9 +101,6 @@
             $('#studentListContainer').jtable('load', {
                 first_name: $('#first_name').val(),
                 second_name: $('#second_name').val(),
-
-
-
                 login: $('#login').val(),
                 mail: $('#mail').val(),
 

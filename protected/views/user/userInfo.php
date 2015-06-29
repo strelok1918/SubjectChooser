@@ -122,18 +122,10 @@
                                     }
                                 ?>
                             </select>
-                <!--			<input type="text" class="form-control" id="group" name = "info[group]" placeholder="Группа">-->
                         </div>
                     </div>
                 </li>
                 <li class="list-group-item">
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="inputPassword3" class="col-sm-2 control-label">Старый пароль</label>-->
-<!--                        <div class="col-sm-10">-->
-<!--                            <input type="text" class="form-control" id="old_password" placeholder="Пароль">-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
                         <div class="col-sm-10">

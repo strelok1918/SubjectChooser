@@ -7,10 +7,10 @@
             paging: true,
             pageSize : 20,
 			actions: {
-				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/validatorList"); ?>',
-				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveValidator"); ?>',
-				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveValidator"); ?>',
-				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteValidator"); ?>'
+				listAction: '<?php echo Yii::app()->createAbsoluteUrl("list/validatorList"); ?>',
+				createAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveValidator"); ?>',
+				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveValidator"); ?>',
+				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/deleteValidator"); ?>'
 			},
 			fields: {
 				id: {
@@ -26,7 +26,7 @@
 					title: 'Зависимый атрибут',
 					width: '20%',
                     sorting: true,
-					options: '<?php echo Yii::app()->createAbsoluteUrl("admin/getAttributeListInValidatorEditor"); ?>'
+					options: '<?php echo Yii::app()->createAbsoluteUrl("list/attributesInOptions"); ?>'
 				},
                 user_state: {
                     title: 'User state',

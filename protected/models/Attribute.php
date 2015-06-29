@@ -1,5 +1,4 @@
 <?php
-	error_reporting(E_ERROR);
 /**
  * Created by PhpStorm.
  * User: Igor
@@ -8,24 +7,20 @@
  */
 
 class Attribute extends AttributeType{
-	public function attributeList($sorting = null, $page = null) {
-
-		$attributeList = array();
-        $params = array('order' => $sorting);
-        if($page) {
-            $params['limit'] = $page['limit'];
-            $params['offset'] = $page['offset'];
+	public function fetchList($options = null) {
+		$result = array();
+        $params = array('order' => $options['sorting']);
+        if($options['page']) {
+            $params['limit'] = $options['page']['limit'];
+            $params['offset'] = $options['page']['offset'];
         }
 		foreach($this->findAll($params) as $attribute) {
-                $attributeList[] = $attribute->attributes;
+            $result[] = $attribute->attributes;
 		}
-//        print_r($attributeList);
-		return $attributeList;
+		return $result;
 	}
-    public function attributeCount() {
-        return $this->model()->count();
-    }
-	public function drop($id) {
+
+    public function drop($id) {
 		try {
 			$this->deleteByPk($id);
 			$message = $this->getErrors();
@@ -53,6 +48,7 @@ class Attribute extends AttributeType{
 		}
 		return $message;
 	}
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

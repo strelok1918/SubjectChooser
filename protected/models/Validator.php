@@ -7,7 +7,7 @@
  */
 
 class Validator extends Validators{
-	public function validatorlist($sorting = null, $page = null) {
+	public function fetchList($sorting = null, $page = null) {
 		$validatorlist = array();
         $params = array('order' => $sorting);
         if($page) {

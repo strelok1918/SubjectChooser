@@ -2,8 +2,6 @@
 
 <script>
 	$(document).ready(function(){
-
-
 		EditSubjectFormProcessor.init();
 		EditSubjectFormProcessor.setSubjectId('<?php echo $_GET['id']; ?>');
 		EditSubjectFormProcessor.setSubjectListPage("<?php echo Yii::app()->createAbsoluteURL('admin/subjects'); ?>");
@@ -46,6 +44,6 @@
 	<div class="pull-right" style = "margin-bottom: 10px;">
 		<button type="button" class="btn btn-success" onclick = "EditSubjectFormProcessor.saveForm()">Сохранить</button>
 		<?php if($_GET['id'] != 'new') { ?> <button type="button" class="btn btn-danger" onclick = "EditSubjectFormProcessor.showDeleteModal()">Удалить</button> <?php } ?>
-	</div>
+    </div>
 
 </form>

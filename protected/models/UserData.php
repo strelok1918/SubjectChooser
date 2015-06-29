@@ -11,7 +11,7 @@ class UserData extends Users{
 		$data = $this->findByPk(Yii::app()->user->id);
 		return $this->generateUserData($data);
 	}
-	public function userList($sorting= null, $page = null, $filter = null){
+	public function fetchList($sorting= null, $page = null, $filter = null){
 
 		$result = array();
         $params = array();
@@ -54,9 +54,7 @@ class UserData extends Users{
 		}
 		return $result;
 	}
-    public function userCount() {
-        return $this->model()->count();
-    }
+
 	private function generateUserData($data) {
 		return array(
 			'id' => $data->id,

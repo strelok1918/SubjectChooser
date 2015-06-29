@@ -7,10 +7,10 @@
             paging: true,
             pageSize : 20,
 			actions: {
-				listAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/groupList"); ?>',
-				createAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveGroupData"); ?>',
-				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/saveGroupData"); ?>',
-				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("admin/deleteGroup"); ?>'
+				listAction: '<?php echo Yii::app()->createAbsoluteUrl("list/groupList"); ?>',
+				createAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveGroupData"); ?>',
+				updateAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/saveGroupData"); ?>',
+				deleteAction: '<?php echo Yii::app()->createAbsoluteUrl("ajax/deleteGroup"); ?>'
 			},
 			fields: {
 				id: {

@@ -49,14 +49,14 @@ var EditSubjectFormProcessor = (function(){
         saveForm : function() {
             AjaxController.saveSubject(_subjectId, _collectData()).done(function(responce) {
                 var data = JSON.parse(responce);
-                _subjectId = data.subjectData.id;
+                _subjectId = data.Record.id;
 
                 $('#attributes').empty();
                 $('#validators').empty();
                 $('#customValidators').empty();
                 CustomValidatorProcessor.clear();
-                _fillData(data.subjectData);
-                AlertHandler.showAlert(data.errors, "Изменения сохранены.");
+                _fillData(data.Record);
+                AlertHandler.showAlert(data.Message, "Изменения сохранены.");
             });
         },
         setSubjectListPage : function(URL) {

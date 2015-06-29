@@ -7,11 +7,11 @@
  */
 
 class UserGroups extends Groups{
-	public function groupList($sorting = null, $page = null, $filter = null) {
-        $params = array('order' => $sorting);
-        if($page) {
-            $params['limit'] = $page['limit'];
-            $params['offset'] = $page['offset'];
+	public function fetchList($options = null, $filter = null) {
+        $params = array('order' => $options['sorting']);
+        if($options['page']) {
+            $params['limit'] = $options['page']['limit'];
+            $params['offset'] = $options['page']['offset'];
         }
         $where = "";
         $data = array();
@@ -23,9 +23,9 @@ class UserGroups extends Groups{
         }
         $params['condition'] = $where;
         $params['params'] = $data;
-		$rows = $this->findAll($params);
+
 		$result = array();
-		foreach($rows as $group) {
+		foreach($this->findAll($params) as $group) {
 			$result[] = array(  'id'=> $group->id,
                                 'faculty' => $group->faculty,
                                 'acquisition_year' => $group->acquisition_year,
@@ -33,9 +33,7 @@ class UserGroups extends Groups{
 		}
 		return $result;
 	}
-    public function groupCount() {
-        return $this->model()->count();
-    }
+
 	public function dropGroupItem($id) {
 		$this->deleteByPk($id);
 		return $this->getErrors();

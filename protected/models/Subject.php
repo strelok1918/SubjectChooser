@@ -1,5 +1,5 @@
 <?php
-
+//error_reporting(E_ALL);
 class Subject extends Objects{
 	public function simplifiedSubjectList($userId, $sorting = null, $page = null) {
         $criteria = new CDbCriteria;
@@ -34,21 +34,18 @@ class Subject extends Objects{
 		return $result;
 	}
 
-    public function subjectCount() {
-        return $this->model()->count();
-    }
-	//list for user/subjectList
-	public function subjectList($fromAdmin = false, $sorting = null, $page = null, $filter = null) {
+
+	public function fetchList($fromAdmin = false, $options = null, $filter = null) {
         $criteria = new CDbCriteria;
         $criteria->together = true;
 
-        if($sorting) {
-            if(substr($sorting, 0, strlen('title')) === 'title') $sorting = 't.'. $sorting;
-            $criteria->order = $sorting;
+        if($options['sorting']) {
+            if(substr($options['sorting'], 0, strlen('title')) === 'title') $options['sorting'] = 't.'. $options['sorting'];
+            $criteria->order = $options['sorting'];
         }
-        if($page) {
-            $criteria->limit = $page['limit'];
-            $criteria->offset = $page['offset'];
+        if($options['page']) {
+            $criteria->limit = $options['page']['limit'];
+            $criteria->offset = $options['page']['offset'];
         }
         if(!$fromAdmin) {
             $criteria->addCondition('is_visible = 1');
@@ -134,12 +131,12 @@ class Subject extends Objects{
                                             'validatorMappings',
                                             'validatorMappings.validator',
                                             'objectOwners'))->findByPk($subjectId);
-		$attributes = $this->getAtrributeList($data->attributeMappings);
+		@$attributes = $this->getAtrributeList($data->attributeMappings);
 
 		return array(
 			'id' => $subjectId,
 			'title' => $data->title,
-            'owner' => $this->ownerList($data->objectOwners),
+            'owner' => ($data->objectOwners) ? $this->ownerList($data->objectOwners) : null,
 			'attributes' => $attributes,
 			'validators' => $this->validatorList($data->validatorMappings, $attributes),
 			'customValidators' => $this->customValidatorList($subjectId),
@@ -253,7 +250,7 @@ class Subject extends Objects{
         return $result;
     }
 	private function getAtrributeList($attributes) {
-		$attributeData = Attribute::model()->attributeList();
+		$attributeData = Attribute::model()->fetchList();
 
 		if(!empty($attributes)) {
 			foreach ($attributes as $attribute) {
@@ -271,7 +268,7 @@ class Subject extends Objects{
 	}
 
 	private function validatorList($validatorData, $attributeData) {
-		$result = Validator::model()->validatorList();
+		$result = Validator::model()->fetchList();
 
 		if(!empty($validatorData)) {
 			foreach ($validatorData as $validator) {
@@ -305,17 +302,18 @@ class Subject extends Objects{
 		$data = StudentsSubjects::model()->with('object', 'user', 'user.groupRel')->findAll();
 		$result = array();
 		foreach($data as $item) {
-			$result[] = array(
-				'subject_id' => $item->object_id,
-				'title' => $item->object->title,
-				'year' => $item->year,
-				'semester' => $item->semester,
-				'user_id' => $item->user->id,
-				'first_name' => $item->user->first_name,
-				'second_name' => $item->user->second_name,
-				'group_id' => $item->user->groupRel->id,
-				'group' => $item->user->groupRel->title,
-			);
+            if($item->user->groupRel->id)
+                $result[] = array(
+                    'subject_id' => $item->object_id,
+                    'title' => $item->object->title,
+                    'year' => $item->year,
+                    'semester' => $item->semester,
+                    'user_id' => $item->user->id,
+                    'first_name' => $item->user->first_name,
+                    'second_name' => $item->user->second_name,
+                    'group_id' => $item->user->groupRel->id,
+                    'group' => $item->user->groupRel->title,
+                );
 		}
 		return $result;
 	}
