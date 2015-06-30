@@ -51,7 +51,7 @@ class UserController extends Controller
             $data = $_POST;
         }
         $this->layout = 'register';
-        $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->groupList(), 'userData' => $data));
+        $this->render('register', array('errors' => $errors, 'groups' => UserGroups::model()->fetchList(), 'userData' => $data));
     }
     public function actionCheckUser() {
         if(Users::model()->countByAttributes(array('login'=> $_GET['login'])) > 0) {
@@ -65,7 +65,7 @@ class UserController extends Controller
 		$this->actionSubjectList();
 	}
     public function actionSubjectList() {
-        $this->render('subjectList', array('subjects' => Subject::model()->subjectList()));
+        $this->render('subjectList', array('subjects' => Subject::model()->fetchList()));
     }
 
 	public function actionSaveChoose() {
@@ -82,7 +82,7 @@ class UserController extends Controller
 	}
 
 	public function actionEditInfo() {
-		$this->render('userInfo', array('info' => UserData::model()->getUserInfo(), 'groupList' => UserGroups::model()->groupList()));
+		$this->render('userInfo', array('info' => UserData::model()->getUserInfo(), 'groupList' => UserGroups::model()->fetchList()));
 	}
 	public function actionSaveUserData() {
 		$data = $_POST['data'];

@@ -26,7 +26,7 @@
 					title: 'Тип',
 					width: '20%',
                     sorting: false,
-					options: '<?php echo Yii::app()->createAbsoluteUrl("list/getDataTypeList"); ?>'
+                    options : {'text' : 'Текст'}
                 },
                 is_visible: {
                     title: 'Видимый',

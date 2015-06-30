@@ -53,9 +53,9 @@ class ListController extends Controller{
     public function actionGroupListOptions() {
         echo json_encode(array("Result" => "OK", "Options" => $this->optionsResponce(UserGroups::model()->fetchList())));
     }
-    public function actionGetDataTypeList() {
-        echo json_encode(array("Result" => "OK", "Options" => $this->optionsResponce(AttributeDataTypes::model()->typeList())));
-    }
+//    public function actionGetDataTypeList() {
+//        echo json_encode(array("Result" => "OK", "Options" => $this->optionsResponce(AttributeDataTypes::model()->fetchList())));
+//    }
 
     private function optionsResponce($data) {
         $result = array();

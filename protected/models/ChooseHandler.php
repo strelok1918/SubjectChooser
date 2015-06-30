@@ -24,7 +24,7 @@ class ChooseHandler extends StudentsSubjects {
         $choose->semester = $data['semester'];
 
         if(isset($data['id'])) {
-            $choose->updateByPk($data['id'], array('user_id' => $data['student_id'],
+            $choose->updateByPk($data['id'], array( 'user_id' => $data['student_id'],
                                                     'object_id' => $data['object_id'],
                                                     'semester' => $data['semester'],
                                                     'year' => $data['year']));
